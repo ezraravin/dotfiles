@@ -3,7 +3,7 @@
 ```bash
 # CLONE DOTFILES
 mkdir .config
-git clone https://gitlab.com/ezraravinmateus/dotfiles
+git clone git@gitlab.com://gitlab.com/ezraravinmateus/dotfiles
 cd dotfiles
 mv ./.config/* ~/.config && sudo rm -rf .config
 mv dotfiles/* ~/ && cd ../ && rm -rf dotfiles
