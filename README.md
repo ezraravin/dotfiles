@@ -8,6 +8,12 @@ cd dotfiles
 mv ./.config/* ~/.config && sudo rm -rf .config
 mv dotfiles/* ~/ && cd ../ && rm -rf dotfiles
 
+# REMOVE BLOATWARE
+sudo apt remove --purge thunderbird
+
+# INSTALL CALENDAR
+sudo apt install -y gnome-calendar
+
 # UPGRADE & UPDATE
 sudo apt update --yes && sudo apt upgrade --yes
 
@@ -25,6 +31,9 @@ sudo snap install nvim --classic
 
 # INSTALL NODEJS
 sudo snap install node --classic
+
+# INSTALL MAILSPRING
+sudo snap install mailspring
 
 # CHANGE SHELL TO ZSH
 chsh -s $(which zsh)
