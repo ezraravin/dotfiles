@@ -1,0 +1,24 @@
+/*
+/*/
+
+**.DS_store
+**.json
+
+# Include Git Ignore
+!/.gitignore
+
+# Include .zshrc
+!/.zshrc
+
+# Include README.md
+!/README.md
+!/README_MacOS.md
+!/README_Linux.md
+
+# Include config
+!/.config
+/.config/*
+!/.config/wezterm
+!/.config/nvim
+!/.config/oh-my-posh
+!/.config/aerospace
