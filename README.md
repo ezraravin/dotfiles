@@ -8,8 +8,8 @@ cd dotfiles
 mv ./.config/* ~/.config && sudo rm -rf .config
 mv dotfiles/* ~/ && cd ../ && rm -rf dotfiles
 
-# INSTALL NVIDIA
-sudo apt install -y system76-driver-nvidia
+# INSTALL NVIDIA, KAZAM
+sudo apt install -y system76-driver-nvidia kazam
 
 # REMOVE BLOATWARE
 sudo apt remove --purge thunderbird
