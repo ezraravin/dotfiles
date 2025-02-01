@@ -25,6 +25,7 @@ alias sz="source ~/.zshrc"
 alias yz="yazi"
 alias ls="eza --icons"
 alias lst="eza --icons --tree"
+alias cd="z"
 
 # BUN COMPLETIONS
 [ -s "/home/ezra/.bun/_bun" ] && source "/home/ezra/.bun/_bun"

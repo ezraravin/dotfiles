@@ -8,23 +8,20 @@ cd dotfiles
 mv ./.config/* ~/.config && sudo rm -rf .config
 mv dotfiles/* ~/ && cd ../ && rm -rf dotfiles
 
+# INSTALL NERD FONT
+curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip && unzip JetBrainsMono.zip -d /usr/share/fonts/truetype/
+
 # INSTALL NVIDIA, KAZAM, CLIPBOARD
 sudo apt install -y system76-driver-nvidia kazam wl-clipboard
 
 # REMOVE BLOATWARE
 sudo apt remove --purge thunderbird firefox
 
-# INSTALL CALENDAR, EMAIL, GOOGLE CHROME, KDENLIVE, OBS
-sudo apt install -y gnome-calendar evolution google-chrome-stable kdenlive obs-studio
+# INSTALL CALENDAR, EMAIL, GOOGLE CHROME, KDENLIVE, OBS, KITTY
+sudo apt install -y gnome-calendar evolution google-chrome-stable kdenlive obs-studio kitty
 
 # UPGRADE & UPDATE
 sudo apt update --yes && sudo apt upgrade --yes
-
-# INSTALL WEZTERM
-curl -fsSL https://apt.fury.io/wez/gpg.key | sudo gpg --yes --dearmor -o /etc/apt/keyrings/wezterm-fury.gpg
-echo 'deb [signed-by=/etc/apt/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez/ * *' | sudo tee /etc/apt/sources.list.d/wezterm.list
-sudo apt update
-sudo apt install --yes wezterm-nightly
 
 # INSTALL ZSH, FZF, RIPGREP, EZA, LUAROCKS, SNAP
 sudo apt install --yes zsh fzf ripgrep eza luarocks snapd

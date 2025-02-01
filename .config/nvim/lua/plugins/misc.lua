@@ -42,6 +42,9 @@ return {
 	-- Tmux & split window navigation
 	{ "christoomey/vim-tmux-navigator" },
 
+	-- Terminal
+	{ "akinsho/toggleterm.nvim", version = "*", config = true },
+
 	-- MD to PDF
 	{
 		"arminveres/md-pdf.nvim",
@@ -144,6 +147,7 @@ return {
 		"luckasRanarison/tailwind-tools.nvim",
 		name = "tailwind-tools",
 		build = ":UpdateRemotePlugins",
+		lazy = true,
 		config = true,
 	},
 
