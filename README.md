@@ -12,10 +12,10 @@ mv dotfiles/* ~/ && cd ../ && rm -rf dotfiles
 sudo apt install -y system76-driver-nvidia kazam
 
 # REMOVE BLOATWARE
-sudo apt remove --purge thunderbird
+sudo apt remove --purge thunderbird firefox
 
-# INSTALL CALENDAR, EMAIL
-sudo apt install -y gnome-calendar evolution
+# INSTALL CALENDAR, EMAIL, GOOGLE CHROME, KDENLIVE, OBS
+sudo apt install -y gnome-calendar evolution google-chrome-stable kdenlive obs-studio
 
 # UPGRADE & UPDATE
 sudo apt update --yes && sudo apt upgrade --yes
@@ -34,6 +34,9 @@ sudo snap install nvim --classic
 
 # INSTALL NODEJS
 sudo snap install node --classic
+
+# INSTALL WHATSAPP
+sudo snap install whatsapp-linux-app spotify
 
 # CHANGE SHELL TO ZSH
 chsh -s $(which zsh)
