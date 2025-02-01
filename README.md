@@ -15,7 +15,7 @@ curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBra
 sudo apt install -y system76-driver-nvidia kazam wl-clipboard
 
 # REMOVE BLOATWARE
-sudo apt remove --purge thunderbird firefox
+sudo apt remove --purge thunderbird firefox cosmic-term
 
 # INSTALL CALENDAR, EMAIL, GOOGLE CHROME, KDENLIVE, OBS, KITTY
 sudo apt install -y gnome-calendar evolution google-chrome-stable kdenlive obs-studio kitty

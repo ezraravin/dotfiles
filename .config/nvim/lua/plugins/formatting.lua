@@ -8,6 +8,7 @@ return {
 			formatters_by_ft = {
 				php = { "prettierd" },
 				laravel = { "prettierd" },
+				go = { "prettierd" },
 				javascript = { "prettierd" },
 				typescript = { "prettierd" },
 				svelte = { "prettierd" },
@@ -21,7 +22,6 @@ return {
 				graphql = { "prettierd" },
 				liquid = { "prettierd" },
 				lua = { "stylua" },
-				python = { "isort", "black" },
 				tailwindcss = { "tailwindcss" },
 				clang_format = { "clang_format" },
 				c = { "clang_format" },
