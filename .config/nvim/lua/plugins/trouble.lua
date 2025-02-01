@@ -1,5 +1,5 @@
 return {
-	-- Noic
+	-- Noice
 	{
 		"folke/noice.nvim",
 		event = "VeryLazy",

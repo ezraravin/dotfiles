@@ -6,10 +6,12 @@ return {
 
 		conform.setup({
 			formatters_by_ft = {
+				php = { "prettierd" },
+				laravel = { "prettierd" },
 				javascript = { "prettierd" },
 				typescript = { "prettierd" },
-				svelte = { "svelte-language-server" },
-				astro = { "astro-language-server" },
+				svelte = { "prettierd" },
+				astro = { "prettierd" },
 				css = { "prettierd" },
 				scss = { "prettierd" },
 				html = { "prettierd" },

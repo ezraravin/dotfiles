@@ -102,8 +102,8 @@ return {
 			end,
 			-- Configure Astro Server
 			["astro"] = function()
-				-- configure svelte server
-				lspconfig["svelte"].setup({
+				-- configure astro server
+				lspconfig["astro"].setup({
 					capabilities = capabilities,
 					on_attach = function(client, bufnr)
 						vim.api.nvim_create_autocmd("BufWritePost", {

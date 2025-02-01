@@ -26,8 +26,8 @@ echo 'deb [signed-by=/etc/apt/keyrings/wezterm-fury.gpg] https://apt.fury.io/wez
 sudo apt update
 sudo apt install --yes wezterm-nightly
 
-# INSTALL ZSH, FZF, RIPGREP, EZA, LIBGIT, LUAROCKS, SNAP
-sudo apt install --yes zsh fzf ripgrep eza libgit2-dev luarocks snapd
+# INSTALL ZSH, FZF, RIPGREP, EZA, LUAROCKS, SNAP
+sudo apt install --yes zsh fzf ripgrep eza luarocks snapd
 
 # INSTALL NEOVIM
 sudo snap install nvim --classic

@@ -5,20 +5,11 @@ return {
 	-- Markdown View
 	{ "OXY2DEV/markview.nvim", lazy = false },
 
-	-- Hints for Keybinds
-	{ "folke/which-key.nvim" },
-
-	-- Highlight Todo Comments
-	{ "folke/todo-comments.nvim", config = true },
-
-	-- Fidget: UI for Neovim Notifications
-	{ "j-hui/fidget.nvim" },
-
 	-- Dressing : For Window UI (Noice, Fugit2, Flutter Tools, Telescope)
 	{ "stevearc/dressing.nvim" },
 
-	-- NUI : For Window Layouting (Noice & Fugit2)
-	{ "MunifTanjim/nui.nvim" },
+	-- Hints for Keybinds
+	{ "folke/which-key.nvim" },
 
 	-- Zen mode
 	{ "folke/zen-mode.nvim", vim.keymap.set("n", "<leader>zm", ":ZenMode<CR>", { desc = "Open Zen Mode" }) },
@@ -29,19 +20,50 @@ return {
 	-- LazyGit
 	{ "kdheepak/lazygit.nvim", vim.keymap.set("n", "<leader>lg", "<CMD>LazyGit<CR>", { desc = "LazyGit" }) },
 
+	-- Neogit
+	{ "NeogitOrg/neogit", vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Neogit" }) },
+
+	-- Git Diff
+	{ "sindrets/diffview.nvim", vim.keymap.set("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", { desc = "Open Diff View" }) },
+
+	-- Autopairs for Brackets, Brace, Parentheses, Quotations
+	{ "windwp/nvim-autopairs", event = "InsertEnter", config = true },
+
+	-- Git Signs
+	{ "lewis6991/gitsigns.nvim", event = { "BufReadPre", "BufNewFile" }, config = true },
+
+	-- High-performance color highlighter
+	{
+		"norcalli/nvim-colorizer.lua",
+		config = function()
+			require("colorizer").setup()
+		end,
+	},
+	-- Tmux & split window navigation
+	{ "christoomey/vim-tmux-navigator" },
+
+	-- MD to PDF
+	{
+		"arminveres/md-pdf.nvim",
+		branch = "main", -- you can assume that main is somewhat stable until releases will be made
+		lazy = true,
+		keys = {
+			{
+				"<leader>,",
+				function()
+					require("md-pdf").convert_md_to_pdf()
+				end,
+				desc = "Markdown preview",
+			},
+		},
+	},
+
 	-- Tailwind Colorizer CMP for Color Highlighting
 	{
 		"roobert/tailwindcss-colorizer-cmp.nvim",
 		config = function()
 			require("tailwindcss-colorizer-cmp").setup({ color_square_width = 2 })
 		end,
-	},
-
-	-- Autopairs for Brackets, Brace, Parentheses, Quotations
-	{
-		"windwp/nvim-autopairs",
-		event = "InsertEnter",
-		config = true,
 	},
 
 	-- Treesitter Autotag for HTML
@@ -68,17 +90,6 @@ return {
 		config = true,
 	},
 
-	-- Git Graph & Git Diff
-	{
-		"SuperBo/fugit2.nvim",
-		opts = { width = "50%", height = "50%" },
-		cmd = { "Fugit2", "Fugit2Diff", "Fugit2Graph" },
-		keys = {
-			{ "<leader>gd", mode = "n", "<CMD>Fugit2Diff<CR>", desc = "Open Git Diff" },
-			{ "<leader>gg", mode = "n", "<CMD>Fugit2Graph<CR>", desc = "Open Git Graph" },
-		},
-	},
-
 	-- Web Dev Icons
 	{
 		"nvim-tree/nvim-web-devicons",
@@ -93,21 +104,17 @@ return {
 		},
 	},
 
-	-- Git Signs
-	{
-		"lewis6991/gitsigns.nvim",
-		event = { "BufReadPre", "BufNewFile" },
-		config = true,
-	},
-
 	-- Comment
 	{
 		"numToStr/Comment.nvim",
 		config = function()
 			local opts = { noremap = true, silent = true }
 			vim.keymap.set("n", "<C-_>", require("Comment.api").toggle.linewise.current, opts)
-			vim.keymap.set("v", "<C-_>", "<esc><CMD>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<CR>", opts)
-			vim.keymap.set("i", "<C-_>", require("Comment.api").toggle.linewise.current, opts)
+			vim.keymap.set("n", "<C-c>", require("Comment.api").toggle.linewise.current, opts)
+			vim.keymap.set("n", "<C-/>", require("Comment.api").toggle.linewise.current, opts)
+			vim.keymap.set("v", "<C-_>", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", opts)
+			vim.keymap.set("v", "<C-c>", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", opts)
+			vim.keymap.set("v", "<C-/>", "<esc><cmd>lua require('Comment.api').toggle.linewise(vim.fn.visualmode())<cr>", opts)
 		end,
 	},
 
@@ -198,6 +205,34 @@ return {
 	{
 		"HakonHarnes/img-clip.nvim",
 		event = "VeryLazy",
-		keys = { { "<leader>p", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" } },
+		keys = { "<leader>p", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
+	},
+
+	-- HARPOON
+	{
+		"ThePrimeAgen/harpoon",
+		branch = "harpoon2",
+		config = function()
+			local harpoon = require("harpoon")
+
+			-- REQUIRED
+			harpoon:setup()
+
+			-- REQUIRED
+			vim.keymap.set("n", "<leader>ha", function()
+				harpoon:list():add()
+			end, { desc = "Add Window to Harpoon" })
+			vim.keymap.set("n", "<leader>hv", function()
+				harpoon.ui:toggle_quick_menu(harpoon:list())
+			end, { desc = "View Harpoon" })
+
+			-- Toggle previous & next buffers stored within Harpoon list
+			vim.keymap.set("n", "<C-b>", function()
+				harpoon:list():prev()
+			end, { desc = "Previous Harpoon" })
+			vim.keymap.set("n", "<C-n>", function()
+				harpoon:list():next()
+			end, { desc = "Next Harpoon" })
+		end,
 	},
 }
