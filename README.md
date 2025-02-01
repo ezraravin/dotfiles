@@ -8,8 +8,8 @@ cd dotfiles
 mv ./.config/* ~/.config && sudo rm -rf .config
 mv dotfiles/* ~/ && cd ../ && rm -rf dotfiles
 
-# INSTALL NVIDIA, KAZAM
-sudo apt install -y system76-driver-nvidia kazam
+# INSTALL NVIDIA, KAZAM, CLIPBOARD
+sudo apt install -y system76-driver-nvidia kazam wl-clipboard
 
 # REMOVE BLOATWARE
 sudo apt remove --purge thunderbird firefox
