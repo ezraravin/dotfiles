@@ -10,7 +10,7 @@ mv .config/* ~/.config && sudo rm -rf .config
 mv ./* ~/ && mv ./.* ~/ && cd ../ && rm -rf dotfiles
 
 # INSTALL NERD FONT
-curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip && sudo unzip JetBrainsMono.zip -d /usr/share/fonts/truetype/
+curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip && sudo unzip JetBrainsMono.zip -d /usr/share/fonts/truetype/ && sudo rm -rf JetBrainsMono.zip
 
 # INSTALL NVIDIA, CLIPBOARD, CALENDAR, EMAIL, GOOGLE CHROME, KDENLIVE, OBS, KITTY
 sudo apt install --yes system76-driver-nvidia wl-clipboard gnome-calendar evolution google-chrome-stable kdenlive obs-studio kitty
@@ -76,4 +76,3 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 
 sudo systemctl reboot
 ```
-
