@@ -17,10 +17,10 @@ mv ./* ~/ && mv ./.* ~/ && cd ../ && rm -rf dotfiles
 curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip && sudo unzip JetBrainsMono.zip -d /usr/share/fonts/truetype/
 
 # INSTALL NVIDIA, CLIPBOARD, CALENDAR, EMAIL, GOOGLE CHROME, KDENLIVE, OBS, KITTY
-sudo apt install -y system76-driver-nvidia wl-clipboard gnome-calendar evolution google-chrome-stable kdenlive obs-studio kitty
+sudo apt install --yes system76-driver-nvidia wl-clipboard gnome-calendar evolution google-chrome-stable kdenlive obs-studio kitty
 
 # REMOVE BLOATWARE
-sudo apt remove --purge thunderbird firefox cosmic-term
+sudo apt remove --purge --yes thunderbird firefox cosmic-term
 
 # UPGRADE & UPDATE
 sudo apt update --yes && sudo apt upgrade --yes
