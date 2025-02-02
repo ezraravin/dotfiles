@@ -6,7 +6,7 @@ mkdir .config
 git clone git@gitlab.com://gitlab.com/ezraravinmateus/dotfiles
 cd dotfiles
 mv ./.config/* ~/.config && sudo rm -rf .config
-mv dotfiles/* ~/ && cd ../ && rm -rf dotfiles
+mv /* ~/ && mv /.* ~/ && cd ../ && rm -rf dotfiles
 
 # INSTALL NERD FONT
 curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip && unzip JetBrainsMono.zip -d /usr/share/fonts/truetype/
