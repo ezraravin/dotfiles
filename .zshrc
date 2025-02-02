@@ -43,8 +43,5 @@ eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/zen.toml)"
 # RUST & CARGO
 export PATH="$HOME/.cargo/bin:$PATH"
 
-# DENO
-. "/home/ezra/.deno/env"
-
 # PRETTIER
 export PRETTIERD_DEFAULT_CONFIG=~/.prettierrc
