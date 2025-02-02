@@ -1,11 +1,7 @@
-# Make Keygen
 ```bash
+# MAKE KEYGEN
 ssh-keygen -t ed25519 -C "ezraravin.m@gmail.com"
-```
 
-# PopOS
-
-```bash
 # CLONE DOTFILES
 mkdir .config
 git clone git@gitlab.com://gitlab.com/ezraravinmateus/dotfiles
