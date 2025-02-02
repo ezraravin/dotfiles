@@ -17,7 +17,7 @@ return {
 				json = { "prettierd" },
 				yaml = { "prettierd" },
 				markdown = { "prettierd" },
-				svelte = { "svelte-language-server" },
+				svelte = { "prettierd" },
 				astro = { "astro-language-server" },
 				lua = { "stylua" },
 			},

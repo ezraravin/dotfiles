@@ -17,42 +17,57 @@ return {
 		},
 
 		ensure_installed = {
+
+			-- WEB FRONTEND
+			"astro",
+			"css",
+			"dart",
+			"scss",
+			"html",
+			"javascript",
+			"typescript",
+			"tsx",
+			"svelte",
+
+			-- BACKEND
 			"go",
+			"rust",
+			"c",
+			"c_sharp",
+			"java",
+			"php",
+
+			-- DATABASE
+			"sql",
+			"query",
+
 			"terraform",
 			"lua",
 			"python",
 			"rust",
 			"regex",
 			"json",
-			"javascript",
-			"typescript",
-			"tsx",
-			"html",
-			"css",
-			"scss",
 			"prisma",
-			"markdown",
-			"markdown_inline",
-			"vue",
 			"graphql",
 			"bash",
 			"vim",
 			"vimdoc",
-			"dockerfile",
-			"gitignore",
 			"groovy",
 			"toml",
 			"yaml",
 			"make",
 			"cmake",
-			"c",
-			"c_sharp",
-			"java",
 			"http",
-			"sql",
-			"query",
-			"astro",
-			"svelte",
+
+			-- SYSTEM
+			"dockerfile",
+
+			-- DOCUMENTATION
+			"markdown",
+			"markdown_inline",
+
+			-- GIT
+			"gitignore",
 		},
 	},
 }
