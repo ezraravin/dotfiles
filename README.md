@@ -1,5 +1,7 @@
 # Make Keygen
+```bash
 ssh-keygen -t ed25519 -C "ezraravin.m@gmail.com"
+```
 
 # PopOS
 
