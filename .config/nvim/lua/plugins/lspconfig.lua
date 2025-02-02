@@ -70,6 +70,16 @@ return {
 		-- used to enable autocompletion (assign to every lsp server config)
 		local capabilities = cmp_nvim_lsp.default_capabilities()
 
+		lspconfig.ts_ls.setup({
+			on_attach = function(client, bufnr)
+				-- Ensure Prettier is used for formatting
+				if client.name == "ts_ls" then
+					client.resolved_capabilities.document_formatting = false
+					client.resolved_capabilities.document_range_formatting = false
+				end
+			end,
+		})
+
 		-- Change the Diagnostic symbols in the sign column (gutter)
 		-- (not in youtube nvim video)
 		local signs = { Error = " ", Warn = " ", Hint = "󰠠 ", Info = " " }

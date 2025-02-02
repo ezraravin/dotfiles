@@ -148,7 +148,9 @@ return {
 		name = "tailwind-tools",
 		build = ":UpdateRemotePlugins",
 		lazy = true,
-		config = true,
+		config = function()
+			require("tailwind-tools").setup({})
+		end,
 	},
 
 	-- Yazi

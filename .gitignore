@@ -18,7 +18,6 @@
 # Include config
 !/.config
 /.config/*
-!/.config/wezterm
+!/.config/kitty
 !/.config/nvim
 !/.config/oh-my-posh
-!/.config/aerospace

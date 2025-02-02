@@ -5,16 +5,14 @@ return {
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 	},
 	config = function()
-		require("mason").setup({
-			ui = { icons = { package_installed = "✓", package_pending = "➜", package_uninstalled = "✗" } },
-		})
+		require("mason").setup({})
 
 		require("mason-lspconfig").setup({
-			ensure_installed = { "html", "cssls", "tailwindcss", "lua_ls", "ts_ls", "astro", "svelte" },
+			ensure_installed = { "html", "cssls", "tailwindcss", "lua_ls", "ts_ls", "astro", "svelte", "clangd", "dockerls", "emmet_ls" },
 		})
 
 		require("mason-tool-installer").setup({
-			ensure_installed = { "stylua", "eslint-lsp", "prettierd" },
+			ensure_installed = { "stylua", "prettierd" },
 		})
 	end,
 }
