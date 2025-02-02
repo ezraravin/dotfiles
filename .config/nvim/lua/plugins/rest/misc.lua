@@ -9,7 +9,7 @@ return {
 	{ "stevearc/dressing.nvim" },
 
 	-- Hints for Keybinds
-	{ "folke/which-key.nvim" },
+	{ "folke/which-key.nvim", event = "VeryLazy" },
 
 	-- Zen mode
 	{ "folke/zen-mode.nvim", vim.keymap.set("n", "<leader>zm", ":ZenMode<CR>", { desc = "Open Zen Mode" }) },
@@ -32,6 +32,12 @@ return {
 	-- Git Signs
 	{ "lewis6991/gitsigns.nvim", event = { "BufReadPre", "BufNewFile" }, config = true },
 
+	-- Tmux & split window navigation
+	{ "christoomey/vim-tmux-navigator" },
+
+	-- Terminal
+	{ "akinsho/toggleterm.nvim", version = "*", config = true },
+
 	-- High-performance color highlighter
 	{
 		"norcalli/nvim-colorizer.lua",
@@ -39,11 +45,6 @@ return {
 			require("colorizer").setup()
 		end,
 	},
-	-- Tmux & split window navigation
-	{ "christoomey/vim-tmux-navigator" },
-
-	-- Terminal
-	{ "akinsho/toggleterm.nvim", version = "*", config = true },
 
 	-- MD to PDF
 	{
@@ -67,6 +68,15 @@ return {
 		config = function()
 			require("tailwindcss-colorizer-cmp").setup({ color_square_width = 2 })
 		end,
+	},
+
+	-- Tailwind Tools
+	{
+		"luckasRanarison/tailwind-tools.nvim",
+		name = "tailwind-tools",
+		build = ":UpdateRemotePlugins",
+		event = "VeryLazy",
+		config = true,
 	},
 
 	-- Treesitter Autotag for HTML
@@ -139,17 +149,6 @@ return {
 		event = { "BufReadPre", "BufNewFile" },
 		config = function()
 			require("hlchunk").setup({ indent = { enable = true }, chunk = { enable = true }, line_num = { enable = true } })
-		end,
-	},
-
-	-- Tailwind Tools
-	{
-		"luckasRanarison/tailwind-tools.nvim",
-		name = "tailwind-tools",
-		build = ":UpdateRemotePlugins",
-		lazy = true,
-		config = function()
-			require("tailwind-tools").setup({})
 		end,
 	},
 
