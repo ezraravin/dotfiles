@@ -10,6 +10,9 @@
 # Include .zshrc
 !/.zshrc
 
+# Include .prettierrc
+!/.prettierrc
+
 # Include README.md
 !/README.md
 !/README_MacOS.md
