@@ -53,9 +53,6 @@ sudo apt install --yes php composer
 # INSTALL RUST, CARGO
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh
 
-# INSTALL OH MY ZSH
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-
 # INSTALL OH-MY-POSH
 curl -s https://ohmyposh.dev/install.sh | bash -s
 
@@ -84,6 +81,10 @@ sudo apt install --yes steam
 
 # INSTALL XPADNEO
 git clone https://github.com/atar-axis/xpadneo.git && cd xpadneo && sudo ./install.sh && cd ../ && sudo rm -rf xpadneo
+
+# INSTALL OH MY ZSH
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
 sudo systemctl reboot
 ```
 
