@@ -63,11 +63,7 @@ bun install -g @marp-team/marp-cli
 # INSTALL ZSH AUTOSUGGESTION, ZSH SYNTAX HIGHLIGHTING, YAZI
 git clone https://github.com/zsh-users/zsh-autosuggestions ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-autosuggestions
 git clone https://github.com/zsh-users/zsh-syntax-highlighting.git ${ZSH_CUSTOM:-~/.oh-my-zsh/custom}/plugins/zsh-syntax-highlighting
-git clone https://github.com/sxyazi/yazi.git && cd yazi && cargo build --release --locked && sudo mv target/release/yazi target/release/ya /usr/local/bin/ && sudo mv target/release/yazi target/release/ya /usr/local/bin/ && cd ../ && sudo rm -rf yazi
-
-# INSTALL DAVINCI RESOLVE 
-git clone https://github.com/leinardi/JDInstaller.git
-cd JDInstaller && git checkout davinci && make install TAGS=davinci_resolve
+git clone https://github.com/sxyazi/yazi.git && cd yazi && cargo build --release --locked && sudo mv target/release/yazi target/release/ya /usr/local/bin/ && cd ../ && sudo rm -rf yazi
 
 # INSTALL STEAM
 sudo apt install --yes steam
