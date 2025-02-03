@@ -46,5 +46,3 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # PRETTIER
 export PRETTIERD_DEFAULT_CONFIG=~/.prettierrc
 
-# Added by LM Studio CLI (lms)
-export PATH="$PATH:/home/ezra/.lmstudio/bin"
