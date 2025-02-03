@@ -74,8 +74,5 @@ git clone https://github.com/atar-axis/xpadneo.git && cd xpadneo && sudo ./insta
 # INSTALL OH MY ZSH
 sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 
-# SET PRETTIER
-echo '{"tabWidth": 4}' >> ~/.prettierrc
-
 sudo systemctl reboot
 ```
