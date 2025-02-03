@@ -169,7 +169,7 @@ return {
 	{
 		"mpas/marp-nvim",
 		config = function()
-			vim.keymap.set("n", "<leader>mpt", "<cmd>MarpStart<cr>", { noremap = true, silent = true })
+			vim.keymap.set("n", "<leader>mpt", "<cmd>MarpStart<cr>", { noremap = true, silent = true, desc = "Start Marp with Custom Styling" })
 			vim.keymap.set("n", "<leader>mps", function()
 				-- Get the directory of the current file (where theme.css is located)
 				local current_dir = vim.fn.expand("%:p:h")
@@ -187,7 +187,7 @@ return {
 				vim.cmd("autocmd TermClose <buffer> bdelete")
 			end, { noremap = true, silent = true, desc = "Open Marp Server" })
 
-			vim.keymap.set("n", "<leader>mpd", function()
+			vim.keymap.set("n", "<leader>mpf", function()
 				-- Get the current file name
 				local file = vim.fn.expand("%")
 
