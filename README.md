@@ -12,8 +12,8 @@ mv ./* ~/ && mv ./.* ~/ && cd ../ && rm -rf dotfiles
 # INSTALL NERD FONT
 curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip && sudo unzip JetBrainsMono.zip -d /usr/share/fonts/truetype/ && sudo rm -rf JetBrainsMono.zip
 
-# INSTALL NVIDIA, CLIPBOARD, CALENDAR, EMAIL, GOOGLE CHROME, KDENLIVE, OBS, KITTY
-sudo apt install --yes system76-driver-nvidia wl-clipboard gnome-calendar evolution google-chrome-stable kdenlive obs-studio kitty
+# INSTALL NVIDIA, CLIPBOARD, CALENDAR, EMAIL, GOOGLE CHROME, KDENLIVE, OBS, KITTY, TMUX, KITTY
+sudo apt install --yes system76-driver-nvidia wl-clipboard gnome-calendar evolution google-chrome-stable kdenlive obs-studio kitty tmux kitty
 
 # REMOVE BLOATWARE
 sudo apt remove --purge --yes thunderbird firefox cosmic-term
@@ -29,6 +29,9 @@ sudo snap install nvim --classic
 
 # INSTALL NODEJS
 sudo snap install node --classic
+
+# INSTALL FLUTTER
+sudo snap install flutter --classic
 
 # INSTALL WHATSAPP
 sudo snap install whatsapp-linux-app spotify
