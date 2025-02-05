@@ -1,6 +1,9 @@
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
+# HOMEBREW
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
@@ -74,6 +77,8 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
+
+
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -102,3 +107,28 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+
+alias v="nvim"
+alias c="clear"
+alias lg="lazygit"
+alias q="exit"
+alias sz="source ~/.zshrc"
+alias yz="yazi"
+alias ls="eza --icons"
+alias lst="eza --icons --tree"
+alias cd="z"
+
+# ZOXIDE
+eval "$(zoxide init zsh)"
+
+# OH MY POSH
+eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/zen.toml)"
+
+# PRETTIER
+export PRETTIERD_DEFAULT_CONFIG=~/.prettierrc
+
+# ZSH AUTO SUGGESTION
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+
+# ZSH SYNTAX HIGHLIGHTING
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
