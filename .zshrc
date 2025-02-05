@@ -120,6 +120,7 @@ alias ls="eza --icons"
 alias lst="eza --icons --tree"
 alias cd="z"
 alias tm="tmux"
+alias f='nvim $(fzf --preview="bat --color=always {}")'
 
 # ZOXIDE
 eval "$(zoxide init zsh)"
@@ -135,3 +136,6 @@ source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
 # ZSH SYNTAX HIGHLIGHTING
 source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# FZF
+source <(fzf --zsh)

@@ -13,6 +13,9 @@
 # Include .prettierrc
 !/.prettierrc
 
+# Include .tmux.conf
+!/.tmux.conf
+
 # Include README.md
 !/README.md
 !/README_MacOS.md
@@ -24,4 +27,3 @@
 !/.config/kitty
 !/.config/nvim
 !/.config/oh-my-posh
-!/.config/tmux
