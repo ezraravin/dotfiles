@@ -4,11 +4,6 @@
 ssh-keygen -t ed25519 -C "ezraravin.m@gmail.com"
 ```
 
-# INSTALL HOMEBREW
-```bash
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-```
-
 # INSTALL HYPRLAND, GOOGLE CHROME, KITTY, KDENLIVE, OBS, ZSH, WL CLIPBOARD
 
 ```bash
@@ -20,6 +15,17 @@ sudo dnf install -y hyprland google-chrome-stable kitty kdenlive obs-studio zsh 
 ```bash
 chsh -s $(which zsh)
 ```
+
+# INSTALL OH MY ZSH
+
+sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+
+# INSTALL HOMEBREW
+```bash
+/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+```
+
+
 
 # INSTALL SPOTIFY
 
@@ -55,6 +61,4 @@ sudo dnf remove -y ptyxis mediawriter totem yelp firefox libreoffice-impress lib
 sudo dnf update && sudo dnf upgrade
 ```
 
-# INSTALL OH MY ZSH
 
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
