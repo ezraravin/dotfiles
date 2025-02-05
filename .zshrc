@@ -119,6 +119,7 @@ alias yz="yazi"
 alias ls="eza --icons"
 alias lst="eza --icons --tree"
 alias cd="z"
+alias tm="tmux"
 
 # ZOXIDE
 eval "$(zoxide init zsh)"

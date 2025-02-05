@@ -8,21 +8,21 @@
 # <a name = "SettingsSetup"></a>1. 🔧 Settings Setup
 
 - Settings
-  - General
-    - About > eRavenous MBA (Change Name)
-  - Control Center
-    - Automatically Hide & Show The Menu Bar > Always
-  - Desktop & Dock
-    - Enable > Automatically Hide & Show The Dock
-    - Minimize Windows Using > Scale Effect
-    - Disable > Show Suggested & Recent Apps in Dock
-  - Displays > Advanced > Show Resolutions As List > 1680 x 1050
-  - Keyboard > Text Input > Edit
-    - Disable > Correct spelling automatically
-    - Disable > Add period with double-space
-    - Disable > Capitalize words automatically
-    - Key Repeat Rate > Fast
-    - Delay Until Repeat > Short
+    - General
+        - About > eRavenous MBA (Change Name)
+    - Control Center
+        - Automatically Hide & Show The Menu Bar > Always
+    - Desktop & Dock
+        - Enable > Automatically Hide & Show The Dock
+        - Minimize Windows Using > Scale Effect
+        - Disable > Show Suggested & Recent Apps in Dock
+    - Displays > Advanced > Show Resolutions As List > 1680 x 1050
+    - Keyboard > Text Input > Edit
+        - Disable > Correct spelling automatically
+        - Disable > Add period with double-space
+        - Disable > Capitalize words automatically
+        - Key Repeat Rate > Fast
+        - Delay Until Repeat > Short
 
 ## 1.1 Homebrew
 
@@ -55,7 +55,7 @@ brew install node pnpm yarn oven-sh/bun/bun
 ## 3.2 Terminal Tools
 
 ```bash
-brew install jandedobbeleer/oh-my-posh/oh-my-posh eza zoxide fzf neovim zsh-syntax-highlighting zsh-autosuggestions
+brew install jandedobbeleer/oh-my-posh/oh-my-posh eza zoxide neovim zsh-syntax-highlighting zsh-autosuggestions
 ```
 
 ## 3.3 Neovim Tools
@@ -78,3 +78,4 @@ brew install --cask docker
 brew tap domt4/autoupdate
 brew autoupdate start 43200 --cleanup --upgrade --immediate --sudo
 ```
+
