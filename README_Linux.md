@@ -7,7 +7,7 @@ ssh-keygen -t ed25519 -C "ezraravin.m@gmail.com"
 # INSTALL HYPRLAND, GOOGLE CHROME, KITTY, KDENLIVE, OBS, ZSH, WL CLIPBOARD
 
 ```bash
-sudo dnf install -y hyprland google-chrome-stable kitty kdenlive obs-studio zsh wl-clipboard
+sudo dnf install -y hyprland google-chrome-stable kitty kdenlive obs-studio zsh wl-clipboard development-tools
 ```
 
 # CHANGE SHELL TO ZSH
@@ -25,6 +25,7 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 # INSTALL HOMEBREW
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+brew install gcc
 ```
 
 # INSTALL SPOTIFY
