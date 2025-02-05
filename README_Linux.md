@@ -23,6 +23,7 @@ sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.
 ```
 
 # INSTALL HOMEBREW
+
 ```bash
 /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 brew install gcc
@@ -49,7 +50,7 @@ brew install eza yazi marp-cli lazygit zoxide zsh-syntax-highlighting zsh-autosu
 # REMOVE BLOATWARE
 
 ```bash
-sudo dnf remove -y ptyxis mediawriter totem yelp firefox libreoffice-impress libreoffice-calc libreoffice-writer snapshot snapshot gnome-contacts gnome-weather gnome-clocks gnome-maps gnome-calculatr gnome-boxes gnome-characters gnome-tour gnome-text-editor gnome-software gnome-abrt
+sudo dnf remove -y rhythmbox ptyxis mediawriter totem yelp firefox libreoffice-impress libreoffice-calc libreoffice-writer snapshot snapshot gnome-contacts gnome-weather gnome-clocks gnome-maps gnome-calculatr gnome-boxes gnome-characters gnome-tour gnome-text-editor gnome-software gnome-abrt gnome-calculator
 ```
 
 # UPDATE & UPGRADE
@@ -63,5 +64,3 @@ sudo dnf makecache
 sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda
 sudo reboot
 ```
-
-
