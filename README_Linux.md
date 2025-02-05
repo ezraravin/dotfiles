@@ -55,7 +55,13 @@ sudo dnf remove -y ptyxis mediawriter totem yelp firefox libreoffice-impress lib
 # UPDATE & UPGRADE
 
 ```bash
-sudo dnf update && sudo dnf upgrade
+sudo dnf update --refresh && sudo dnf upgrade --refresh
+sudo dnf install kernel-devel kernel-headers gcc make dkms acpid libglvnd-glx libglvnd-opengl libglvnd-devel pkgconfig
+sudo dnf install https://download1.rpmfusion.org/free/fedora/rpmfusion-free-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf install https://download1.rpmfusion.org/nonfree/fedora/rpmfusion-nonfree-release-$(rpm -E %fedora).noarch.rpm
+sudo dnf makecache
+sudo dnf install akmod-nvidia xorg-x11-drv-nvidia-cuda
+sudo reboot
 ```
 
 
