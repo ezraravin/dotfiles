@@ -11,7 +11,7 @@ zstyle ':omz:update' mode auto
 ZSH_THEME="robbyrussell"
 
 # Install Plugins
-plugins=(git zsh-autosuggestions zsh-syntax-highlighting eza)
+plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
 
 # Use Oh My ZSH when opening Terminal
 source $ZSH/oh-my-zsh.sh
@@ -46,3 +46,16 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # PRETTIER
 export PRETTIERD_DEFAULT_CONFIG=~/.prettierrc
 
+eval export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew";
+
+export HOMEBREW_CELLAR="/home/linuxbrew/.linuxbrew/Cellar";
+
+export HOMEBREW_REPOSITORY="/home/linuxbrew/.linuxbrew/Homebrew";
+
+fpath[1,0]="/home/linuxbrew/.linuxbrew/share/zsh/site-functions";
+
+export PATH="/home/linuxbrew/.linuxbrew/bin:/home/linuxbrew/.linuxbrew/sbin${PATH+:$PATH}";
+
+[ -z "${MANPATH-}" ] || export MANPATH=":${MANPATH#:}";
+
+export INFOPATH="/home/linuxbrew/.linuxbrew/hare/info:${INFOPATH:-}";
