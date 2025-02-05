@@ -40,7 +40,7 @@ rm .zshrc
 # <a name = "InstallApp"></a>2. 🍥 Install Apps
 
 ```bash
-brew install --cask wezterm google-chrome basictex && \
+brew install --cask kitty google-chrome basictex
 brew install --cask nikitabobko/tap/aerospace
 ```
 
@@ -49,25 +49,25 @@ brew install --cask nikitabobko/tap/aerospace
 ## 3.1 Package Manager
 
 ```bash
-brew install node pnpm yarn oven-sh/bun/bun && \
+brew install node pnpm yarn oven-sh/bun/bun
 ```
 
 ## 3.2 Terminal Tools
 
 ```bash
-brew install jandedobbeleer/oh-my-posh/oh-my-posh eza zoxide fzf neovim zsh-syntax-highlighting zsh-autosuggestions && \
+brew install jandedobbeleer/oh-my-posh/oh-my-posh eza zoxide fzf neovim zsh-syntax-highlighting zsh-autosuggestions
 ```
 
 ## 3.3 Neovim Tools
 
 ```bash
-brew install ripgrep lazygit libgit2 yazi pandoc ueberzugpp imagemagick marp-cli pngpaste && \
+brew install ripgrep lazygit libgit2 yazi pandoc ueberzugpp imagemagick marp-cli pngpaste
 ```
 
 ## 3.4 Laravel
 
 ```bash
-brew install php composer artisan docker-compose docker && \
+brew install php composer artisan docker-compose docker
 brew install --cask docker
 
 ```
@@ -75,8 +75,6 @@ brew install --cask docker
 ## 3.5 AutoUpdate Homebrew
 
 ```bash
-brew tap domt4/autoupdate && \
-mkdir -p /Users/$USER/Library/LaunchAgents && \
-brew install pinentry-mac && \
-brew autoupdate start 604800 --cleanup --upgrade
+brew tap domt4/autoupdate
+brew autoupdate start 43200 --cleanup --upgrade --immediate --sudo
 ```
