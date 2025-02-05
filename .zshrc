@@ -11,7 +11,7 @@ zstyle ':omz:update' mode auto
 ZSH_THEME="robbyrussell"
 
 # Install Plugins
-plugins=(git zsh-syntax-highlighting zsh-autosuggestions)
+plugins=(git)
 
 # Use Oh My ZSH when opening Terminal
 source $ZSH/oh-my-zsh.sh
@@ -46,3 +46,5 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # PRETTIER
 export PRETTIERD_DEFAULT_CONFIG=~/.prettierrc
 
+# HOMEBREW
+eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
