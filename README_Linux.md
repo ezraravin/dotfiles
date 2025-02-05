@@ -46,10 +46,6 @@ curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBra
 brew install eza yazi marp-cli lazygit zoxide zsh-syntax-highlighting zsh-autosuggestions neovim tmux oven-sh/bun/bun jandedobbeleer/oh-my-posh/oh-my-posh
 ```
 
-# NODEJS
-
-sudo dnf install node npm
-
 # REMOVE BLOATWARE
 
 ```bash
