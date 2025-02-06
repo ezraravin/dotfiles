@@ -4,10 +4,16 @@
 ssh-keygen -t ed25519 -C "ezraravin.m@gmail.com"
 ```
 
-# INSTALL WAYBAR, HYPRLAND, HYPRPAPER, GOOGLE CHROME, KITTY, KDENLIVE, OBS, ZSH, WL CLIPBOARD, DEV TOOLS, FASTFETCH, CAVA
+# SET DIALOUT FOR SERIAL ACCESS
 
 ```bash
-sudo dnf install -y waybar hyprland hyprpaper google-chrome-stable kitty kdenlive obs-studio zsh wl-clipboard development-tools fastfetch cava
+sudo usermod -a -G dialout $USER
+```
+
+# INSTALL WAYBAR, HYPRLAND, HYPRPAPER, GOOGLE CHROME, KITTY, KDENLIVE, OBS, ZSH, WL CLIPBOARD, DEV TOOLS
+
+```bash
+sudo dnf install -y waybar hyprland hyprpaper google-chrome-stable kitty kdenlive obs-studio zsh wl-clipboard development-tools
 ```
 
 # CHANGE SHELL TO ZSH
@@ -35,10 +41,10 @@ brew install gcc
 flatpak install -y flathub com.spotify.Client
 ```
 
-# INSTALL ARDUINO
+# INSTALL GEAR LEVER
 
 ```bash
-flatpak install -y flathub cc.arduino.IDE2
+flatpak install flathub it.mijorus.gearlever
 ```
 
 # INSTALL JETBRAINS NERD FONT
@@ -47,10 +53,10 @@ flatpak install -y flathub cc.arduino.IDE2
 curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip && sudo unzip JetBrainsMono.zip -d /usr/share/fonts/truetype/ && sudo rm -rf JetBrainsMono.zip
 ```
 
-# INSTALL BAT, FZF, EZA, YAZI, MARP, LAZYGIT, ZOXIDE, ZSH-SYNTAX-HIGHLIGHTING, ZSH-AUTOSUGGESTIONS, NEOVIM, TMUX, BUN, YARN OH MY POSH, PHP, COMPOSER
+# INSTALL CAVA, FASTFETCH, BAT, FZF, EZA, YAZI, MARP, LAZYGIT, ZOXIDE, ZSH-SYNTAX-HIGHLIGHTING, ZSH-AUTOSUGGESTIONS, NEOVIM, TMUX, BUN, YARN OH MY POSH, PHP, COMPOSER
 
 ```bash
-brew install bat fzf eza yazi marp-cli lazygit zoxide zsh-syntax-highlighting zsh-autosuggestions neovim tmux oven-sh/bun/bun yarn jandedobbeleer/oh-my-posh/oh-my-posh php composer
+brew install cava fastfetch bat fzf eza yazi marp-cli lazygit zoxide zsh-syntax-highlighting zsh-autosuggestions neovim tmux oven-sh/bun/bun yarn jandedobbeleer/oh-my-posh/oh-my-posh php composer
 ```
 
 # REMOVE BLOATWARE
