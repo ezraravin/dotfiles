@@ -23,7 +23,7 @@
         "temperature",
         "backlight",
         "keyboard-state",
-        "sway/language",
+        // "sway/language",
         "battery",
         "battery#bat2",
         "clock",
@@ -57,7 +57,7 @@
     "sway/scratchpad": {
         "format": "{icon} {count}",
         "show-empty": false,
-        "format-icons": ["", ""],
+        "format-icons": ["?", ""],
         "tooltip": true,
         "tooltip-format": "{app}: {title}"
     },
@@ -101,7 +101,8 @@
     "clock": {
         // "timezone": "America/New_York",
         "tooltip-format": "<big>{:%Y %B}</big>\n<tt><small>{calendar}</small></tt>",
-        "format-alt": "{:%Y-%m-%d}"
+        "format-alt": "{:%H:%M}",
+        "format": "{0:%H:%M:%S} {0:%F}"
     },
     "cpu": {
         "format": "{usage}% ",
