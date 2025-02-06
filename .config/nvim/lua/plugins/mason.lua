@@ -36,6 +36,7 @@ return {
 				"emmet_ls",
 				"prismals",
 				"pyright",
+				"arduino_language_server",
 			},
 		})
 
@@ -44,6 +45,7 @@ return {
 				"prettier", -- prettier formatter
 				"stylua", -- lua formatter
 				"eslint_d",
+				"clang-format",
 			},
 		})
 	end,
