@@ -36,7 +36,7 @@ return {
 				"emmet_ls",
 				"prismals",
 				"pyright",
-				"arduino_language_server",
+				"clangd",
 			},
 		})
 
