@@ -83,8 +83,8 @@ return {
 			},
 
 			inactive_sections = {
-				lualine_a = { { "filetype", icon_only = true, separator = { left = "" } } },
-				lualine_b = { "filename" },
+				lualine_a = { { "filetype", icon_only = true }, "filename" },
+				lualine_b = {},
 				lualine_c = {},
 				lualine_x = {},
 				lualine_y = {},
