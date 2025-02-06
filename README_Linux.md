@@ -4,10 +4,10 @@
 ssh-keygen -t ed25519 -C "ezraravin.m@gmail.com"
 ```
 
-# INSTALL WAYBAR, HYPRLAND, HYPRPAPER, GOOGLE CHROME, KITTY, KDENLIVE, OBS, ZSH, WL CLIPBOARD, DEV TOOLS, FASTFETCH
+# INSTALL WAYBAR, HYPRLAND, HYPRPAPER, GOOGLE CHROME, KITTY, KDENLIVE, OBS, ZSH, WL CLIPBOARD, DEV TOOLS, FASTFETCH, CAVA
 
 ```bash
-sudo dnf install -y waybar hyprland hyprpaper google-chrome-stable kitty kdenlive obs-studio zsh wl-clipboard development-tools fastfetch
+sudo dnf install -y waybar hyprland hyprpaper google-chrome-stable kitty kdenlive obs-studio zsh wl-clipboard development-tools fastfetch cava
 ```
 
 # CHANGE SHELL TO ZSH
