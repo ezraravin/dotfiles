@@ -18,6 +18,8 @@ return {
 				cmd = cmd:gsub("%s+$", ""):gsub("^[\"'](.*)[\"']$", "%1")
 				if cmd == "Pop-dark" then
 					cmd = "Dark"
+				else
+					cmd = "Dark"
 				end
 			else
 				cmd = "Dark"
