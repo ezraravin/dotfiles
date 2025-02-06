@@ -63,13 +63,6 @@ return {
 			symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
 		}
 
-		local mode = {
-			"mode",
-			fmt = function(str)
-				return " " .. str
-			end,
-		}
-
 		local lazy_updates = {
 			lazy_status.updates,
 			cond = lazy_status.has_updates,
@@ -78,23 +71,33 @@ return {
 
 		lualine.setup({
 			always_divide_middle = false,
-			winbar = {
-				lualine_y = { diff, diagnostics, { "filetype", icon_only = true }, filename },
-			},
+			winbar = {},
 
 			inactive_winbar = {
-				lualine_y = { diff, diagnostics, { "filetype", icon_only = true }, filename },
+				lualine_a = {},
+				lualine_b = {},
+				lualine_c = {},
+				lualine_x = {},
+				lualine_y = {},
+				lualine_z = {},
 			},
 
-			inactive_sections = { lualine_x = {}, lualine_y = {}, lualine_z = {} },
+			inactive_sections = {
+				lualine_a = { { "filetype", icon_only = true, separator = { left = "" } } },
+				lualine_b = { "filename" },
+				lualine_c = {},
+				lualine_x = {},
+				lualine_y = {},
+				lualine_z = {},
+			},
 
 			sections = {
-				lualine_a = { mode },
+				lualine_a = { { "mode", separator = { left = "" } } },
 				lualine_b = { "branch" },
 				lualine_c = {},
 				lualine_x = { lazy_updates },
-				lualine_y = { "progress" },
-				lualine_z = { "location" },
+				lualine_y = { diff, diagnostics },
+				lualine_z = { "progress", { "location", separator = { right = "" } } },
 			},
 
 			options = {
@@ -103,7 +106,7 @@ return {
 				disabled_filetypes = { "neo-tree", "neo-tree-popup", "notify", "alpha", "toggleterm", "dashboard" },
 				always_divide_middle = true,
 				icons_enabled = true,
-				component_separators = { left = "", right = "" },
+				section_separators = { left = "", right = "" },
 			},
 		})
 	end,

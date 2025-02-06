@@ -19,7 +19,7 @@ return {
 		priority = 1000,
 		opts = {
 			background = {
-				light = "latte",
+				light = "day",
 				dark = "mocha",
 			},
 		},
