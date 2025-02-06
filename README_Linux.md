@@ -10,10 +10,10 @@ ssh-keygen -t ed25519 -C "ezraravin.m@gmail.com"
 sudo usermod -a -G dialout $USER
 ```
 
-# INSTALL WAYBAR, HYPRLAND, HYPRPAPER, GOOGLE CHROME, KITTY, KDENLIVE, OBS, ZSH, WL CLIPBOARD, DEV TOOLS
+# INSTALL WAYBAR, HYPRLAND, HYPRPAPER, GOOGLE CHROME, KITTY, KDENLIVE, OBS, ZSH, WL CLIPBOARD, DEV TOOLS, CAVA
 
 ```bash
-sudo dnf install -y waybar hyprland hyprpaper google-chrome-stable kitty kdenlive obs-studio zsh wl-clipboard development-tools
+sudo dnf install -y waybar hyprland hyprpaper google-chrome-stable kitty kdenlive obs-studio zsh wl-clipboard development-tools cava
 ```
 
 # CHANGE SHELL TO ZSH
@@ -53,10 +53,10 @@ flatpak install flathub it.mijorus.gearlever
 curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip && sudo unzip JetBrainsMono.zip -d /usr/share/fonts/truetype/ && sudo rm -rf JetBrainsMono.zip
 ```
 
-# INSTALL CAVA, FASTFETCH, BAT, FZF, EZA, YAZI, MARP, LAZYGIT, ZOXIDE, ZSH-SYNTAX-HIGHLIGHTING, ZSH-AUTOSUGGESTIONS, NEOVIM, TMUX, BUN, YARN OH MY POSH, PHP, COMPOSER
+# INSTALL FASTFETCH, BAT, FZF, EZA, YAZI, MARP, LAZYGIT, ZOXIDE, ZSH-SYNTAX-HIGHLIGHTING, ZSH-AUTOSUGGESTIONS, NEOVIM, TMUX, BUN, YARN OH MY POSH, PHP, COMPOSER
 
 ```bash
-brew install cava fastfetch bat fzf eza yazi marp-cli lazygit zoxide zsh-syntax-highlighting zsh-autosuggestions neovim tmux oven-sh/bun/bun yarn jandedobbeleer/oh-my-posh/oh-my-posh php composer
+brew install fastfetch bat fzf eza yazi marp-cli lazygit zoxide zsh-syntax-highlighting zsh-autosuggestions neovim tmux oven-sh/bun/bun yarn jandedobbeleer/oh-my-posh/oh-my-posh php composer
 ```
 
 # REMOVE BLOATWARE
