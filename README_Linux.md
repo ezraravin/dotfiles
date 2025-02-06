@@ -35,6 +35,12 @@ brew install gcc
 flatpak install -y flathub com.spotify.Client
 ```
 
+# INSTALL ARDUINO
+
+```bash
+flatpak install -y flathub cc.arduino.IDE2
+```
+
 # INSTALL JETBRAINS NERD FONT
 
 ```bash
@@ -56,7 +62,6 @@ sudo dnf remove -y rhythmbox ptyxis mediawriter totem yelp firefox libreoffice-i
 # INSTALL TPM
 
 ```bash
-
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
 
