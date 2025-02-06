@@ -122,6 +122,7 @@ alias cd="z"
 alias tm="tmux"
 alias f='nvim $(fzf --preview="bat --color=always {}")'
 alias ff="fastfetch"
+alias cv="cava"
 
 # ZOXIDE
 eval "$(zoxide init zsh)"
