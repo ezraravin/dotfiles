@@ -114,6 +114,13 @@ return {
 					filetypes = { "html", "typescriptreact", "javascriptreact", "css", "sass", "scss", "less", "svelte" },
 				})
 			end,
+			["clangd"] = function()
+				-- configure clangd language server
+				lspconfig["clangd"].setup({
+					capabilities = capabilities,
+					filetypes = { "c", "cpp", "objc", "objcpp", "arduino" },
+				})
+			end,
 			["lua_ls"] = function()
 				-- configure lua server (with special settings)
 				lspconfig["lua_ls"].setup({
