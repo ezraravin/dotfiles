@@ -8,28 +8,32 @@ window#waybar {
 }
 
 #workspaces button {
-    padding: 0 8px;
-    background: transparent;
-    color: #cdd6f4;
-    border-bottom: 3px solid transparent;
+    padding: 0 12px;
+    border-radius: 16px;
+    background: #11111b;
+    color: #b4befe;
+    box-shadow: rgba(0, 0, 0, 0.116) 2 2 5 2px;
+    margin-left: 10px;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 #workspaces button.active {
-    background: #313244;
-    border-bottom: 3px solid #cba6f7;
+    background: linear-gradient(#cba6f7, #f5c2e7);
+    color: #1e1e2e;
 }
 
 #workspaces button.urgent {
     color: #f38ba8;
 }
 
-#tray,
 #network,
 #cpu,
 #memory,
 #pulseaudio,
 #battery,
 #clock,
+#hyprland-window,
 #power-profiles-daemon,
 #temperature,
 #custom-notification {
@@ -43,7 +47,8 @@ window#waybar {
     margin-right: 10px;
 }
 
-#clock {
+#clock,
+#hyprland-window {
     background: linear-gradient(45deg, #cba6f7, #f5c2e7);
     color: #1e1e2e;
     font-weight: bold;
