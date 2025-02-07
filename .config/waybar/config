@@ -103,6 +103,9 @@
         "format-ethernet": "󰈀   {ipaddr}/{cidr}",
         "format-linked": "{ifname} (No IP) ",
         "format-disconnected": "Disconnected ⚠",
+
+        "format-alt": "<span foreground='#f9e2af'>  {bandwidthDownBytes}</span>  <span foreground='#f9e2af'>  {bandwidthUpBytes}</span>",
+        "interval": 2,
     },
     "pulseaudio": {
         "format": "{icon} {volume}% {format_source}",
