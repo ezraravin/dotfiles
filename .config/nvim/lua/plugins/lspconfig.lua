@@ -121,6 +121,7 @@ return {
 					filetypes = { "c", "cpp", "objc", "objcpp", "arduino" },
 				})
 			end,
+
 			["lua_ls"] = function()
 				-- configure lua server (with special settings)
 				lspconfig["lua_ls"].setup({
