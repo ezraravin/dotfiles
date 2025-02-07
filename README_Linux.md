@@ -4,6 +4,14 @@
 ssh-keygen -t ed25519 -C "ezraravin.m@gmail.com"
 ```
 
+# SET THEME TO DRACULA
+
+```bash
+sudo git clone https://github.com/dracula/gtk/ /usr/share/themes/Dracula
+gsettings set org.gnome.desktop.interface gtk-theme "Dracula"
+gsettings set org.gnome.desktop.wm.preferences theme "Dracula"
+```
+
 # SET DIALOUT FOR SERIAL ACCESS
 
 ```bash
