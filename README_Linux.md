@@ -10,10 +10,24 @@ ssh-keygen -t ed25519 -C "ezraravin.m@gmail.com"
 sudo usermod -a -G dialout $USER
 ```
 
-# INSTALL WAYBAR, HYPRLAND, HYPRPAPER, GOOGLE CHROME, KITTY, KDENLIVE, OBS, ZSH, WL CLIPBOARD, DEV TOOLS, CAVA
+# ENABLE DRM KERNEL MODE SETTING
 
 ```bash
-sudo dnf install -y waybar hyprland hyprpaper google-chrome-stable kitty kdenlive obs-studio zsh wl-clipboard development-tools cava
+echo "options nvidia-drm modeset=1" | sudo tee /etc/modprobe.d/nvidia-drm.conf
+```
+
+# INSTALL WAYBAR, HYPRLAND, HYPRPAPER, GOOGLE CHROME, KITTY, KDENLIVE, OBS, ZSH, WL CLIPBOARD, DEV TOOLS, CAVA, VA API SUPPORT, SNAP
+
+```bash
+sudo dnf install -y waybar hyprland hyprpaper google-chrome-stable kitty kdenlive obs-studio zsh wl-clipboard development-tools cava libva-nvidia-driver snapd
+```
+
+# CONFIGURE SNAP
+
+```bash
+sudo systemctl enable --now snapd.socket
+sudo ln -s /var/lib/snapd/snap /snap
+sudo snap install core
 ```
 
 # CHANGE SHELL TO ZSH
@@ -39,6 +53,12 @@ brew install gcc
 
 ```bash
 flatpak install -y flathub com.spotify.Client
+```
+
+# INSTALL FLUTTER SDK
+
+```bash
+sudo snap install flutter --classic
 ```
 
 # INSTALL GEAR LEVER
