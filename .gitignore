@@ -16,6 +16,9 @@
 # Include .tmux.conf
 !/.tmux.conf
 
+# Include Install Scripts
+!/.scripts
+
 # Include README.md
 !/README.md
 !/README_MacOS.md
