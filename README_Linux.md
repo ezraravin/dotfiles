@@ -63,6 +63,12 @@ brew install gcc
 flatpak install -y flathub com.spotify.Client
 ```
 
+# INSTALL WHATSAPP
+
+```bash
+sudo snap install whatsapp-linux-app
+```
+
 # INSTALL FLUTTER SDK
 
 ```bash
