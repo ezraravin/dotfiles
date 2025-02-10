@@ -24,6 +24,16 @@ sudo usermod -a -G dialout $USER
 echo "options nvidia-drm modeset=1" | sudo tee /etc/modprobe.d/nvidia-drm.conf
 ```
 
+# INSTALL XAMPP
+
+```bash
+sudo dnf -y install libnsl libxcrypt-compat
+wget https://sourceforge.net/projects/xampp/files/XAMPP%20Linux/8.2.12/xampp-linux-x64-8.2.12-0-installer.run
+chmod a+x xampp-linux-x64-*-installer.run
+sudo ./xampp-linux-x64-*-installer.run
+sudo rm xampp-linux-x64-*-installer.run
+```
+
 # INSTALL WAYBAR, HYPRLAND, HYPRPAPER, GOOGLE CHROME, KITTY, KDENLIVE, OBS, ZSH, WL CLIPBOARD, DEV TOOLS, CAVA, VA API SUPPORT, SNAP
 
 ```bash

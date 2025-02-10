@@ -124,6 +124,7 @@ alias f='nvim $(fzf --preview="bat --color=always {}")'
 alias ff="fastfetch"
 alias cv="cava"
 alias get_idf='. $HOME/esp/esp-idf/export.sh'
+alias xampp="sudo /opt/lampp/lampp start"
 
 # ZOXIDE
 eval "$(zoxide init zsh)"
