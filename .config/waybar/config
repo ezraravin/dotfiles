@@ -18,7 +18,6 @@
         "network",
         "battery",
         "power-profiles-daemon",
-        "custom/power",
     ],
     // Modules configuration
     "hyprland/workspaces": {
@@ -81,8 +80,7 @@
             "warning": 30,
             "critical": 15
         },
-        "format-full": "{capacity}% {icon}",
-        "format": "{icon} {capacity}%",
+        "format": "{icon}   {capacity}%",
         "format-charging": "󰂄 {capacity}%",
         "format-plugged": "󰚥 {capacity}%",
         "format-icons": ["", "", "", "", ""]
