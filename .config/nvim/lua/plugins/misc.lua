@@ -175,7 +175,7 @@ return {
 				local current_dir = vim.fn.expand("%:p:h")
 
 				-- Build the marp command, using full paths for consistency
-				local marp_command = "marp --preview --server --theme " .. current_dir .. "/theme.css " .. current_dir
+				local marp_command = "marp --preview --server --theme " .. current_dir .. "/theme.css --allow-local-files" .. current_dir
 
 				-- Run the command in the terminal
 				vim.cmd("split | terminal " .. marp_command)
