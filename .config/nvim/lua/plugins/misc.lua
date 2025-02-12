@@ -175,7 +175,7 @@ return {
 				local current_dir = vim.fn.expand("%:p:h")
 
 				-- Build the marp command, using full paths for consistency
-				local marp_command = "marp --preview --server --theme " .. current_dir .. "/theme.css --allow-local-files" .. current_dir
+				local marp_command = "marp --preview --server --theme " .. current_dir .. "/theme.css " .. current_dir .. " --allow-local-files"
 
 				-- Run the command in the terminal
 				vim.cmd("split | terminal " .. marp_command)
@@ -192,7 +192,7 @@ return {
 				local file = vim.fn.expand("%")
 
 				-- Open terminal in split and run the marp command
-				vim.cmd("split | terminal marp " .. file .. " --pdf --pdf-outlines")
+				vim.cmd("split | terminal marp " .. file .. " --theme-set ./theme.css --pdf --pdf-outlines --alow-local-files")
 
 				-- Wait for the terminal to finish, then delete the buffer after the terminal closes
 				vim.cmd("autocmd TermClose <buffer> ++nested bd")
