@@ -4,11 +4,10 @@
 if [ "$TMUX" = "" ]; then tmux; fi
 
 # HOMEBREW
+
 # For macOS
 if [[ "$OSTYPE" == "darwin"* ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"  # ARM Macs
-  # eval "$(/usr/local/bin/brew shellenv)"  # Intel Macs
-
 # For Linux
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
   eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
