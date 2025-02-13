@@ -93,4 +93,9 @@ run = "move-node-to-workspace 2"
 # Socials
 [[on-window-detected]]
 if.app-id = "net.whatsapp.WhatsApp"
+run = "move-node-to-workspace 9"
+
+# Music
+[[on-window-detected]]
+if.app-id = "com.spotify.client"
 run = "move-node-to-workspace 0"
