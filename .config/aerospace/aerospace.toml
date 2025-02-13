@@ -82,7 +82,7 @@ backspace = ['close-all-windows-but-current', 'mode main']
 
 # Work
 [[on-window-detected]]
-if.app-id = "com.github.wez.wezterm"
+if.app-id = "net.kovidgoyal.kitty"
 run = "move-node-to-workspace 1"
 
 # Browser
