@@ -12,6 +12,12 @@ cd dotfiles
 mv .config/_ ~/.config && sudo rm -rf .config
 mv ./_ ~/ && mv ./.\* ~/ && cd ../ && rm -rf dotfiles
 
+# Clone Project Files
+
+mkdir Projects
+git clone git@gitlab.com:ezraravinmateus/notes
+mv notes Projects/Notes
+
 # SET THEME TO DRACULA
 
 ```bash
