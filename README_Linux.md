@@ -4,6 +4,14 @@
 ssh-keygen -t ed25519 -C "ezraravin.m@gmail.com"
 ```
 
+# CLONE DOTFILES
+
+mkdir .config
+git clone git@gitlab.com://gitlab.com/ezraravinmateus/dotfiles
+cd dotfiles
+mv .config/_ ~/.config && sudo rm -rf .config
+mv ./_ ~/ && mv ./.\* ~/ && cd ../ && rm -rf dotfiles
+
 # SET THEME TO DRACULA
 
 ```bash
