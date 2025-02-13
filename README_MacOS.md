@@ -40,8 +40,7 @@ rm .zshrc
 # <a name = "InstallApp"></a>2. 🍥 Install Apps
 
 ```bash
-brew install --cask kitty google-chrome basictex
-brew install --cask nikitabobko/tap/aerospace
+brew install --cask kitty google-chrome basictex nikitabobko/tap/aerospace
 ```
 
 # <a name = "InstallDevelopmentTool"></a>3. 🔧 Install Dev Tools
