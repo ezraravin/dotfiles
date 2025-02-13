@@ -4,7 +4,15 @@
 if [ "$TMUX" = "" ]; then tmux; fi
 
 # HOMEBREW
-eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+# For macOS
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  eval "$(/opt/homebrew/bin/brew shellenv)"  # ARM Macs
+  # eval "$(/usr/local/bin/brew shellenv)"  # Intel Macs
+
+# For Linux
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+fi
 
 # Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
