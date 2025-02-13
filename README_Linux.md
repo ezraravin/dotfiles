@@ -34,10 +34,10 @@ sudo ./xampp-linux-x64-*-installer.run
 sudo rm xampp-linux-x64-*-installer.run
 ```
 
-# INSTALL WAYBAR, HYPRLAND, HYPRPAPER, GOOGLE CHROME, KITTY, KDENLIVE, OBS, ZSH, WL CLIPBOARD, DEV TOOLS, CAVA, VA API SUPPORT, SNAP
+# INSTALL WAYBAR, HYPRLAND, HYPRPAPER, GOOGLE CHROME, KITTY, KDENLIVE, OBS, ZSH, WL CLIPBOARD, DEV TOOLS, CAVA, VA API SUPPORT, SNAP, PAVUCONTROL
 
 ```bash
-sudo dnf install -y waybar hyprland hyprpaper google-chrome-stable kitty kdenlive obs-studio zsh wl-clipboard development-tools cava libva-nvidia-driver snapd vlc
+sudo dnf install -y waybar hyprland hyprpaper google-chrome-stable kitty kdenlive obs-studio zsh wl-clipboard development-tools cava libva-nvidia-driver snapd vlc pavucontrol
 ```
 
 # CONFIGURE SNAP
