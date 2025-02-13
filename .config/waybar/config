@@ -111,7 +111,7 @@
     "pulseaudio": {
         "format": "{icon} {volume}%",
         "format-alt": "{format_source}",
-        "format-bluetooth": "{icon}  {volume}%",
+        "format-bluetooth": "{icon} {volume}%",
         "format-bluetooth-muted": "󰂲",
         "format-muted": "󰝟 Muted",
         "format-source": " {volume}%",
@@ -125,5 +125,6 @@
             "car": "",
             "default": ["", "", ""]
         },
+        "on-click": "pavucontrol"
     },
 }
