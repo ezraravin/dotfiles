@@ -86,12 +86,10 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 brew install --cask kitty brave-browser nikitabobko/tap/aerospace spotify whatsapp
 ```
 
-# <a name = "InstallDevelopmentTool"></a>3. 🔧 Install Dev Tools
-
 ## 2.1 Terminal Tools
 
 ```bash
-brew install node pnpm yarn oven-sh/bun/bun jandedobbeleer/oh-my-posh/oh-my-posh eza zoxide neovim zsh-syntax-highlighting zsh-autosuggestions fzf tmux marp-cli pngpaste yazi ripgrep
+brew install node pnpm yarn oven-sh/bun/bun jandedobbeleer/oh-my-posh/oh-my-posh eza zoxide neovim zsh-syntax-highlighting zsh-autosuggestions fzf tmux marp-cli pngpaste yazi ripgrep ollama
 ```
 
 ## 2.2 Laravel

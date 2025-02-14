@@ -132,6 +132,10 @@ alias ff="fastfetch"
 alias cv="cava"
 alias get_idf='. $HOME/esp/esp-idf/export.sh'
 alias xampp="sudo /opt/lampp/lampp start"
+alias nvc="v ~/.config/nvim"
+
+# DEEPSEEK
+export MODEL="deepseek-r1:1.5b"
 
 # ZOXIDE
 eval "$(zoxide init zsh)"
