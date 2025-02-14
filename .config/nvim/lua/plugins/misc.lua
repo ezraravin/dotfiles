@@ -36,7 +36,12 @@ return {
 	{ "christoomey/vim-tmux-navigator" },
 
 	-- Terminal
-	{ "akinsho/toggleterm.nvim", version = "*", config = true },
+	{
+		"akinsho/toggleterm.nvim",
+		version = "*",
+		config = true,
+		vim.keymap.set("n", "<leader>tt", "<cmd>ToggleTerm<cr>", { desc = "Open Terminal" }),
+	},
 
 	-- High-performance color highlighter
 	{
