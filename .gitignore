@@ -19,6 +19,9 @@
 # Include Install Scripts
 !/.scripts
 
+# Include Sync Code
+!/.brave-sync-code
+
 # Include README.md
 !/README.md
 !/README_MacOS.md
