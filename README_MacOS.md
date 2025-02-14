@@ -5,24 +5,68 @@
 3. [Install Development Tools](#InstallDevelopmentTool)
 4. [Clear Cache](#ClearCache)
 
-# <a name = "SettingsSetup"></a>1. 🔧 Settings Setup
+# Global Config with Git
 
-- Settings
-    - General
-        - About > eRavenous MBA (Change Name)
-    - Control Center
-        - Automatically Hide & Show The Menu Bar > Always
-    - Desktop & Dock
-        - Enable > Automatically Hide & Show The Dock
-        - Minimize Windows Using > Scale Effect
-        - Disable > Show Suggested & Recent Apps in Dock
-    - Displays > Advanced > Show Resolutions As List > 1680 x 1050
-    - Keyboard > Text Input > Edit
-        - Disable > Correct spelling automatically
-        - Disable > Add period with double-space
-        - Disable > Capitalize words automatically
-        - Key Repeat Rate > Fast
-        - Delay Until Repeat > Short
+```bash
+git config --global user.email "ezraravin.m@gmail.com"
+git config --global user.name "Ezra Ravin Mateus"
+```
+
+# Set Computer Name
+
+```bash
+sudo scutil --set ComputerName "eRave"
+sudo scutil --set HostName "eRave"
+sudo scutil --set LocalHostName "eRave"
+```
+
+# Control Center: Always Hide Menu Bar
+
+```bash
+defaults write -g \_HSUI_AHideMenuBar -int 1
+```
+
+# Desktop & Dock Settings
+
+```bash
+# Auto-hide Dock
+defaults write com.apple.dock autohide -bool true
+# Scale effect for minimizing
+defaults write com.apple.dock mineffect -string "scale"
+# Disable suggested/recent apps
+defaults write com.apple.dock show-recents -bool false
+```
+
+# Keyboard Text Input Settings
+
+```bash
+# Disable auto-corrections
+defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
+defaults write -g NSAutomaticPeriodSubstitutionEnabled -bool false
+defaults write -g NSAutomaticCapitalizationEnabled -bool false
+```
+
+# Enable Dark Mode
+
+```bash
+defaults write -g AppleInterfaceStyle -string "Dark"
+```
+
+# Repeat Rate
+
+```bash
+# Key Repeat: Fastest (60ms per repeat)
+defaults write -g KeyRepeat -int 1
+
+# Delay Until Repeat: Shortest (15ms)
+defaults write -g InitialKeyRepeat -int 15
+```
+
+# Reset System
+
+```bash
+killall SystemUIServer Dock Finder
+```
 
 ## 1.1 Homebrew
 
@@ -34,47 +78,32 @@
 
 ```bash
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
-rm .zshrc
 ```
 
-# <a name = "InstallApp"></a>2. 🍥 Install Apps
+## Apps
 
 ```bash
-brew install --cask kitty google-chrome basictex nikitabobko/tap/aerospace
+brew install --cask kitty brave-browser nikitabobko/tap/aerospace spotify whatsapp
 ```
 
 # <a name = "InstallDevelopmentTool"></a>3. 🔧 Install Dev Tools
 
-## 3.1 Package Manager
+## 2.1 Terminal Tools
 
 ```bash
-brew install node pnpm yarn oven-sh/bun/bun
+brew install node pnpm yarn oven-sh/bun/bun jandedobbeleer/oh-my-posh/oh-my-posh eza zoxide neovim zsh-syntax-highlighting zsh-autosuggestions fzf tmux marp-cli pngpaste yazi ripgrep
 ```
 
-## 3.2 Terminal Tools
-
-```bash
-brew install jandedobbeleer/oh-my-posh/oh-my-posh eza zoxide neovim zsh-syntax-highlighting zsh-autosuggestions
-```
-
-## 3.3 Neovim Tools
-
-```bash
-brew install ripgrep lazygit libgit2 yazi pandoc ueberzugpp imagemagick marp-cli pngpaste
-```
-
-## 3.4 Laravel
+## 2.2 Laravel
 
 ```bash
 brew install php composer artisan docker-compose docker
 brew install --cask docker
-
 ```
 
-## 3.5 AutoUpdate Homebrew
+## 2.3 AutoUpdate Homebrew
 
 ```bash
 brew tap domt4/autoupdate
 brew autoupdate start 43200 --cleanup --upgrade --immediate --sudo
 ```
-
