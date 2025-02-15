@@ -48,10 +48,16 @@ sudo ./xampp-linux-x64-*-installer.run
 sudo rm xampp-linux-x64-*-installer.run
 ```
 
-# INSTALL WAYBAR, HYPRLAND, HYPRPAPER, GOOGLE CHROME, KITTY, KDENLIVE, OBS, ZSH, WL CLIPBOARD, DEV TOOLS, CAVA, VA API SUPPORT, SNAP, PAVUCONTROL, BLUEMAN
+# INSTALL BRAVE
 
 ```bash
-sudo dnf install -y waybar hyprland hyprpaper google-chrome-stable kitty kdenlive obs-studio zsh wl-clipboard development-tools cava libva-nvidia-driver snapd vlc pavucontrol blueman
+curl -fsS https://dl.brave.com/install.sh | sh
+```
+
+# INSTALL WAYBAR, HYPRLAND, HYPRPAPER, KITTY, KDENLIVE, OBS, ZSH, WL CLIPBOARD, DEV TOOLS, CAVA, VA API SUPPORT, SNAP, PAVUCONTROL, BLUEMAN
+
+```bash
+sudo dnf install -y waybar hyprland hyprpaper kitty kdenlive obs-studio zsh wl-clipboard development-tools cava libva-nvidia-driver snapd vlc pavucontrol blueman
 ```
 
 # CONFIGURE SNAP
