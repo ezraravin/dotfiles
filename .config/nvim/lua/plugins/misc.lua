@@ -2,9 +2,6 @@ return {
 	-- Plenary
 	{ "nvim-lua/plenary.nvim" },
 
-	-- Markdown View
-	{ "OXY2DEV/markview.nvim", lazy = false },
-
 	-- Dressing : For Window UI (Noice, Fugit2, Flutter Tools, Telescope)
 	{ "stevearc/dressing.nvim" },
 
