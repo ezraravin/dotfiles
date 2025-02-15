@@ -54,6 +54,12 @@ sudo rm xampp-linux-x64-*-installer.run
 curl -fsS https://dl.brave.com/install.sh | sh
 ```
 
+# INSTALL OLLAMA
+
+```bash
+curl -fsSL https://ollama.com/install.sh | sh
+```
+
 # INSTALL WAYBAR, HYPRLAND, HYPRPAPER, KITTY, KDENLIVE, OBS, ZSH, WL CLIPBOARD, DEV TOOLS, CAVA, VA API SUPPORT, SNAP, PAVUCONTROL, BLUEMAN
 
 ```bash
