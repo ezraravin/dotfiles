@@ -147,7 +147,7 @@ echo "Configuring Git..."
 
 # Set Git global configuration
 git config --global user.email "ezraravin@proton.me"
-git config --global user.name "Ezra Ravin Mateus"
+git config --global user.name "Ezra (MacBook Air M1)"
 
 # Optional: Set default branch name to 'main'
 git config --global init.defaultBranch main
