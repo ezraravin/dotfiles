@@ -12,59 +12,51 @@ git config --global user.email "ezraravin.m@gmail.com"
 git config --global user.name "Ezra Ravin Mateus"
 ```
 
-# Set Computer Name
+# SYSTEM SETTINGS
 
 ```bash
+# Set Computer Name
 sudo scutil --set ComputerName "eRave"
 sudo scutil --set HostName "eRave"
 sudo scutil --set LocalHostName "eRave"
-```
 
 # Control Center: Always Hide Menu Bar
-
-```bash
 defaults write -g \_HSUI_AHideMenuBar -int 1
-```
 
 # Desktop & Dock Settings
 
-```bash
 # Auto-hide Dock
 defaults write com.apple.dock autohide -bool true
 # Scale effect for minimizing
 defaults write com.apple.dock mineffect -string "scale"
 # Disable suggested/recent apps
 defaults write com.apple.dock show-recents -bool false
-```
 
-# Keyboard Text Input Settings
+# Keyboard Text Input & Mouse Settings
 
-```bash
 # Disable auto-corrections
 defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
 defaults write -g NSAutomaticPeriodSubstitutionEnabled -bool false
 defaults write -g NSAutomaticCapitalizationEnabled -bool false
-```
 
-# Enable Dark Mode
-
-```bash
-defaults write -g AppleInterfaceStyle -string "Dark"
-```
-
-# Repeat Rate
-
-```bash
 # Key Repeat: Fastest (60ms per repeat)
 defaults write -g KeyRepeat -int 1
 
 # Delay Until Repeat: Shortest (15ms)
 defaults write -g InitialKeyRepeat -int 15
-```
+
+# Set Mouse Tracking Speed to 0.5
+defaults write -g com.apple.mouse.scaling -float 0.5
+
+# Disable Pointer Acceleration
+defaults write -g com.apple.mouse.scaling -float -1
+
+# Enable Dark Mode
+defaults write -g AppleInterfaceStyle -string "Dark"
+
+# Repeat Rate
 
 # Reset System
-
-```bash
 killall SystemUIServer Dock Finder
 ```
 
