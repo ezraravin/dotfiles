@@ -1,14 +1,7 @@
-# 0. Table Of Contents
-
-1. [Settings Setup](#SettingsSetup)
-2. [Install Apps](#InstallApp)
-3. [Install Development Tools](#InstallDevelopmentTool)
-4. [Clear Cache](#ClearCache)
-
 # Global Config with Git
 
 ```bash
-git config --global user.email "ezraravin.m@gmail.com"
+git config --global user.email "ezraravin@proton.me"
 git config --global user.name "Ezra Ravin Mateus"
 ```
 
@@ -46,7 +39,7 @@ defaults write -g KeyRepeat -int 1
 defaults write -g InitialKeyRepeat -int 15
 
 # Set Mouse Tracking Speed to 0.5
-defaults write -g com.apple.mouse.scaling -float 0.5
+defaults write -g com.apple.mouse.scaling -float 0.75
 
 # Disable Pointer Acceleration
 defaults write -g com.apple.mouse.scaling -float -1
@@ -72,28 +65,27 @@ killall SystemUIServer Dock Finder
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
 ```
 
-## Apps
-
-```bash
-brew install --cask kitty brave-browser nikitabobko/tap/aerospace spotify whatsapp chatbox
-```
-
 ## 2.1 Terminal Tools
 
 ```bash
-brew install node pnpm yarn oven-sh/bun/bun jandedobbeleer/oh-my-posh/oh-my-posh eza zoxide neovim zsh-syntax-highlighting zsh-autosuggestions fzf tmux marp-cli pngpaste yazi ripgrep ollama htop
+brew install node pnpm yarn oven-sh/bun/bun jandedobbeleer/oh-my-posh/oh-my-posh eza zoxide neovim zsh-syntax-highlighting zsh-autosuggestions fzf tmux marp-cli pngpaste yazi ripgrep ollama htop fastfetch
+brew install kitty brave-browser nikitabobko/tap/aerospace spotify whatsapp chatbox
+
 ```
 
 ## 2.2 Laravel
 
 ```bash
-brew install php composer artisan docker-compose docker
+# PHP, COMPOSER, LARAVEL
+/bin/bash -c "$(curl -fsSL https://php.new/install/mac)"
+brew install docker-compose docker
 brew install --cask docker
 ```
 
 ## 2.3 AutoUpdate Homebrew
 
 ```bash
+brew install pinentry-mac
 brew tap domt4/autoupdate
 brew autoupdate start 43200 --cleanup --upgrade --immediate --sudo
 ```
