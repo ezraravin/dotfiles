@@ -24,8 +24,6 @@
 
 
 # Include README.md
-!/README.md
-!/README_MacOS.md
 !/README_Linux.md
 
 # Include config
