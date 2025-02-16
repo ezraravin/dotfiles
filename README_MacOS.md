@@ -47,7 +47,8 @@ defaults write -g com.apple.mouse.scaling -float -1
 # Enable Dark Mode
 defaults write -g AppleInterfaceStyle -string "Dark"
 
-# Repeat Rate
+# Control Center
+defaults write com.apple.controlcenter BatteryShowPercentage -bool TRUE
 
 # Reset System
 killall SystemUIServer Dock Finder
