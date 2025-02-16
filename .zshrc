@@ -132,7 +132,7 @@ alias ff="fastfetch"
 alias cv="cava"
 alias get_idf='. $HOME/esp/esp-idf/export.sh'
 alias xampp="sudo /opt/lampp/lampp start"
-alias nvc="v ~/.config/nvim"
+alias nvc="cd ~/.config/nvim && v && cd "
 
 # DEEPSEEK
 export MODEL="deepseek-r1:1.5b"
