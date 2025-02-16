@@ -24,6 +24,8 @@ return {
 				cpp = { "clang-format" },
 				c = { "clang-format" },
 				ino = { "clang-format" },
+				sh = { "shfmt" },
+				zsh = { "shfmt" },
 			},
 			format_on_save = {
 				lsp_fallback = true,

@@ -38,6 +38,7 @@ return {
 				"prismals",
 				"pyright",
 				"clangd",
+				"bashls",
 			},
 		})
 
@@ -47,6 +48,7 @@ return {
 				"stylua", -- lua formatter
 				"eslint_d",
 				"clang-format",
+				"shfmt",
 			},
 		})
 	end,
