@@ -83,13 +83,13 @@ sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/too
 ## Apps
 
 ```bash
-brew install --cask kitty brave-browser nikitabobko/tap/aerospace spotify whatsapp
+brew install --cask kitty brave-browser nikitabobko/tap/aerospace spotify whatsapp chatbox
 ```
 
 ## 2.1 Terminal Tools
 
 ```bash
-brew install node pnpm yarn oven-sh/bun/bun jandedobbeleer/oh-my-posh/oh-my-posh eza zoxide neovim zsh-syntax-highlighting zsh-autosuggestions fzf tmux marp-cli pngpaste yazi ripgrep ollama
+brew install node pnpm yarn oven-sh/bun/bun jandedobbeleer/oh-my-posh/oh-my-posh eza zoxide neovim zsh-syntax-highlighting zsh-autosuggestions fzf tmux marp-cli pngpaste yazi ripgrep ollama htop
 ```
 
 ## 2.2 Laravel
