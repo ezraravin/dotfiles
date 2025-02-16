@@ -154,3 +154,7 @@ source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 
 # FZF
 source <(fzf --zsh)
+
+# PHP
+export PATH="/Users/ezra/.config/herd-lite/bin:$PATH"
+export PHP_INI_SCAN_DIR="/Users/ezra/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
