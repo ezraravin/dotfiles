@@ -7,10 +7,10 @@ if [ "$TMUX" = "" ]; then tmux; fi
 
 # For macOS
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  eval "$(/opt/homebrew/bin/brew shellenv)"  # ARM Macs
+    eval "$(/opt/homebrew/bin/brew shellenv)" # ARM Macs
 # For Linux
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-  eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
 # Path to your Oh My Zsh installation.
@@ -86,8 +86,6 @@ plugins=(git)
 
 source $ZSH/oh-my-zsh.sh
 
-
-
 # User configuration
 
 # export MANPATH="/usr/local/man:$MANPATH"
@@ -155,16 +153,12 @@ source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # FZF
 source <(fzf --zsh)
 
-# For macOS
 if [[ "$OSTYPE" == "darwin"* ]]; then
     # PHP for MAC
     export PATH="/Users/ezra/.config/herd-lite/bin:$PATH"
     export PHP_INI_SCAN_DIR="/Users/ezra/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
-
-# For Linux
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
     # PHP for LINUX
     export PATH="/home/ezra/.config/herd-lite/bin:$PATH"
     export PHP_INI_SCAN_DIR="/home/ezra/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 fi
-
