@@ -10,29 +10,7 @@ while true; do
 done 2>/dev/null &
 
 ##############################################
-### 0. Prerequisites: Xcode Command Line Tools
-##############################################
-echo "Checking for Xcode Command Line Tools..."
-
-if ! xcode-select -p &>/dev/null; then
-    echo "Installing Xcode Command Line Tools..."
-    touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
-    PROD=$(softwareupdate -l | grep "\*.*Command Line" | tail -n 1 | awk -F"*" '{print $2}' | sed -e 's/^ *//' | tr -d '\n')
-    softwareupdate -i "$PROD" --verbose
-    rm -f /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
-else
-    echo "Xcode Command Line Tools are already installed."
-fi
-
-##############################################
-### 1. Git Configuration
-##############################################
-echo "Configuring Git..."
-git config --global user.email "ezraravin@proton.me"
-git config --global user.name "Ezra Ravin Mateus"
-
-##############################################
-### 2. System Settings
+### 1. System Settings
 ##############################################
 echo "Configuring System Settings..."
 
@@ -42,7 +20,6 @@ sudo scutil --set HostName "eRave"
 sudo scutil --set LocalHostName "eRave"
 
 # Menu Bar and Dock
-defaults write -g _HSUI_AHideMenuBar -int 1
 defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock mineffect -string "scale"
 defaults write com.apple.dock show-recents -bool false
@@ -66,7 +43,7 @@ defaults write com.apple.controlcenter BatteryShowPercentage -bool TRUE
 killall SystemUIServer Dock Finder
 
 ##############################################
-### 3. Package Management
+### 2. Package Management
 ##############################################
 echo "Setting up Package Management..."
 
@@ -83,7 +60,7 @@ brew tap domt4/autoupdate
 brew autoupdate start 43200 --cleanup --upgrade --immediate --sudo
 
 ##############################################
-### 4. Shell Environment
+### 3. Shell Environment
 ##############################################
 echo "Configuring Shell Environment..."
 
@@ -96,7 +73,7 @@ fi
 brew install oh-my-posh zsh-syntax-highlighting zsh-autosuggestions eza zoxide fzf
 
 ##############################################
-### 5. Development Tools
+### 4. Development Tools
 ##############################################
 echo "Installing Development Tools..."
 
@@ -110,6 +87,36 @@ brew install neovim tmux ripgrep htop
 /bin/bash -c "$(curl -fsSL https://php.new/install/mac)"
 brew install docker-compose docker
 brew install --cask docker
+
+##############################################
+### 5. Flutter Stack
+##############################################
+echo "Setting up Flutter Stack..."
+
+# Install Flutter
+echo "Installing Flutter..."
+brew install --cask flutter
+
+# Add Flutter to PATH
+echo "Adding Flutter to PATH..."
+echo 'export PATH="$PATH:`flutter sdk path`/bin"' >>~/.zshrc
+source ~/.zshrc
+
+# Install Android Studio (required for Flutter Android development)
+echo "Installing Android Studio..."
+brew install --cask android-studio
+
+# Accept Android Licenses (required for Flutter)
+echo "Accepting Android licenses..."
+flutter doctor --android-licenses
+
+# Install CocoaPods (required for Flutter iOS development)
+echo "Installing CocoaPods..."
+sudo gem install cocoapods
+
+# Verify Flutter Installation
+echo "Verifying Flutter installation..."
+flutter doctor
 
 ##############################################
 ### 6. Applications
@@ -132,5 +139,22 @@ echo "Finalizing Setup..."
 
 # Install remaining tools
 brew install marp-cli pngpaste yazi ollama fastfetch
+
+##############################################
+### 8. Git Configuration
+##############################################
+echo "Configuring Git..."
+
+# Set Git global configuration
+git config --global user.email "ezraravin@proton.me"
+git config --global user.name "Ezra Ravin Mateus"
+
+# Optional: Set default branch name to 'main'
+git config --global init.defaultBranch main
+
+# Optional: Enable credential helper to store credentials
+git config --global credential.helper store
+
+echo "Git configuration complete."
 
 echo "Setup complete! Some changes may require a restart."
