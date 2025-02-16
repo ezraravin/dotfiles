@@ -155,6 +155,16 @@ source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zs
 # FZF
 source <(fzf --zsh)
 
-# PHP
-export PATH="/Users/ezra/.config/herd-lite/bin:$PATH"
-export PHP_INI_SCAN_DIR="/Users/ezra/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
+# For macOS
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # PHP for MAC
+    export PATH="/Users/ezra/.config/herd-lite/bin:$PATH"
+    export PHP_INI_SCAN_DIR="/Users/ezra/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
+
+# For Linux
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    # PHP for LINUX
+    export PATH="/home/ezra/.config/herd-lite/bin:$PATH"
+    export PHP_INI_SCAN_DIR="/home/ezra/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
+fi
+
