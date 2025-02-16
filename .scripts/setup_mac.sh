@@ -10,6 +10,21 @@ while true; do
 done 2>/dev/null &
 
 ##############################################
+### 0. Prerequisites: Xcode Command Line Tools
+##############################################
+echo "Checking for Xcode Command Line Tools..."
+
+if ! xcode-select -p &>/dev/null; then
+    echo "Installing Xcode Command Line Tools..."
+    touch /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+    PROD=$(softwareupdate -l | grep "\*.*Command Line" | tail -n 1 | awk -F"*" '{print $2}' | sed -e 's/^ *//' | tr -d '\n')
+    softwareupdate -i "$PROD" --verbose
+    rm -f /tmp/.com.apple.dt.CommandLineTools.installondemand.in-progress
+else
+    echo "Xcode Command Line Tools are already installed."
+fi
+
+##############################################
 ### 1. Git Configuration
 ##############################################
 echo "Configuring Git..."
