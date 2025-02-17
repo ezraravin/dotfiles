@@ -135,7 +135,8 @@ if ! /usr/bin/xcode-select -p &>/dev/null; then
 
     # Accept Xcode license
     sudo xcodebuild -license accept
-    sudo xcode-select --switch /Applications/Xcode.app
+    sudo xcode-select --switch /Applications/Xcode.app/Contents/Developer
+    sudo xcodebuild -runFirstLaunch
 fi
 
 # Install Flutter
@@ -154,8 +155,8 @@ brew install --cask android-studio
 yes | flutter doctor --android-licenses
 
 # Install CocoaPods
-echo "Installing CocoaPods..."
-sudo gem install cocoapods
+echo "Installing Ruby & CocoaPods..."
+brew install ruby cocoapods
 
 # Verify Flutter Installation
 flutter doctor
