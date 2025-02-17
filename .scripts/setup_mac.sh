@@ -3,7 +3,6 @@
 # Extend sudo timeout to 1 hour (3600 seconds)
 sudo -v
 while true; do
-    # Refresh sudo privileges every 5 minutes (300 seconds)
     sudo -n true
     sleep 300
     kill -0 "$$" || exit
@@ -14,12 +13,33 @@ done 2>/dev/null &
 ##############################################
 echo "Configuring System Settings..."
 
+# Install Rosetta for Apple Silicon
+if [[ "$(uname -m)" == "arm64" ]]; then
+    echo "Installing Rosetta 2..."
+    sudo softwareupdate --install-rosetta --agree-to-license
+fi
+
 # Computer Name
 sudo scutil --set ComputerName "eRave"
 sudo scutil --set HostName "eRave"
 sudo scutil --set LocalHostName "eRave"
 
+# Enable Dark Mode
+echo "Enabling Dark Mode..."
+defaults write -g AppleInterfaceStyle "Dark"
+
+# Screen Saver Settings
+echo "Configuring Screen Saver and Display Sleep..."
+defaults -currentHost write com.apple.screensaver idleTime 0    # Disable screen saver
+defaults write com.apple.screensaver askForPassword -bool true  # Require password on wake
+defaults write com.apple.screensaver askForPasswordDelay -int 0 # No delay for password prompt
+
+# Display Sleep Settings
+sudo pmset -b displaysleep 60 # 60 minutes on battery
+sudo pmset -c displaysleep 60 # 60 minutes on power adapter
+
 # Menu Bar and Dock
+defaults write -g _HSUI_AHideMenuBar -int 1
 defaults write com.apple.dock autohide -bool true
 defaults write com.apple.dock mineffect -string "scale"
 defaults write com.apple.dock show-recents -bool false
@@ -35,8 +55,7 @@ defaults write -g InitialKeyRepeat -int 15
 defaults write -g com.apple.mouse.scaling -float 0.75
 defaults write -g com.apple.mouse.scaling -float -1
 
-# Appearance
-defaults write -g AppleInterfaceStyle -string "Dark"
+# Control Center Settings
 defaults write com.apple.controlcenter BatteryShowPercentage -bool TRUE
 
 # Apply changes
@@ -48,7 +67,8 @@ killall SystemUIServer Dock Finder
 echo "Setting up Package Management..."
 
 # Install Homebrew
-if ! command_exists brew; then
+if ! command -v brew &>/dev/null; then
+    echo "Installing Homebrew..."
     /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
     echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >>~/.zprofile
     eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -66,6 +86,7 @@ echo "Configuring Shell Environment..."
 
 # Oh-My-Zsh
 if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+    echo "Installing Oh-My-Zsh..."
     sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
 
@@ -93,29 +114,50 @@ brew install --cask docker
 ##############################################
 echo "Setting up Flutter Stack..."
 
+# Install Chrome for Flutter web development
+echo "Installing Google Chrome..."
+brew install --cask google-chrome
+
+# Install MAS (Mac App Store CLI)
+echo "Installing MAS..."
+brew install mas
+
+# Install Xcode
+if ! /usr/bin/xcode-select -p &>/dev/null; then
+    echo "Installing Xcode (this may take 30+ minutes)..."
+    mas install 497799835
+
+    # Wait for Xcode installation
+    while [ ! -d "/Applications/Xcode.app" ]; do
+        echo "Waiting for Xcode installation to complete..."
+        sleep 60
+    done
+
+    # Accept Xcode license
+    sudo xcodebuild -license accept
+    sudo xcode-select --switch /Applications/Xcode.app
+fi
+
 # Install Flutter
 echo "Installing Flutter..."
 brew install --cask flutter
 
 # Add Flutter to PATH
-echo "Adding Flutter to PATH..."
 echo 'export PATH="$PATH:`flutter sdk path`/bin"' >>~/.zshrc
 source ~/.zshrc
 
-# Install Android Studio (required for Flutter Android development)
+# Install Android Studio
 echo "Installing Android Studio..."
 brew install --cask android-studio
 
-# Accept Android Licenses (required for Flutter)
-echo "Accepting Android licenses..."
-flutter doctor --android-licenses
+# Accept Android Licenses
+yes | flutter doctor --android-licenses
 
-# Install CocoaPods (required for Flutter iOS development)
+# Install CocoaPods
 echo "Installing CocoaPods..."
 sudo gem install cocoapods
 
 # Verify Flutter Installation
-echo "Verifying Flutter installation..."
 flutter doctor
 
 ##############################################
@@ -145,16 +187,9 @@ brew install marp-cli pngpaste yazi ollama fastfetch
 ##############################################
 echo "Configuring Git..."
 
-# Set Git global configuration
 git config --global user.email "ezraravin@proton.me"
-git config --global user.name "Ezra (MacBook Air M1)"
-
-# Optional: Set default branch name to 'main'
+git config --global user.name "MacBook Air M1"
 git config --global init.defaultBranch main
-
-# Optional: Enable credential helper to store credentials
 git config --global credential.helper store
-
-echo "Git configuration complete."
 
 echo "Setup complete! Some changes may require a restart."
