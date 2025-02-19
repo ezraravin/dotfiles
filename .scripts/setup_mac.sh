@@ -190,6 +190,8 @@ git config --global credential.helper store
 ##############################################
 ### 9. Dotfiles Configuration
 ##############################################
+echo "Configuring Dotfiles"
+
 mkdir .config
 git clone git@gitlab.com://gitlab.com/ezraravinmateus/dotfiles
 cd dotfiles
