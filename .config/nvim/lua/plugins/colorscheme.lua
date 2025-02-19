@@ -1,30 +1,13 @@
 return {
-	-- Configure with Dark Mode
-	{
-		"f-person/auto-dark-mode.nvim",
-		opts = {
-			update_interval = 1000,
-			set_dark_mode = function()
-				vim.api.nvim_set_option_value("background", "dark", {})
-			end,
-			set_light_mode = function()
-				vim.api.nvim_set_option_value("background", "light", {})
-			end,
-		},
-	},
-
 	-- Configure Catppuccin
 	{
 		"catppuccin/nvim",
 		priority = 1000,
-		opts = {
-			background = {
-				light = "day",
-				dark = "mocha",
-			},
-		},
 		config = function()
 			vim.cmd.colorscheme("catppuccin")
+			require("catppuccin").setup({
+				flavour = "mocha",
+			})
 		end,
 	},
 }

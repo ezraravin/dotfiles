@@ -5,36 +5,6 @@ return {
 		local lualine = require("lualine")
 		local lazy_status = require("lazy.status")
 
-		local function outputThemeBasedOnMode()
-			-- First, Check the OS
-			local OS_Name = vim.fn.system("uname"):lower():gsub("%s+$", "")
-			local cmd
-
-			if OS_Name == "darwin" then
-				cmd = vim.fn.system("defaults read -g AppleInterfaceStyle 2>/dev/null || echo Light") -- Check Dark Mode / Light Mode with Shell Command
-				cmd = cmd:gsub("%s+$", "") -- Remove trailing whitespace, including newline
-			elseif OS_Name == "linux" then
-				cmd = vim.fn.system("gsettings get org.gnome.desktop.interface gtk-theme")
-				cmd = cmd:gsub("%s+$", ""):gsub("^[\"'](.*)[\"']$", "%1")
-				if cmd == "Pop-dark" then
-					cmd = "Dark"
-				else
-					cmd = "Dark"
-				end
-			else
-				cmd = "Dark"
-			end
-			local custom_theme
-			if cmd == "Dark" then
-				custom_theme = require("lualine.themes.auto")
-			else
-				custom_theme = require("lualine.themes.ayu_light")
-			end
-			custom_theme.normal.c.bg = nil
-			custom_theme.inactive.c.bg = nil
-			return custom_theme
-		end
-
 		local hide_in_width = function()
 			return vim.fn.winwidth(0) > 100
 		end
@@ -101,7 +71,7 @@ return {
 			},
 
 			options = {
-				theme = outputThemeBasedOnMode(),
+				theme = require("lualine.themes.auto"),
 				globalstatus = false,
 				disabled_filetypes = { "neo-tree", "neo-tree-popup", "notify", "alpha", "toggleterm", "dashboard" },
 				always_divide_middle = true,
