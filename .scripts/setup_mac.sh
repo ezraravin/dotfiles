@@ -143,10 +143,6 @@ fi
 echo "Installing Flutter..."
 brew install --cask flutter
 
-# Add Flutter to PATH
-echo 'export PATH="$PATH:`flutter sdk path`/bin"' >>~/.zshrc
-source ~/.zshrc
-
 # Install Android Studio
 echo "Installing Android Studio..."
 brew install --cask android-studio
