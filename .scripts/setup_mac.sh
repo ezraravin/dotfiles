@@ -103,7 +103,7 @@ echo "Installing Development Tools..."
 brew install node pnpm yarn oven-sh/bun/bun
 
 # Editors and CLI
-brew install neovim tmux ripgrep htop
+brew install neovim tmux ripgrep btop
 
 # Laravel Stack
 /bin/bash -c "$(curl -fsSL https://php.new/install/mac)"
