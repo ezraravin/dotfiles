@@ -169,6 +169,9 @@ brew install --cask kitty chatbox
 # Window Management
 brew install --cask nikitabobko/tap/aerospace
 
+# Media Applications
+brew install --cask obs vlc kdenlive
+
 ##############################################
 ### 7. Final Setup
 ##############################################
@@ -192,6 +195,7 @@ git config --global credential.helper store
 ##############################################
 echo "Configuring Dotfiles"
 
+rm .zshrc
 mkdir .config
 git clone git@gitlab.com://gitlab.com/ezraravinmateus/dotfiles
 cd dotfiles
