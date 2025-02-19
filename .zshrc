@@ -162,3 +162,8 @@ elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
     export PATH="/home/ezra/.config/herd-lite/bin:$PATH"
     export PHP_INI_SCAN_DIR="/home/ezra/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 fi
+
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # RUBY for MAC
+    export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
+fi
