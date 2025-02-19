@@ -90,6 +90,16 @@ run = "move-node-to-workspace 1"
 if.app-id = "com.brave.Browser"
 run = "move-node-to-workspace 2"
 
+# OBS Studio
+[[on-window-detected]]
+if.app-id = "com.obsproject.obs-studio"
+run = "move-node-to-workspace 3"
+
+# KDenLive
+[[on-window-detected]]
+if.app-id = "org.kde.Kdenlive"
+run = "move-node-to-workspace 4"
+
 # Socials
 [[on-window-detected]]
 if.app-id = "net.whatsapp.WhatsApp"
@@ -99,3 +109,5 @@ run = "move-node-to-workspace 9"
 [[on-window-detected]]
 if.app-id = "com.spotify.client"
 run = "move-node-to-workspace 0"
+
+
