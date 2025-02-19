@@ -53,6 +53,7 @@ defaults write -g InitialKeyRepeat -int 15
 
 # Mouse Settings
 defaults write -g com.apple.mouse.scaling -float 0.75
+defaults write -g com.apple.swipescrolldirection -bool false
 defaults write -g com.apple.mouse.scaling -float -1
 
 # Control Center Settings
@@ -161,7 +162,7 @@ flutter doctor
 echo "Installing Applications..."
 
 # Browsers and Communication
-brew install --cask brave-browser spotify whatsapp
+brew install --cask brave-browser spotify signal
 
 # Utilities
 brew install --cask kitty chatbox
@@ -173,12 +174,11 @@ brew install --cask nikitabobko/tap/aerospace
 brew install --cask obs vlc kdenlive
 
 ##############################################
-### 7. Final Setup
+### 7. Window Bar Configuration
 ##############################################
-echo "Finalizing Setup..."
 
-# Install remaining tools
-brew install marp-cli pngpaste yazi ollama fastfetch lazygit
+brew services start sketchybar
+brew install FelixKratz/formulae/sketchybar
 
 ##############################################
 ### 8. Git Configuration
@@ -201,5 +201,17 @@ git clone git@gitlab.com://gitlab.com/ezraravinmateus/dotfiles
 cd dotfiles
 mv .config/_ ~/.config && sudo rm -rf .config
 mv ./_ ~/ && mv ./.\* ~/ && cd ../ && rm -rf dotfiles
+
+##############################################
+### 10. Final Setup
+##############################################
+echo "Finalizing Setup..."
+
+# Install remaining tools
+brew install marp-cli pngpaste yazi ollama fastfetch lazygit
+
+# Update Xcode
+sudo rm -rf /Library/Developer/CommandLineTools
+xcode-select --install
 
 echo "Setup complete! Some changes may require a restart."
