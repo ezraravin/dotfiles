@@ -187,4 +187,13 @@ git config --global user.name "MacBook Air M1"
 git config --global init.defaultBranch main
 git config --global credential.helper store
 
+##############################################
+### 9. Dotfiles Configuration
+##############################################
+mkdir .config
+git clone git@gitlab.com://gitlab.com/ezraravinmateus/dotfiles
+cd dotfiles
+mv .config/_ ~/.config && sudo rm -rf .config
+mv ./_ ~/ && mv ./.\* ~/ && cd ../ && rm -rf dotfiles
+
 echo "Setup complete! Some changes may require a restart."
