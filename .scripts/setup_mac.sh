@@ -178,7 +178,7 @@ brew install --cask obs vlc kdenlive
 echo "Finalizing Setup..."
 
 # Install remaining tools
-brew install marp-cli pngpaste yazi ollama fastfetch
+brew install marp-cli pngpaste yazi ollama fastfetch lazygit
 
 ##############################################
 ### 8. Git Configuration
