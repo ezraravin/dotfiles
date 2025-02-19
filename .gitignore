@@ -20,7 +20,7 @@
 !/.scripts
 
 # Include Recovery Folder
-!/Recovery
+!/.recovery
 
 
 # Include README.md
