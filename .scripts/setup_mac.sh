@@ -106,8 +106,6 @@ brew install neovim tmux ripgrep htop
 
 # Laravel Stack
 /bin/bash -c "$(curl -fsSL https://php.new/install/mac)"
-brew install docker-compose docker
-brew install --cask docker
 
 ##############################################
 ### 5. Flutter Stack
