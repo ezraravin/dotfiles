@@ -104,7 +104,7 @@ run = "move-node-to-workspace 3"
 
 # KDenLive
 [[on-window-detected]]
-if.app-id = "org.kde.Kdenlive"
+if.app-id = "com.blackmagic-design.DaVinciResolve"
 run = "move-node-to-workspace 4"
 
 # Socials
