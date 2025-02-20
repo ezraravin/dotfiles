@@ -180,7 +180,7 @@ install_applications() {
     brew install --cask android-studio kitty
 
     # Media tools
-    brew install --cask obs vlc kdenlive
+    brew install --cask obs
 
     # Utilities
     brew install --cask nikitabobko/tap/aerospace
