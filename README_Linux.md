@@ -70,10 +70,10 @@ curl -fsS https://dl.brave.com/install.sh | sh
 curl -fsSL https://ollama.com/install.sh | sh
 ```
 
-# INSTALL WAYBAR, HYPRLAND, HYPRPAPER, KITTY, KDENLIVE, OBS, ZSH, WL CLIPBOARD, DEV TOOLS, CAVA, VA API SUPPORT, SNAP, PAVUCONTROL, BLUEMAN
+# INSTALL WAYBAR, HYPRLAND, HYPRPAPER, KITTY, KDENLIVE, OBS, ZSH, WL CLIPBOARD, DEV TOOLS, CAVA, VA API SUPPORT, SNAP, PAVUCONTROL, BLUEMAN, G++
 
 ```bash
-sudo dnf install -y waybar hyprland hyprpaper kitty kdenlive obs-studio zsh wl-clipboard development-tools cava libva-nvidia-driver snapd vlc pavucontrol blueman
+sudo dnf install -y waybar hyprland hyprpaper kitty kdenlive obs-studio zsh wl-clipboard development-tools cava libva-nvidia-driver snapd vlc pavucontrol blueman g++
 ```
 
 # CONFIGURE SNAP
