@@ -6,7 +6,7 @@ set -o pipefail
 exec > >(tee -i setup.log) 2>&1
 
 ##############################################
-### 1. System Configuration
+### System Configuration
 ##############################################
 configure_system() {
     echo "⚙️ Configuring System Settings..."
@@ -67,7 +67,7 @@ configure_system() {
 }
 
 ##############################################
-### 2. Package Management Setup
+### Package Management Setup
 ##############################################
 setup_package_management() {
     echo "📦 Setting Up Package Management..."
@@ -98,7 +98,32 @@ setup_package_management() {
 }
 
 ##############################################
-### 3. Xcode Installation (Core)
+### Display Configuration
+##############################################
+configure_display_settings() {
+    echo "🖥️ Configuring Display Settings..."
+
+    # Install displayplacer if not already installed
+    if ! command -v displayplacer &>/dev/null; then
+        echo "  ↳ Installing displayplacer..."
+        brew install jakehilborn/jakehilborn/displayplacer
+    fi
+
+    # Set specific display configuration
+    echo "  ↳ Applying display configuration..."
+    displayplacer "id:37D8832A-2D66-02CA-B9F7-8F30A301B230 res:1680x1050 hz:60 color_depth:8 enabled:true scaling:on origin:(0,0) degree:0"
+
+    # Verify configuration
+    if displayplacer list | grep -q "1680x1050"; then
+        echo "  ↳ Display configuration verified successfully"
+    else
+        echo "  ↳ Warning: Display configuration might not have applied correctly"
+        echo "  ↳ Check available resolutions with: displayplacer list"
+    fi
+}
+
+##############################################
+### Xcode Installation (Core)
 ##############################################
 install_xcode() {
     echo "🛠️ Installing Xcode..."
@@ -132,7 +157,7 @@ install_xcode() {
 }
 
 ##############################################
-### 4. Development Environment Setup
+### Development Environment Setup
 ##############################################
 setup_development_environment() {
     echo "👨💻 Setting Up Development Environment..."
@@ -148,7 +173,7 @@ setup_development_environment() {
 }
 
 ##############################################
-### 4. Mobile Development Setup
+### Mobile Development Setup
 ##############################################
 setup_mobile_development() {
     echo "📱 Setting Up Mobile Development..."
@@ -175,7 +200,7 @@ setup_mobile_development() {
 }
 
 ##############################################
-### 5. Application Installation
+### Application Installation
 ##############################################
 install_applications() {
     echo "📦 Installing Applications..."
@@ -194,7 +219,7 @@ install_applications() {
 }
 
 ##############################################
-### 6. Shell Environment Setup
+### Shell Environment Setup
 ##############################################
 setup_shell_environment() {
     echo "🐚 Configuring Shell Environment..."
@@ -215,7 +240,7 @@ setup_shell_environment() {
 }
 
 ##############################################
-### 8. Git & Dotfiles Configuration
+### Git & Dotfiles Configuration
 ##############################################
 configure_git_and_dotfiles() {
     echo "🔧 Configuring Git & Dotfiles..."
@@ -233,7 +258,7 @@ configure_git_and_dotfiles() {
 }
 
 ##############################################
-### 9. Top Menu Bar Configuration
+### Top Menu Bar Configuration
 ##############################################
 
 setup_ui_customization() {
@@ -265,6 +290,7 @@ main() {
 
     configure_system
     setup_package_management
+    configure_display_settings
     install_xcode
     setup_development_environment
     setup_mobile_development
