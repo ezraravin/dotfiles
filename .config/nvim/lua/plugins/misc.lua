@@ -55,13 +55,14 @@ return {
 		lazy = true,
 		keys = {
 			{
-				"<leader>,",
+				"<leader>mpv",
 				function()
 					require("md-pdf").convert_md_to_pdf()
 				end,
 				desc = "Markdown preview",
 			},
 		},
+		opts = {},
 	},
 
 	-- Tailwind Colorizer CMP for Color Highlighting
