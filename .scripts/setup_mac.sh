@@ -58,6 +58,10 @@ configure_system() {
     defaults write -g KeyRepeat -int 1
     defaults write -g InitialKeyRepeat -int 15
 
+    # Mouse Settings
+    defaults write -g com.apple.mouse.scaling -float 1.0
+    defaults write -g com.apple.mouse.scaling -float -1
+
     # Apply changes
     killall SystemUIServer Dock Finder
 }
@@ -152,6 +156,9 @@ setup_mobile_development() {
     # Flutter installation
     brew install --cask flutter
 
+    # Chrome installation
+    brew install --cask google-chrome
+
     # Android Studio
     brew install --cask android-studio temurin android-commandlinetools
     yes | sdkmanager --licenses
@@ -198,7 +205,13 @@ setup_shell_environment() {
     fi
 
     # Shell tools
-    brew install zsh-syntax-highlighting zsh-autosuggestions eza zoxide fzf oh-my-posh librsvg imagemagick chafa
+    brew install zsh-syntax-highlighting zsh-autosuggestions eza zoxide fzf oh-my-posh
+
+    # Yazi SVG Viewer Support
+    brew install librsvg imagemagick chafa
+
+    # PDF Support for Markdown to PDF
+    brew install basictex pandoc
 }
 
 ##############################################
