@@ -56,6 +56,9 @@ eval "$(zoxide init zsh)"
 # Oh My Posh
 eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/zen.toml)"
 
+# Pandoc & Basictex
+eval "$(/usr/libexec/path_helper)"
+
 # Zsh Autosuggestions
 source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
 
