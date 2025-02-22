@@ -1,0 +1,95 @@
+#!/bin/bash
+
+# Path to plugin scripts
+PLUGIN_DIR="$CONFIG_DIR/plugins"
+
+##### Catppuccin Mocha Colors #####
+COLOR_BACKGROUND=0xff1e1e2e
+COLOR_FOREGROUND=0xffcdd6f4
+COLOR_ACCENT=0xff89b4fa
+COLOR_RED=0xfff38ba8
+COLOR_GREEN=0xffa6e3a1
+COLOR_YELLOW=0xfff9e2af
+COLOR_BLUE=0xff89b4fa
+COLOR_PURPLE=0xffcba6f7
+
+##### Bar Appearance #####
+# Increased bar height to accommodate larger fonts
+sketchybar --bar \
+    position=top \
+    height=50 \
+    blur_radius=30 \
+    color=$COLOR_BACKGROUND
+
+##### Changing Defaults #####
+default=(
+    padding_left=5
+    padding_right=5
+    icon.font="JetBrainsMonoNerdFontComplete-Bold:22.0"  # Default icon font size
+    label.font="JetBrainsMonoNerdFontComplete-Bold:18.0" # Default label font size
+    icon.color=$COLOR_FOREGROUND
+    label.color=$COLOR_FOREGROUND
+    icon.padding_left=4
+    icon.padding_right=4
+    label.padding_left=4
+    label.padding_right=4
+    background.color=$COLOR_BACKGROUND
+)
+sketchybar --default "${default[@]}"
+
+##### Adding Mission Control Space Indicators #####
+SPACE_ICONS=("1" "2" "3" "4" "5" "6" "7" "8" "9" "10")
+for i in "${!SPACE_ICONS[@]}"; do
+    sid="$(($i + 1))"
+    space=(
+        space="$sid"
+        icon="${SPACE_ICONS[i]}"
+        icon.padding_left=7
+        icon.padding_right=7
+        background.color=0x40ffffff
+        background.corner_radius=5
+        background.height=35 # Increased height for space indicators
+        label.drawing=off
+        script="$PLUGIN_DIR/space.sh"
+        click_script="aerospace focus-workspace $sid" # Correct Aerospace command
+    )
+    sketchybar --add space space."$sid" left --set space."$sid" "${space[@]}"
+done
+
+##### Adding Left Items #####
+sketchybar --add item chevron left \
+    --set chevron icon= label.drawing=off
+
+sketchybar --add item front_app left \
+    --set front_app icon.drawing=off script="$PLUGIN_DIR/front_app.sh" \
+    --subscribe front_app front_app_switched
+
+##### Adding Right Items #####
+# Clock
+sketchybar --add item clock right \
+    --set clock \
+    update_freq=10 \
+    icon= \
+    icon.font="JetBrainsMonoNerdFontComplete-Bold:24.0" \
+    label.font="JetBrainsMonoNerdFontComplete-Bold:18.0" \
+    script="$PLUGIN_DIR/clock.sh"
+
+# Volume
+sketchybar --add item volume right \
+    --set volume \
+    icon.font="JetBrainsMonoNerdFontComplete-Bold:24.0" \
+    label.font="JetBrainsMonoNerdFontComplete-Bold:18.0" \
+    script="$PLUGIN_DIR/volume.sh" \
+    --subscribe volume volume_change
+
+# Battery
+sketchybar --add item battery right \
+    --set battery \
+    update_freq=120 \
+    icon.font="JetBrainsMonoNerdFontComplete-Bold:24.0" \
+    label.font="JetBrainsMonoNerdFontComplete-Bold:18.0" \
+    script="$PLUGIN_DIR/battery.sh" \
+    --subscribe battery system_woke power_source_change
+
+##### Force all scripts to run the first time #####
+sketchybar --update

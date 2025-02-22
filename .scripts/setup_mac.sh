@@ -216,6 +216,9 @@ install_applications() {
 
     # Utilities
     brew install --cask nikitabobko/tap/aerospace
+
+    # JetBrains Nerd Font Mono
+    brew install --cask font-jetbrains-mono-nerd-font
 }
 
 ##############################################
