@@ -59,7 +59,7 @@ configure_system() {
     defaults write -g InitialKeyRepeat -int 15
 
     # Mouse Settings
-    defaults write -g com.apple.mouse.scaling -float 1.0
+    defaults write -g com.apple.mouse.scaling -float 1.05
     defaults write -g com.apple.mouse.scaling -float -1
 
     # Apply changes
