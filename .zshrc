@@ -87,6 +87,7 @@ alias tm="tmux"
 # File Listing
 alias ls="eza --icons"
 alias lst="eza --icons --tree"
+alias lsl="eza -l"
 
 # Navigation
 alias cd="z"
@@ -95,7 +96,10 @@ alias f='nvim $(fzf --preview="bat --color=always {}")'
 # Development
 alias get_idf='. $HOME/esp/esp-idf/export.sh'
 alias xampp="sudo /opt/lampp/lampp start"
-alias nvc="cd ~/.config/nvim && v && cd"
+
+# Configuratin
+alias nvc="cd ~/.config/nvim && nvim && cd"
+alias zshrc="cd ~/ && nvim .zshrc"
 
 # ======================
 # TMUX (Auto-start)
