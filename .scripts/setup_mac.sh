@@ -235,8 +235,8 @@ setup_shell_environment() {
     # Shell tools
     brew install zsh-syntax-highlighting zsh-autosuggestions eza zoxide fzf oh-my-posh
 
-    # Yazi SVG Viewer Support
-    brew install librsvg imagemagick chafa
+    # Yazi SVG Viewer & FFMPEG Support
+    brew install librsvg imagemagick chafa ffmpeg
 
     # PDF Support for Markdown to PDF
     brew install basictex pandoc
