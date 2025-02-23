@@ -64,7 +64,7 @@ return {
 			sections = {
 				lualine_a = { { "mode", separator = { left = "" } } },
 				lualine_b = { "branch" },
-				lualine_c = {},
+				lualine_c = { { "filetype", icon_only = true }, "filename" },
 				lualine_x = { lazy_updates },
 				lualine_y = { diff, diagnostics },
 				lualine_z = { "progress", { "location", separator = { right = "" } } },
