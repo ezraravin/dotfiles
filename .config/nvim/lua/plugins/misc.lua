@@ -48,23 +48,6 @@ return {
 		end,
 	},
 
-	-- MD to PDF
-	{
-		"arminveres/md-pdf.nvim",
-		branch = "main", -- you can assume that main is somewhat stable until releases will be made
-		lazy = true,
-		keys = {
-			{
-				"<leader>mpv",
-				function()
-					require("md-pdf").convert_md_to_pdf()
-				end,
-				desc = "Markdown preview",
-			},
-		},
-		opts = {},
-	},
-
 	-- Tailwind Colorizer CMP for Color Highlighting
 	{
 		"roobert/tailwindcss-colorizer-cmp.nvim",

@@ -59,7 +59,7 @@ configure_system() {
     defaults write -g InitialKeyRepeat -int 15
 
     # Mouse Settings
-    defaults write -g com.apple.mouse.scaling -float 1.0
+    defaults write -g com.apple.mouse.scaling -float 1.05
     defaults write -g com.apple.mouse.scaling -float -1
 
     # Apply changes
@@ -235,8 +235,8 @@ setup_shell_environment() {
     # Shell tools
     brew install zsh-syntax-highlighting zsh-autosuggestions eza zoxide fzf oh-my-posh
 
-    # Yazi SVG Viewer Support
-    brew install librsvg imagemagick chafa
+    # Yazi SVG Viewer & FFMPEG Support
+    brew install librsvg imagemagick chafa ffmpeg
 
     # PDF Support for Markdown to PDF
     brew install basictex pandoc
