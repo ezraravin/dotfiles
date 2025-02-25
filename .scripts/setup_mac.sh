@@ -240,6 +240,9 @@ setup_shell_environment() {
 
     # PDF Support for Markdown to PDF
     brew install basictex pandoc
+
+    # WebP
+    brew install webp
 }
 
 ##############################################
