@@ -57,7 +57,9 @@ eval "$(zoxide init zsh)"
 eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/zen.toml)"
 
 # Pandoc & Basictex
-eval "$(/usr/libexec/path_helper)"
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    eval "$(/usr/libexec/path_helper)"
+fi
 
 # Zsh Autosuggestions
 source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
