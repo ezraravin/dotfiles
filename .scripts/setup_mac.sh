@@ -236,9 +236,9 @@ setup_shell_environment() {
     fi
 
     # Shell tools
-    brew install zsh-syntax-highlighting zsh-autosuggestions eza zoxide fzf oh-my-posh
+    brew install zsh-syntax-highlighting zsh-autosuggestions eza zoxide fzf oh-my-posh yazi
 
-    # Yazi SVG Viewer & FFMPEG Support
+    # File SVG Viewer & FFMPEG Support
     brew install librsvg imagemagick chafa ffmpeg
 
     # PDF Support for Markdown to PDF
