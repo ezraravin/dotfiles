@@ -219,6 +219,9 @@ install_applications() {
 
     # JetBrains Nerd Font Mono
     brew install --cask font-jetbrains-mono-nerd-font
+
+    # Gather
+    brew install --cask gather
 }
 
 ##############################################
