@@ -162,8 +162,11 @@ install_xcode() {
 setup_development_environment() {
     echo "👨💻 Setting Up Development Environment..."
 
-    # JavaScript ecosystem
+    # JavaScript Ecosystem
     brew install node pnpm oven-sh/bun/bun
+
+    # Python Environment
+    brew install python
 
     # Editors and tools
     brew install neovim tmux ripgrep btop
