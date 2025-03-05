@@ -22,13 +22,14 @@
 # Include Recovery Folder
 !/.recovery
 
-
 # Include README.md
 !/README_Linux.md
 
-# Include config
+# Exclude all inside config files
 !/.config
 /.config/*
+
+# Include Kitty
 !/.config/kitty
 !/.config/nvim
 !/.config/oh-my-posh
