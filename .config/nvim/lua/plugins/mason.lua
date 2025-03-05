@@ -5,29 +5,16 @@ return {
 		"WhoIsSethDaniel/mason-tool-installer.nvim",
 	},
 	config = function()
-		-- import mason
-		local mason = require("mason")
+		-- Ensure Mason binaries are in PATH
+		vim.env.PATH = vim.fn.stdpath("data") .. "/mason/bin" .. ":" .. vim.env.PATH
 
-		-- import mason-lspconfig
-		local mason_lspconfig = require("mason-lspconfig")
-
-		local mason_tool_installer = require("mason-tool-installer")
-
-		-- enable mason and configure icons
-		mason.setup({
-			ui = {
-				icons = {
-					package_installed = "✓",
-					package_pending = "➜",
-					package_uninstalled = "✗",
-				},
-			},
+		require("mason").setup({
+			ui = { icons = { package_installed = "✓", package_pending = "➜", package_uninstalled = "✗" } },
 		})
 
-		mason_lspconfig.setup({
+		require("mason-lspconfig").setup({
 			ensure_installed = {
-				"astro",
-				"ts_ls",
+				"tsserver", -- Corrected from "ts_ls"
 				"html",
 				"cssls",
 				"tailwindcss",
@@ -39,17 +26,22 @@ return {
 				"pyright",
 				"clangd",
 				"bashls",
+				"astro",
 			},
 		})
 
-		mason_tool_installer.setup({
+		require("mason-tool-installer").setup({
 			ensure_installed = {
-				"prettier", -- prettier formatter
-				"stylua", -- lua formatter
+				"prettier",
+				"stylua",
 				"eslint_d",
 				"clang-format",
 				"shfmt",
+				"black",
+				"isort",
 			},
+			auto_update = true,
+			run_on_start = true,
 		})
 	end,
 }
