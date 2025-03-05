@@ -4,11 +4,11 @@
 
 # Homebrew Path
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    # macOS-specific configurations
-    export HOMEBREW_PREFIX="/opt/homebrew"
+  # macOS-specific configurations
+  export HOMEBREW_PREFIX="/opt/homebrew"
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-    # Linux-specific configurations
-    export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+  # Linux-specific configurations
+  export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
 fi
 
 # Oh My Zsh
@@ -24,7 +24,7 @@ export PATH="$HOME/.config/herd-lite/bin:$PATH"
 
 # Ruby (Mac only)
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    export PATH="$HOMEBREW_PREFIX/opt/ruby/bin:$PATH"
+  export PATH="$HOMEBREW_PREFIX/opt/ruby/bin:$PATH"
 fi
 
 # Prettier
@@ -58,7 +58,7 @@ eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/zen.toml)"
 
 # Pandoc & Basictex
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    eval "$(/usr/libexec/path_helper)"
+  eval "$(/usr/libexec/path_helper)"
 fi
 
 # Zsh Autosuggestions
@@ -98,8 +98,9 @@ alias f='nvim $(fzf --preview="bat --color=always {}")'
 # Development
 alias get_idf='. $HOME/esp/esp-idf/export.sh'
 alias xampp="sudo /opt/lampp/lampp start"
+alias py="python"
 
-# Configuratin
+# Configuration
 alias nvc="cd ~/.config/nvim && nvim && cd"
 alias zshrc="cd ~/ && nvim .zshrc"
 
@@ -108,5 +109,5 @@ alias zshrc="cd ~/ && nvim .zshrc"
 # ======================
 
 if [ -z "$TMUX" ]; then
-    tmux
+  tmux
 fi
