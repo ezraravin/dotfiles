@@ -25,6 +25,9 @@
 # Include README.md
 !/README_Linux.md
 
+# Include API
+!/.api
+
 # Exclude all inside config files
 !/.config
 /.config/*
