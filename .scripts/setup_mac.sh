@@ -239,7 +239,7 @@ setup_shell_environment() {
   fi
 
   # Shell tools
-  brew install zsh-syntax-highlighting zsh-autosuggestions eza zoxide fzf oh-my-posh yazi
+  brew install zsh-syntax-highlighting zsh-autosuggestions eza zoxide fzf oh-my-posh yazi thefuck
 
   # File SVG Viewer & FFMPEG Support
   brew install librsvg imagemagick chafa ffmpeg
