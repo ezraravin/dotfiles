@@ -105,6 +105,7 @@ alias f='nvim $(fzf --preview="bat --color=always {}")'
 alias get_idf='. $HOME/esp/esp-idf/export.sh'
 alias xampp="sudo /opt/lampp/lampp start"
 alias py="python"
+alias py3="python3"
 alias fk="fuck"
 
 # Configuration
