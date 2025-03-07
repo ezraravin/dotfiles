@@ -6,25 +6,50 @@ set -o pipefail
 exec > >(tee -i setup.log) 2>&1
 
 ##############################################
+### Helper Functions
+##############################################
+
+# Function to check if a command exists
+command_exists() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+# Function to install a package if it doesn't exist
+install_if_missing() {
+  local package=$1
+  local install_command=$2
+
+  if ! command_exists "$package"; then
+    echo "  ↳ Installing $package..."
+    eval "$install_command"
+  else
+    echo "  ↳ $package already installed."
+  fi
+}
+
+# Function to configure a default setting if it exists
+configure_default() {
+  local domain=$1
+  local key=$2
+  local value=$3
+
+  if defaults read "$domain" "$key" >/dev/null 2>&1; then
+    echo "  ↳ Configuring $domain $key..."
+    defaults write "$domain" "$key" "$value"
+  else
+    echo "  ↳ $domain $key does not exist, skipping..."
+  fi
+}
+
+##############################################
 ### System Configuration
 ##############################################
 configure_system() {
   echo "⚙️ Configuring System Settings..."
 
   # Clear apps and folders from the Dock if they exist
-  if defaults read com.apple.dock persistent-apps >/dev/null 2>&1; then
-    echo "  ↳ Removing persistent-apps..."
-    defaults delete com.apple.dock persistent-apps
-  else
-    echo "  ↳ persistent-apps does not exist, skipping..."
-  fi
-
-  if defaults read com.apple.dock persistent-others >/dev/null 2>&1; then
-    echo "  ↳ Removing persistent-others..."
-    defaults delete com.apple.dock persistent-others
-  else
-    echo "  ↳ persistent-others does not exist, skipping..."
-  fi
+  configure_default com.apple.dock persistent-apps ""
+  configure_default com.apple.dock persistent-others ""
 
   # Apple Silicon specific setup
   if [[ "$(uname -m)" == "arm64" ]]; then
@@ -73,17 +98,11 @@ setup_package_management() {
   echo "📦 Setting Up Package Management..."
 
   # Install Homebrew
-  if ! command -v brew &>/dev/null; then
-    echo "  ↳ Installing Homebrew..."
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-  fi
+  install_if_missing brew '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 
   # Install MAS (Mac App Store CLI)
-  if ! command -v mas &>/dev/null; then
-    echo "  ↳ Installing MAS..."
-    brew install mas
-  fi
+  install_if_missing mas 'brew install mas'
 
   # Configure auto-updates (only if not already running)
   brew install pinentry-mac
@@ -104,14 +123,11 @@ configure_display_settings() {
   echo "🖥️ Configuring Display Settings..."
 
   # Install displayplacer if not already installed
-  if ! command -v displayplacer &>/dev/null; then
-    echo "  ↳ Installing displayplacer..."
-    brew install jakehilborn/jakehilborn/displayplacer
-  fi
+  install_if_missing displayplacer 'brew install jakehilborn/jakehilborn/displayplacer'
 
   # Set specific display configuration
   echo "  ↳ Applying display configuration..."
-  displayplacer "id:37D8832A-2D66-02CA-B9F7-8F30A301B230 res:1680x1050 hz:60 color_depth:8 enabled:true scaling:on origin:(0,0) degree:0"
+  displayplacer "id:37D8832A-2D66-02CA-B9F7-8F30A301B230 res:1440x900 hz:60 color_depth:8 enabled:true scaling:on origin:(0,0) degree:0"
 
   # Verify configuration
   if displayplacer list | grep -q "1680x1050"; then
@@ -275,17 +291,11 @@ configure_git_and_dotfiles() {
 ##############################################
 ### Top Menu Bar Configuration
 ##############################################
-
 setup_ui_customization() {
   echo "🎨 Configuring UI Customizations..."
 
   # Install and start SketchyBar
-  if ! command -v sketchybar &>/dev/null; then
-    echo "  ↳ Installing SketchyBar..."
-    brew install FelixKratz/formulae/sketchybar
-  else
-    echo "  ↳ SketchyBar already installed."
-  fi
+  install_if_missing sketchybar 'brew install FelixKratz/formulae/sketchybar'
 
   # Start SketchyBar as a service
   brew services start sketchybar
