@@ -268,6 +268,9 @@ setup_shell_environment() {
 
   # WebP
   brew install webp
+
+  # UNRAR
+  brew install carlocab/personal/unrar
 }
 
 ##############################################
