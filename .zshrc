@@ -33,9 +33,6 @@ fi
 # Prettier
 export PRETTIERD_DEFAULT_CONFIG="$HOME/.prettierrc"
 
-# Deepseek
-export MODEL="deepseek-r1:1.5b"
-
 # ======================
 # Shell Configuration
 # ======================
@@ -120,3 +117,7 @@ alias scr="cd ~/.scripts/ && nvim && cd"
 if [ -z "$TMUX" ]; then
   tmux
 fi
+
+# Run Fastfetch After TMUX
+
+fastfetch
