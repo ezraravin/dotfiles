@@ -242,8 +242,8 @@ install_applications() {
   # Gather
   brew install --cask gather
 
-  # Ollama
-  brew install --cask ollama
+  # AI
+  brew install --cask ollama chatbox
 }
 
 ##############################################
