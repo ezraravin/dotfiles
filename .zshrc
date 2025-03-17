@@ -121,3 +121,10 @@ fi
 # Run Fastfetch After TMUX
 
 fastfetch
+
+# PNPM
+export PNPM_HOME="/Users/ezra/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
