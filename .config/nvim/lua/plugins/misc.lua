@@ -129,6 +129,20 @@ return {
 		end,
 	},
 
+	-- LIVE SERVER
+	{
+		"barrett-ruth/live-server.nvim",
+		build = "pnpm add -g live-server",
+		cmd = { "LiveServerStart", "LiveServerStop" },
+		config = function()
+			require("live-server").setup({
+				file = vim.fn.expand("%:p"),
+			})
+		end,
+		vim.keymap.set("n", "<leader>ls", "<CMD>LiveServerStart<CR>", { desc = "Open Live Server" }),
+		vim.keymap.set("n", "<leader>lq", "<CMD>LiveServerStop<CR>", { desc = "Terminate Live Server" }),
+	},
+
 	-- Chunking & Indent Line
 	{
 		"shellRaining/hlchunk.nvim",
