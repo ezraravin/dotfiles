@@ -6,6 +6,22 @@ set -o pipefail
 exec > >(tee -i setup.log) 2>&1
 
 ##############################################
+### Cleanup Function
+##############################################
+cleanup() {
+  exit_status=$?
+  if [ $exit_status -eq 0 ]; then
+    echo "✅ Installation successful. Setup.log has been deleted."
+  else
+    echo "❌ Installation failed. Error details from setup.log:"
+    cat setup.log
+  fi
+  rm -f setup.log
+}
+
+trap cleanup EXIT
+
+##############################################
 ### Helper Functions
 ##############################################
 
