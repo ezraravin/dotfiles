@@ -33,6 +33,13 @@ fi
 # Prettier
 export PRETTIERD_DEFAULT_CONFIG="$HOME/.prettierrc"
 
+# PNPM
+export PNPM_HOME="/Users/ezra/Library/pnpm"
+case ":$PATH:" in
+  *":$PNPM_HOME:"*) ;;
+  *) export PATH="$PNPM_HOME:$PATH" ;;
+esac
+
 # ======================
 # Shell Configuration
 # ======================
@@ -59,7 +66,7 @@ eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/zen.toml)"
 # The Fuck
 eval $(thefuck --alias)
 
-# Pandoc & Basictex
+# Pandoc & Basictex (Mac only)
 if [[ "$OSTYPE" == "darwin"* ]]; then
   eval "$(/usr/libexec/path_helper)"
 fi
@@ -119,12 +126,22 @@ if [ -z "$TMUX" ]; then
 fi
 
 # Run Fastfetch After TMUX
-
 fastfetch
 
-# PNPM
-export PNPM_HOME="/Users/ezra/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
+# ======================
+# Ensure .zshrc is only sourced once
+# ======================
+
+if [ -z "$ZSH_RC_SOURCED" ]; then
+  export ZSH_RC_SOURCED=1
+else
+  return 0
+fi
+
+# ======================
+# Ensure Zsh is running
+# ======================
+
+if [ -z "$ZSH" ]; then
+  exec zsh
+fi
