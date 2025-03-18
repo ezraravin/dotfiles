@@ -1,147 +1,174 @@
-# ======================
-# Environment Variables
-# ======================
+# export PATH=$HOME/bin:$HOME/.local/bin:/usr/local/bin:$PATH
 
-# Homebrew Path
+if [ "$TMUX" = "" ]; then tmux; fi
+
+# HOMEBREW
+
+# For macOS
 if [[ "$OSTYPE" == "darwin"* ]]; then
-  # macOS-specific configurations
-  export HOMEBREW_PREFIX="/opt/homebrew"
+    eval "$(/opt/homebrew/bin/brew shellenv)" # ARM Macs
+# For Linux
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-  # Linux-specific configurations
-  export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+    eval "$(/home/linuxbrew/.linuxbrew/bin/brew shellenv)"
 fi
 
-# Neovim as Default Editor
-export EDITOR="nvim"
-
-# Oh My Zsh
+# Path to your Oh My Zsh installation.
 export ZSH="$HOME/.oh-my-zsh"
 
-# Android SDK
-export ANDROID_HOME="$HOMEBREW_PREFIX/share/android-commandlinetools"
-export PATH="$ANDROID_HOME/cmdline-tools/tools/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$PATH"
-
-# PHP (Herd Lite)
-export PHP_INI_SCAN_DIR="$HOME/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
-export PATH="$HOME/.config/herd-lite/bin:$PATH"
-
-# Ruby (Mac only)
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  export PATH="$HOMEBREW_PREFIX/opt/ruby/bin:$PATH"
-fi
-
-# Prettier
-export PRETTIERD_DEFAULT_CONFIG="$HOME/.prettierrc"
-
-# PNPM
-export PNPM_HOME="/Users/ezra/Library/pnpm"
-case ":$PATH:" in
-  *":$PNPM_HOME:"*) ;;
-  *) export PATH="$PNPM_HOME:$PATH" ;;
-esac
-
-# ======================
-# Shell Configuration
-# ======================
-
-# Oh My Zsh Theme
+# Set name of the theme to load --- if set to "random", it will
+# load a random theme each time Oh My Zsh is loaded, in which case,
+# to know which specific one was loaded, run: echo $RANDOM_THEME
+# See https://github.com/ohmyzsh/ohmyzsh/wiki/Themes
 ZSH_THEME="robbyrussell"
 
-# Source Oh My Zsh
-source "$ZSH/oh-my-zsh.sh"
+# Set list of themes to pick from when loading at random
+# Setting this variable when ZSH_THEME=random will cause zsh to load
+# a theme from this variable instead of looking in $ZSH/themes/
+# If set to an empty array, this variable will have no effect.
+# ZSH_THEME_RANDOM_CANDIDATES=( "robbyrussell" "agnoster" )
 
-# ======================
-# Tool Initializations
-# ======================
+# Uncomment the following line to use case-sensitive completion.
+# CASE_SENSITIVE="true"
 
-# Homebrew
-eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+# Uncomment the following line to use hyphen-insensitive completion.
+# Case-sensitive completion must be off. _ and - will be interchangeable.
+# HYPHEN_INSENSITIVE="true"
 
-# Zoxide
+# Uncomment one of the following lines to change the auto-update behavior
+# zstyle ':omz:update' mode disabled  # disable automatic updates
+# zstyle ':omz:update' mode auto      # update automatically without asking
+# zstyle ':omz:update' mode reminder  # just remind me to update when it's time
+
+# Uncomment the following line to change how often to auto-update (in days).
+# zstyle ':omz:update' frequency 13
+
+# Uncomment the following line if pasting URLs and other text is messed up.
+# DISABLE_MAGIC_FUNCTIONS="true"
+
+# Uncomment the following line to disable colors in ls.
+# DISABLE_LS_COLORS="true"
+
+# Uncomment the following line to disable auto-setting terminal title.
+# DISABLE_AUTO_TITLE="true"
+
+# Uncomment the following line to enable command auto-correction.
+# ENABLE_CORRECTION="true"
+
+# Uncomment the following line to display red dots whilst waiting for completion.
+# You can also set it to another string to have that shown instead of the default red dots.
+# e.g. COMPLETION_WAITING_DOTS="%F{yellow}waiting...%f"
+# Caution: this setting can cause issues with multiline prompts in zsh < 5.7.1 (see #5765)
+# COMPLETION_WAITING_DOTS="true"
+
+# Uncomment the following line if you want to disable marking untracked files
+# under VCS as dirty. This makes repository status check for large repositories
+# much, much faster.
+# DISABLE_UNTRACKED_FILES_DIRTY="true"
+
+# Uncomment the following line if you want to change the command execution time
+# stamp shown in the history command output.
+# You can set one of the optional three formats:
+# "mm/dd/yyyy"|"dd.mm.yyyy"|"yyyy-mm-dd"
+# or set a custom format using the strftime function format specifications,
+# see 'man strftime' for details.
+# HIST_STAMPS="mm/dd/yyyy"
+
+# Would you like to use another custom folder than $ZSH/custom?
+# ZSH_CUSTOM=/path/to/new-custom-folder
+
+# Which plugins would you like to load?
+# Standard plugins can be found in $ZSH/plugins/
+# Custom plugins may be added to $ZSH_CUSTOM/plugins/
+# Example format: plugins=(rails git textmate ruby lighthouse)
+# Add wisely, as too many plugins slow down shell startup.
+plugins=(git)
+
+source $ZSH/oh-my-zsh.sh
+
+# User configuration
+
+# export MANPATH="/usr/local/man:$MANPATH"
+
+# You may need to manually set your language environment
+# export LANG=en_US.UTF-8
+
+# Preferred editor for local and remote sessions
+# if [[ -n $SSH_CONNECTION ]]; then
+#   export EDITOR='vim'
+# else
+#   export EDITOR='nvim'
+# fi
+
+# Compilation flags
+# export ARCHFLAGS="-arch $(uname -m)"
+
+# Set personal aliases, overriding those provided by Oh My Zsh libs,
+# plugins, and themes. Aliases can be placed here, though Oh My Zsh
+# users are encouraged to define aliases within a top-level file in
+# the $ZSH_CUSTOM folder, with .zsh extension. Examples:
+# - $ZSH_CUSTOM/aliases.zsh
+# - $ZSH_CUSTOM/macos.zsh
+# For a full list of active aliases, run `alias`.
+#
+# Example aliases
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+
+alias v="nvim"
+alias c="clear"
+alias lg="lazygit"
+alias q="exit"
+alias sz="source ~/.zshrc"
+alias yz="yazi"
+alias ls="eza --icons"
+alias lst="eza --icons --tree"
+alias cd="z"
+alias tm="tmux"
+alias f='nvim $(fzf --preview="bat --color=always {}")'
+alias ff="fastfetch"
+alias cv="cava"
+alias get_idf='. $HOME/esp/esp-idf/export.sh'
+alias xampp="sudo /opt/lampp/lampp start"
+alias nvc="cd ~/.config/nvim && v && cd "
+alias bt="btop"
+
+# DEEPSEEK
+export MODEL="deepseek-r1:1.5b"
+
+# ZOXIDE
 eval "$(zoxide init zsh)"
 
-# Oh My Posh
+# OH MY POSH
 eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/zen.toml)"
 
-# The Fuck
-eval $(thefuck --alias)
+# PRETTIER
+export PRETTIERD_DEFAULT_CONFIG=~/.prettierrc
 
-# Pandoc & Basictex (Mac only)
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  eval "$(/usr/libexec/path_helper)"
-fi
+# ZSH AUTO SUGGESTION
+source $(brew --prefix)/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 
-# Zsh Autosuggestions
-source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-
-# Zsh Syntax Highlighting
-source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
+# ZSH SYNTAX HIGHLIGHTING
+source $(brew --prefix)/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # FZF
 source <(fzf --zsh)
 
-# ======================
-# Aliases
-# ======================
-
-# General
-alias v="nvim"
-alias c="clear"
-alias q="exit"
-alias sz="source ~/.zshrc"
-alias lg="lazygit"
-alias yz="yazi"
-alias ff="fastfetch"
-alias cv="cava"
-alias bt="btop"
-alias tm="tmux"
-
-# File Listing
-alias ls="eza --icons"
-alias lst="eza --icons --tree"
-alias lsl="eza -l"
-
-# Navigation
-alias cd="z"
-alias f='nvim $(fzf --preview="bat --color=always {}")'
-
-# Development
-alias get_idf='. $HOME/esp/esp-idf/export.sh'
-alias xampp="sudo /opt/lampp/lampp start"
-alias py="python"
-alias py3="python3"
-alias fk="fuck"
-
-# Configuration
-alias nvc="cd ~/.config/nvim && nvim && cd"
-alias zc="cd ~/ && nvim .zshrc"
-alias scr="cd ~/.scripts/ && nvim && cd"
-
-# ======================
-# TMUX (Auto-start)
-# ======================
-
-if [ -z "$TMUX" ]; then
-  tmux
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # PHP for MAC
+    export PATH="/Users/ezra/.config/herd-lite/bin:$PATH"
+    export PHP_INI_SCAN_DIR="/Users/ezra/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
+elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
+    # PHP for LINUX
+    export PATH="/home/ezra/.config/herd-lite/bin:$PATH"
+    export PHP_INI_SCAN_DIR="/home/ezra/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 fi
 
-# Run Fastfetch After TMUX
-fastfetch
-
-# ======================
-# Ensure .zshrc is only sourced once
-# ======================
-
-if [ -z "$ZSH_RC_SOURCED" ]; then
-  export ZSH_RC_SOURCED=1
-else
-  return 0
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    # RUBY for MAC
+    export PATH="/opt/homebrew/opt/ruby/bin:$PATH"
 fi
 
-# ======================
-# Ensure Zsh is running
-# ======================
-
-if [ -z "$ZSH" ]; then
-  exec zsh
-fi
+export ANDROID_HOME=/opt/homebrew/share/android-commandlinetools
+export PATH=$ANDROID_HOME/cmdline-tools/tools/bin:$PATH
+export PATH=$ANDROID_HOME/emulator:$PATH
+export PATH=$ANDROID_HOME/platform-tools:$PATH
