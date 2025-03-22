@@ -56,7 +56,7 @@ sudo systemctl enable bluetooth
 ```
 # Install Hyprland
 ```bash
-sudo pacman -S --noconfirm hyprland zsh neovim tmux eza waybar obs-studio cava fastfetch yazi lazygit zoxide zsh-syntax-highlighting zsh-autosuggestions yarn fzf eza yazi lazygit thefuck
+sudo pacman -S --noconfirm hyprland hyprpaper zsh neovim tmux eza waybar obs-studio cava fastfetch yazi lazygit zoxide zsh-syntax-highlighting zsh-autosuggestions yarn fzf eza yazi lazygit thefuck
 ```
 
 # MARP CLI
