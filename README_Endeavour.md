@@ -4,6 +4,12 @@
 ssh-keygen -t ed25519 -C "Rave's PC"
 ```
 
+# CONFIG GIT
+```bash
+git config --global user.email "ezraravin@proton.me" && git config --global user.name "Rave's Endeavour"
+```
+
+
 # INSTALL YAY
 ```bash
 sudo pacman -S base-devel git
@@ -56,7 +62,12 @@ sudo systemctl enable bluetooth
 ```
 # Install Hyprland
 ```bash
-sudo pacman -S --noconfirm hyprland zsh neovim tmux eza waybar obs-studio cava fastfetch yazi marp-cli lazygit zoxide zsh-syntax-highlighting zsh-autosuggestions yarn
+sudo pacman -S --noconfirm hyprland zsh neovim tmux eza waybar obs-studio cava fastfetch yazi lazygit zoxide zsh-syntax-highlighting zsh-autosuggestions yarn fzf eza yazi lazygit
+```
+
+# MARP CLI
+```bash
+yay -S --noconfirm marp-cli spotify spotify-adblock flutter whatsapp-for-linux arduino-ide
 ```
 
 # ZOXIDE
