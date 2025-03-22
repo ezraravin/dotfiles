@@ -1,5 +1,4 @@
 # MAKE KEYGEN
-
 ```bash
 ssh-keygen -t ed25519 -C "Rave's PC"
 ```
@@ -8,7 +7,6 @@ ssh-keygen -t ed25519 -C "Rave's PC"
 ```bash
 git config --global user.email "ezraravin@proton.me" && git config --global user.name "Rave's Endeavour"
 ```
-
 
 # INSTALL YAY
 ```bash
@@ -23,7 +21,6 @@ rm -rf yay
 ```
 
 # CLONE DOTFILES
-
 ```bash
 mkdir .config
 git clone git@gitlab.com:ezraravinmateus/dotfiles
@@ -33,19 +30,16 @@ mv ./* ~/ && mv ./.* ~/ && cd ../ && rm -rf dotfiles
 ```
 
 # INSTALL COMPOSER, PHP, LARAVEL
-
 ```bash
 /bin/bash -c "$(curl -fsSL https://php.new/install/linux)"
 ```
 
 # INSTALL BRAVE
-
 ```bash
 curl -fsS https://dl.brave.com/install.sh | sh
 ```
 
 # INSTALL OLLAMA
-
 ```bash
 curl -fsSL https://ollama.com/install.sh | sh
 ```
@@ -67,14 +61,13 @@ sudo pacman -S --noconfirm hyprland zsh neovim tmux eza waybar obs-studio cava f
 
 # MARP CLI
 ```bash
-yay -S --noconfirm marp-cli spotify spotify-adblock flutter whatsapp-for-linux arduino-ide
+yay -S --noconfirm marp-cli spotify spotify-adblock flutter whatsapp-for-linux arduino-ide xampp
 ```
 
 # ZOXIDE
 ```bash
 curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh
 ```
-
 
 # INSTALL BUN
 ```bash
@@ -87,7 +80,6 @@ curl -s https://ohmyposh.dev/install.sh | bash -s
 ```
 
 # INSTALL TPM
-
 ```bash
 git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
 ```
