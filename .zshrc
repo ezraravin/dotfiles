@@ -126,6 +126,9 @@ alias hc="cd ~/.config/hypr && nvim . && cd"
 # Run Fastfetch After TMUX
 fastfetch
 
+# Run Fastfetch After TMUX
+fastfetch
+
 # ======================
 # TMUX (Auto-start)
 # ======================
