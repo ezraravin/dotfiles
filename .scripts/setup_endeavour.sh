@@ -163,8 +163,12 @@ install_applications() {
   # Install Brave Browser
   run_or_skip "Installing Brave Browser" 'curl -fsS https://dl.brave.com/install.sh | sh'
 
-  # Install Ollama
-  run_or_skip "Installing Ollama" 'curl -fsSL https://ollama.com/install.sh | sh'
+  # Install Ollama (if not already installed)
+  if ! command_exists ollama; then
+    run_or_skip "Installing Ollama" 'curl -fsSL https://ollama.com/install.sh | sh'
+  else
+    echo "  ↳ Ollama already installed. Skipping..."
+  fi
 
   # Install NVIDIA Drivers
   run_or_skip "Installing NVIDIA Drivers" 'sudo pacman -S --noconfirm nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings'
