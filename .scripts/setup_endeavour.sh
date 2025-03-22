@@ -110,6 +110,10 @@ setup_mobile_development() {
   # Add sdkmanager to PATH
   export PATH="$HOME/Android/Sdk/cmdline-tools/latest/bin:$PATH"
 
+  # Verify sdkmanager is installed
+  if ! command_exists sdkmanager; then
+    echo "❌ sdkmanager not found. Skipping Android license acceptance."
+  else
     # Set up Android licenses
     run_or_skip "Accepting Android licenses" 'yes | sdkmanager --licenses'
   fi
@@ -144,7 +148,7 @@ setup_shell_environment() {
   # Install Zsh and Oh My Zsh
   run_or_skip "Installing Zsh and Oh My Zsh" 'sudo pacman -S --noconfirm zsh && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended'
 
-    # Change default shell to Zsh
+  # Change default shell to Zsh
   run_or_skip "Changing default shell to Zsh" 'sudo chsh -s $(which zsh) $USER'
 
   # Install Zsh plugins
@@ -155,6 +159,9 @@ setup_shell_environment() {
 
   # Install Oh My Posh
   run_or_skip "Installing Oh My Posh" 'curl -s https://ohmyposh.dev/install.sh | bash -s'
+
+  # Install TPM (Tmux Plugin Manager)
+  run_or_skip "Installing TPM (Tmux Plugin Manager)" 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm'
 }
 
 ##############################################
@@ -164,7 +171,7 @@ configure_git_and_dotfiles() {
   echo "🔧 Configuring Git & Dotfiles..."
 
   # Configure Git
-  run_or_skip "Configuring Git" 'git config --global user.email "ezraravin@proton.me"&& git config --global user.name "Rave Endeavour" && git config --global init.defaultBranch main'
+  run_or_skip "Configuring Git" 'git config --global user.email "ezraravin@proton.me" && git config --global user.name "Rave Endeavour" && git config --global init.defaultBranch main'
 
   # Clone and apply dotfiles
   run_or_skip "Cloning and applying dotfiles" 'git clone git@gitlab.com:ezraravinmateus/dotfiles.git "$HOME/dotfiles" && rsync -a "$HOME/dotfiles/." "$HOME/" && rm -rf "$HOME/dotfiles"'
