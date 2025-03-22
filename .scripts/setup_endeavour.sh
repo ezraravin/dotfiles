@@ -173,13 +173,17 @@ setup_shell_environment() {
   run_or_skip "Installing Oh My Posh" 'curl -s https://ohmyposh.dev/install.sh | bash -s'
 
   # Install TPM (Tmux Plugin Manager)
-  run_or_skip "Installing TPM (Tmux Plugin Manager)" 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm'
+  if [[ ! -d ~/.tmux/plugins/tpm ]]; then
+    run_or_skip "Installing TPM (Tmux Plugin Manager)" 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm'
+  else
+    echo "  ↳ TPM already installed. Skipping..."
+  fi
 
   # Automate Tmux Plugin Installation and Reload
   echo "  ↳ Setting up Tmux plugins and reloading configuration..."
   if command_exists tmux; then
     tmux list-sessions | awk '{print $1}' | xargs -I {} tmux run-shell -t {} ~/.tmux/plugins/tpm/bin/install_plugins
-    tmux list-sessions | awk '{print $1}' | xargs -I {} tmux source-file ~/.tmux.conf -t {}
+    tmux source-file ~/.tmux.conf
     echo "  ✅ Tmux plugins installed and configuration reloaded."
   else
     echo "  ❌ Tmux not found. Skipping Tmux setup."
