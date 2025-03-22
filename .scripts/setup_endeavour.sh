@@ -55,6 +55,46 @@ run_or_skip() {
   fi
 }
 
+# ANSI color codes for colorful output
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+BLUE='\033[0;34m'
+RED='\033[0;31m'
+NC='\033[0m' # No Color
+
+# Function to print a header with a message
+print_header() {
+  echo -e "${GREEN}"
+  echo "===================================================================="
+  echo -e "\$1"
+  echo "===================================================================="
+  echo -e "${NC}"
+}
+
+# Function to print a section with a message
+print_section() {
+  echo -e "${BLUE}"
+  echo "--------------------------------------------------------------------"
+  echo -e "\$1"
+  echo "--------------------------------------------------------------------"
+  echo -e "${NC}"
+}
+
+# Function to print a success message
+print_success() {
+  echo -e "${GREEN}[SUCCESS] \$1${NC}"
+}
+
+# Function to print a warning message
+print_warning() {
+  echo -e "${YELLOW}[WARNING] \$1${NC}"
+}
+
+# Function to print an error message
+print_error() {
+  echo -e "${RED}[ERROR] \$1${NC}"
+}
+
 ##############################################
 ### Git Configuration Function
 ##############################################
@@ -105,9 +145,6 @@ setup_package_management() {
 
   # Install Yay (AUR helper)
   run_or_skip "Installing Yay" 'sudo pacman -S --noconfirm base-devel git && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm && cd .. && rm -rf yay'
-
-  # Update system
-  run_or_skip "Updating system" 'sudo pacman -Syu --noconfirm'
 }
 
 ##############################################
@@ -138,20 +175,64 @@ setup_mobile_development() {
   # Install Android Studio and SDK
   run_or_skip "Installing Android Studio and SDK" 'yay -S --noconfirm android-studio android-sdk android-sdk-build-tools android-sdk-cmdline-tools-latest'
 
-  # Add sdkmanager to PATH
-  export PATH="$HOME/Android/Sdk/cmdline-tools/latest/bin:$PATH"
+  # Set the Android SDK path
+  export ANDROID_HOME=/opt/android-sdk
+  export PATH=$PATH:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
 
-  # Verify sdkmanager is installed
-  if ! command_exists sdkmanager; then
-    echo "❌ sdkmanager not found. Skipping Android license acceptance."
+  # Temporarily switch to JDK 8 for Android SDK tools
+  print_header "Temporarily switching to JDK 8 for Android SDK tools..."
+  sudo archlinux-java set java-8-openjdk
+  export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
+  print_success "Temporarily using JDK 8."
+
+  # Install platform-tools
+  print_section "Installing platform-tools..."
+  run_or_skip "Installing platform-tools" 'yes | sdkmanager "platform-tools"'
+  print_success "Platform-tools installed successfully."
+
+  # Find and install the latest build-tools
+  print_section "Finding the latest build-tools version..."
+  LATEST_BUILD_TOOLS=$(sdkmanager --list | grep "build-tools;" | awk '{print \$1}' | sort -V | tail -n 1)
+
+  if [ -z "$LATEST_BUILD_TOOLS" ]; then
+    print_error "No build-tools found."
   else
-    # Set up Android licenses
-    run_or_skip "Accepting Android licenses" 'yes | sdkmanager --licenses'
+    print_section "Installing $LATEST_BUILD_TOOLS..."
+    run_or_skip "Installing build-tools" "yes | sdkmanager \"$LATEST_BUILD_TOOLS\""
+    print_success "Build-tools $LATEST_BUILD_TOOLS installed successfully."
+    echo -e "${BLUE}Installed build-tools:${NC}"
+    sdkmanager --list_installed | grep "build-tools;"
   fi
 
-  # Install JDK
-  run_or_skip "Installing JDK" 'sudo pacman -S --noconfirm jdk8-openjdk jdk17-openjdk'
-  run_or_skip "Setting default JDK to Java 17" 'sudo archlinux-java set java-17-openjdk'
+  # Find and install the latest Android platform
+  print_section "Finding the latest Android platform..."
+  LATEST_PLATFORM=$(sdkmanager --list | grep "platforms;android" | awk '{print \$1}' | sort -V | tail -n 1)
+
+  if [ -z "$LATEST_PLATFORM" ]; then
+    print_error "No Android platforms found."
+  else
+    print_section "Installing latest Android platform: $LATEST_PLATFORM..."
+    run_or_skip "Installing Android platform" "yes | sdkmanager \"$LATEST_PLATFORM\""
+    print_success "Android platform $LATEST_PLATFORM installed successfully."
+  fi
+
+  # Verify installed components
+  print_section "Verifying installed components..."
+  sdkmanager --list_installed
+  print_success "Installed components verified."
+
+  # Accept Android licenses
+  print_section "Accepting Android licenses..."
+  run_or_skip "Accepting Android licenses" 'yes | flutter doctor --android-licenses'
+  print_success "Android licenses accepted."
+
+  # Switch back to JDK 17
+  print_header "Switching back to JDK 17..."
+  sudo archlinux-java set java-17-openjdk
+  export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
+  print_success "JDK 17 is now the default Java version."
+
+  print_header "Android SDK setup complete!"
 }
 
 ##############################################
@@ -169,9 +250,6 @@ install_applications() {
   else
     echo "  ↳ Ollama already installed. Skipping..."
   fi
-
-  # Install NVIDIA Drivers
-  run_or_skip "Installing NVIDIA Drivers" 'sudo pacman -S --noconfirm nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings'
 }
 
 ##############################################
@@ -180,8 +258,15 @@ install_applications() {
 setup_shell_environment() {
   echo "🐚 Configuring Shell Environment..."
 
-  # Install Zsh and Oh My Zsh
-  run_or_skip "Installing Zsh and Oh My Zsh" 'sudo pacman -S --noconfirm zsh && sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended'
+  # Install Zsh
+  run_or_skip "Installing Zsh" 'sudo pacman -S --noconfirm zsh'
+
+  # Install Oh My Zsh (if not already installed)
+  if [[ ! -d ~/.oh-my-zsh ]]; then
+    run_or_skip "Installing Oh My Zsh" 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended'
+  else
+    echo "  ↳ Oh My Zsh already installed. Skipping..."
+  fi
 
   # Change default shell to Zsh
   run_or_skip "Changing default shell to Zsh" 'sudo chsh -s $(which zsh) $USER'
@@ -205,9 +290,19 @@ setup_shell_environment() {
   # Automate Tmux Plugin Installation and Reload
   echo "  ↳ Setting up Tmux plugins and reloading configuration..."
   if command_exists tmux; then
-    tmux list-sessions | awk '{print $1}' | xargs -I {} tmux run-shell -t {} ~/.tmux/plugins/tpm/bin/install_plugins
-    tmux list-sessions | awk '{print $1}' | xargs -I {} tmux source-file ~/.tmux.conf -t {}
-    echo "  ✅ Tmux plugins installed and configuration reloaded."
+    # Install plugins (ignore errors if some plugins are already installed)
+    if tmux run-shell ~/.tmux/plugins/tpm/bin/install_plugins; then
+      echo "  ✅ Tmux plugins installed successfully."
+    else
+      echo "  ⚠️ Some Tmux plugins were already installed. Continuing..."
+    fi
+
+    # Reload Tmux configuration
+    if tmux source-file ~/.tmux.conf; then
+      echo "  ✅ Tmux configuration reloaded successfully."
+    else
+      echo "  ❌ Failed to reload Tmux configuration. Skipping..."
+    fi
   else
     echo "  ❌ Tmux not found. Skipping Tmux setup."
   fi
@@ -227,6 +322,19 @@ configure_git_and_dotfiles() {
 }
 
 ##############################################
+### Finalize System Setup
+##############################################
+finalize_system_setup() {
+  echo "🔧 Finalizing System Setup..."
+
+  # Install NVIDIA Drivers
+  run_or_skip "Installing NVIDIA Drivers" 'sudo pacman -S --noconfirm nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings'
+
+  # Update system
+  run_or_skip "Updating system" 'sudo pacman -Syu --noconfirm'
+}
+
+##############################################
 ### Main Execution Flow
 ##############################################
 main() {
@@ -238,6 +346,7 @@ main() {
     kill -0 "$$" || exit
   done 2>/dev/null &
 
+  configure_git
   configure_system
   install_applications
   setup_shell_environment
@@ -246,9 +355,11 @@ main() {
   setup_development_environment
   setup_mobile_development
 
+  # Finalize system setup (NVIDIA drivers and system update)
+  finalize_system_setup
+
   echo "✅ Setup complete! Some changes may require a restart."
   echo "🔍 Review installation log: setup.log"
 }
 
-# Start the main process
-main
+# Start the main
