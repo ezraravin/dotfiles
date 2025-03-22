@@ -10,8 +10,8 @@ ssh-keygen -t ed25519 -C "XiaoMi Mi Air"
 mkdir .config
 git clone git@gitlab.com:ezraravinmateus/dotfiles
 cd dotfiles
-mv .config/_ ~/.config && sudo rm -rf .config
-mv ./_ ~/ && mv ./.\* ~/ && cd ../ && rm -rf dotfiles
+mv .config/* ~/.config && sudo rm -rf .config
+mv ./* ~/ && mv ./.* ~/ && cd ../ && rm -rf dotfiles
 ```
 
 # Clone Project Files
