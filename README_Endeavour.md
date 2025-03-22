@@ -61,7 +61,12 @@ sudo pacman -S --noconfirm hyprland hyprpaper zsh neovim tmux eza waybar obs-stu
 
 # MARP CLI
 ```bash
-yay -S --noconfirm marp-cli spotify spotify-adblock flutter whatsapp-for-linux arduino-ide xampp android-studio android-sdk
+yay -S --noconfirm marp-cli spotify spotify-adblock whatsapp-for-linux arduino-ide xampp android-studio android-sdk android-sdk-build-tools android-sdk-cmdline-tools-latest
+```
+
+# FLUTTER
+```bash
+yay -S flutter
 ```
 
 # ZOXIDE
