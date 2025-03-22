@@ -57,14 +57,34 @@ run_or_skip() {
 }
 
 ##############################################
-### Prompt for User Input
+### Git Configuration Function
 ##############################################
-echo "🔧 Customizable Configuration"
-read -p "Enter your Git email: " GIT_EMAIL
-read -p "Enter your Git name: " GIT_NAME
-read -p "Enter your default Git branch (e.g., main): " GIT_BRANCH
+configure_git() {
+  echo "🔧 Configuring Git..."
 
-# Prompt for sudo password
+  # Check if Git is already configured
+  if git config --global --get user.email &>/dev/null &&
+    git config --global --get user.name &>/dev/null &&
+    git config --global --get init.defaultBranch &>/dev/null; then
+    echo "  ↳ Git is already configured. Skipping..."
+    return
+  fi
+
+  # Prompt for Git configuration if not already set
+  echo "🔧 Customizable Configuration"
+  read -p "Enter your Git email: " GIT_EMAIL
+  read -p "Enter your Git name: " GIT_NAME
+  read -p "Enter your default Git branch (e.g., main): " GIT_BRANCH
+
+  # Configure Git
+  run_or_skip "Setting Git email" "git config --global user.email '$GIT_EMAIL'"
+  run_or_skip "Setting Git name" "git config --global user.name '$GIT_NAME'"
+  run_or_skip "Setting default Git branch" "git config --global init.defaultBranch '$GIT_BRANCH'"
+}
+
+##############################################
+### Prompt for Sudo Password
+##############################################
 echo "🔐 Enter your sudo password to proceed:"
 sudo -v
 
@@ -183,7 +203,7 @@ setup_shell_environment() {
   echo "  ↳ Setting up Tmux plugins and reloading configuration..."
   if command_exists tmux; then
     tmux list-sessions | awk '{print $1}' | xargs -I {} tmux run-shell -t {} ~/.tmux/plugins/tpm/bin/install_plugins
-    tmux source-file ~/.tmux.conf
+    tmux list-sessions | awk '{print $1}' | xargs -I {} tmux source-file ~/.tmux.conf -t {}
     echo "  ✅ Tmux plugins installed and configuration reloaded."
   else
     echo "  ❌ Tmux not found. Skipping Tmux setup."
@@ -197,7 +217,7 @@ configure_git_and_dotfiles() {
   echo "🔧 Configuring Git & Dotfiles..."
 
   # Configure Git
-  run_or_skip "Configuring Git" "git config --global user.email '$GIT_EMAIL' && git config --global user.name '$GIT_NAME' && git config --global init.defaultBranch '$GIT_BRANCH'"
+  configure_git
 
   # Clone and apply dotfiles
   run_or_skip "Cloning and applying dotfiles" 'git clone git@gitlab.com:ezraravinmateus/dotfiles.git "$HOME/dotfiles" && rsync -a "$HOME/dotfiles/." "$HOME/" && rm -rf "$HOME/dotfiles"'
