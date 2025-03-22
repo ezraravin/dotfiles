@@ -1,19 +1,3 @@
-# MAKE KEYGEN
-
-```bash
-ssh-keygen -t ed25519 -C "XiaoMi Mi Air"
-```
-
-# CLONE DOTFILES
-
-```bash
-mkdir .config
-git clone git@gitlab.com:ezraravinmateus/dotfiles
-cd dotfiles
-mv .config/* ~/.config && sudo rm -rf .config
-mv ./* ~/ && mv ./.* ~/ && cd ../ && rm -rf dotfiles
-```
-
 # Clone Project Files
 
 ```bash
@@ -52,48 +36,11 @@ sudo ./xampp-linux-x64-*-installer.run
 sudo rm xampp-linux-x64-*-installer.run
 ```
 
-# INSTALL COMPOSER, PHP, LARAVEL
-
-```bash
-/bin/bash -c "$(curl -fsSL https://php.new/install/linux)"
-```
-
-# INSTALL BRAVE
-
-```bash
-curl -fsS https://dl.brave.com/install.sh | sh
-```
-
-# INSTALL OLLAMA
-
-```bash
-curl -fsSL https://ollama.com/install.sh | sh
-```
 
 # INSTALL WAYBAR, HYPRLAND, HYPRPAPER, KITTY, KDENLIVE, OBS, ZSH, WL CLIPBOARD, DEV TOOLS, CAVA, VA API SUPPORT, SNAP, PAVUCONTROL, BLUEMAN, G++
 
 ```bash
-sudo dnf install -y waybar hyprland hyprpaper kitty kdenlive obs-studio zsh wl-clipboard development-tools cava libva-nvidia-driver snapd vlc pavucontrol blueman g++
-```
-
-# CONFIGURE SNAP
-
-```bash
-sudo systemctl enable --now snapd.socket
-sudo ln -s /var/lib/snapd/snap /snap
-sudo snap install core
-```
-
-# CHANGE SHELL TO ZSH
-
-```bash
-chsh -s $(which zsh)
-```
-
-# INSTALL OH MY ZSH
-
-```bash
-sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)"
+sudo dnf install -y hyprpaper kdenlive wl-clipboard development-tools cava libva-nvidia-driver snapd vlc pavucontrol blueman g++
 ```
 
 # INSTALL HOMEBREW
@@ -136,20 +83,15 @@ curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBra
 # INSTALL FASTFETCH, BAT, FZF, EZA, YAZI, MARP, LAZYGIT, ZOXIDE, ZSH-SYNTAX-HIGHLIGHTING, ZSH-AUTOSUGGESTIONS, NEOVIM, TMUX, BUN, YARN OH MY POSH, FFMPEG, WEBP
 
 ```bash
-brew install fastfetch bat fzf eza yazi marp-cli lazygit zoxide zsh-syntax-highlighting zsh-autosuggestions neovim tmux oven-sh/bun/bun yarn jandedobbeleer/oh-my-posh/oh-my-posh ffmpeg webp
+brew install bat fzf eza yazi marp-cli lazygit zoxide ffmpeg webp
 ```
-
 # REMOVE BLOATWARE
 
 ```bash
 sudo dnf remove -y rhythmbox ptyxis mediawriter totem yelp firefox libreoffice-impress libreoffice-calc libreoffice-writer snapshot snapshot gnome-contacts gnome-weather gnome-clocks gnome-maps gnome-calculatr gnome-boxes gnome-characters gnome-tour gnome-text-editor gnome-software gnome-abrt gnome-calculator
 ```
 
-# INSTALL TPM
 
-```bash
-git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-```
 
 # UPDATE & UPGRADE
 
