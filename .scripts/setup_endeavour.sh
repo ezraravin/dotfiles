@@ -57,6 +57,18 @@ run_or_skip() {
 }
 
 ##############################################
+### Prompt for User Input
+##############################################
+echo "🔧 Customizable Configuration"
+read -p "Enter your Git email: " GIT_EMAIL
+read -p "Enter your Git name: " GIT_NAME
+read -p "Enter your default Git branch (e.g., main): " GIT_BRANCH
+
+# Prompt for sudo password
+echo "🔐 Enter your sudo password to proceed:"
+sudo -v
+
+##############################################
 ### System Configuration
 ##############################################
 configure_system() {
@@ -162,6 +174,16 @@ setup_shell_environment() {
 
   # Install TPM (Tmux Plugin Manager)
   run_or_skip "Installing TPM (Tmux Plugin Manager)" 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm'
+
+  # Automate Tmux Plugin Installation and Reload
+  echo "  ↳ Setting up Tmux plugins and reloading configuration..."
+  if command_exists tmux; then
+    tmux list-sessions | awk '{print $1}' | xargs -I {} tmux run-shell -t {} ~/.tmux/plugins/tpm/bin/install_plugins
+    tmux list-sessions | awk '{print $1}' | xargs -I {} tmux source-file ~/.tmux.conf -t {}
+    echo "  ✅ Tmux plugins installed and configuration reloaded."
+  else
+    echo "  ❌ Tmux not found. Skipping Tmux setup."
+  fi
 }
 
 ##############################################
@@ -171,7 +193,7 @@ configure_git_and_dotfiles() {
   echo "🔧 Configuring Git & Dotfiles..."
 
   # Configure Git
-  run_or_skip "Configuring Git" 'git config --global user.email "ezraravin@proton.me" && git config --global user.name "Rave Endeavour" && git config --global init.defaultBranch main'
+  run_or_skip "Configuring Git" "git config --global user.email '$GIT_EMAIL' && git config --global user.name '$GIT_NAME' && git config --global init.defaultBranch '$GIT_BRANCH'"
 
   # Clone and apply dotfiles
   run_or_skip "Cloning and applying dotfiles" 'git clone git@gitlab.com:ezraravinmateus/dotfiles.git "$HOME/dotfiles" && rsync -a "$HOME/dotfiles/." "$HOME/" && rm -rf "$HOME/dotfiles"'
