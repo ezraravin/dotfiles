@@ -56,7 +56,7 @@ sudo systemctl enable bluetooth
 ```
 # Install Hyprland
 ```bash
-sudo pacman -S --noconfirm hyprland hyprpaper zsh neovim tmux eza waybar obs-studio cava fastfetch yazi lazygit zoxide zsh-syntax-highlighting zsh-autosuggestions yarn fzf eza yazi lazygit thefuck wl-clipboard
+sudo pacman -S --noconfirm hyprland hyprpaper zsh neovim tmux eza waybar obs-studio cava fastfetch yazi lazygit zoxide zsh-syntax-highlighting zsh-autosuggestions yarn fzf eza yazi lazygit thefuck wl-clipboard pavucontrol
 ```
 
 # MARP CLI
@@ -67,6 +67,8 @@ yay -S --noconfirm marp-cli spotify spotify-adblock whatsapp-for-linux arduino-i
 # FLUTTER
 ```bash
 yay -S flutter
+sudo pacman -S jdk8-openjdk jdk17-openjdk
+sudo archlinux-java set java-8-openjdk
 ```
 
 # ZOXIDE
