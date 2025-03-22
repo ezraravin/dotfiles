@@ -56,19 +56,20 @@ sudo systemctl enable bluetooth
 ```
 # Install Hyprland
 ```bash
-sudo pacman -S --noconfirm hyprland hyprpaper zsh neovim tmux eza waybar obs-studio cava fastfetch yazi lazygit zoxide zsh-syntax-highlighting zsh-autosuggestions yarn fzf eza yazi lazygit thefuck wl-clipboard pavucontrol
+sudo pacman -S --noconfirm hyprland hyprpaper zsh neovim tmux eza waybar obs-studio cava fastfetch yazi lazygit zoxide zsh-syntax-highlighting zsh-autosuggestions yarn fzf eza yazi lazygit thefuck wl-clipboard pavucontrol vlc
 ```
 
 # MARP CLI
 ```bash
-yay -S --noconfirm marp-cli spotify spotify-adblock whatsapp-for-linux arduino-ide xampp android-studio android-sdk android-sdk-build-tools android-sdk-cmdline-tools-latest
+yay -S --noconfirm marp-cli spotify spotify-adblock whatsapp-for-linux arduino-ide xampp android-studio android-sdk android-sdk-build-tools android-sdk-cmdline-tools-latest chatbox-bin
 ```
 
 # FLUTTER
 ```bash
 yay -S flutter
 sudo pacman -S jdk8-openjdk jdk17-openjdk
-sudo archlinux-java set java-8-openjdk
+sudo archlinux-java set java-17-openjdk
+sudo chown -R $USER:$USER /opt/android-sdk
 ```
 
 # ZOXIDE
