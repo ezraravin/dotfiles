@@ -10,5 +10,5 @@ sudo systemctl enable bluetooth
 ```
 # Install Hyprland
 ```bash
-sudo pacman -S --noconfirm hyprland
+sudo pacman -S --noconfirm hyprland zsh neovim tmux
 ```
