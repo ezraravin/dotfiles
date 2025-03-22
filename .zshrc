@@ -5,10 +5,34 @@
 # Homebrew Path
 if [[ "$OSTYPE" == "darwin"* ]]; then
   # macOS-specific configurations
+  # Homebrew
   export HOMEBREW_PREFIX="/opt/homebrew"
+  # Ruby
+  export PATH="$HOMEBREW_PREFIX/opt/ruby/bin:$PATH"
+  # Homebrew
+  eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
+  # Pandoc & Basictex
+  eval "$(/usr/libexec/path_helper)"
+  # Zsh Autosuggestions
+  source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
+  # Zsh Syntax Highlighting
+  source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
   # Linux-specific configurations
-  export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+  # export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
+  # Local Bin Path
+  export PATH=$PATH:$HOME/.local/bin
+  # Zsh Autosuggestions
+  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+  # Zsh Syntax Highlighting
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  # Chrome Executable
+  export CHROME_EXECUTABLE="/usr/bin/google-chrome-stable"
+  # Android SDK
+  export ANDROID_HOME=/opt/android-sdk
+  export PATH=$PATH:$ANDROID_HOME/tools/bin
+  export PATH=$PATH:$ANDROID_HOME/platform-tools
+  export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 fi
 
 # Neovim as Default Editor
@@ -18,17 +42,12 @@ export EDITOR="nvim"
 export ZSH="$HOME/.oh-my-zsh"
 
 # Android SDK
-export ANDROID_HOME="$HOMEBREW_PREFIX/share/android-commandlinetools"
-export PATH="$ANDROID_HOME/cmdline-tools/tools/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$PATH"
+# export ANDROID_HOME="$HOMEBREW_PREFIX/share/android-commandlinetools"
+# export PATH="$ANDROID_HOME/cmdline-tools/tools/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$PATH"
 
 # PHP (Herd Lite)
 export PHP_INI_SCAN_DIR="$HOME/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 export PATH="$HOME/.config/herd-lite/bin:$PATH"
-
-# Ruby (Mac only)
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  export PATH="$HOMEBREW_PREFIX/opt/ruby/bin:$PATH"
-fi
 
 # Prettier
 export PRETTIERD_DEFAULT_CONFIG="$HOME/.prettierrc"
@@ -54,9 +73,6 @@ source "$ZSH/oh-my-zsh.sh"
 # Tool Initializations
 # ======================
 
-# Homebrew
-eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
-
 # Zoxide
 eval "$(zoxide init zsh)"
 
@@ -65,17 +81,6 @@ eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/zen.toml)"
 
 # The Fuck
 eval $(thefuck --alias)
-
-# Pandoc & Basictex (Mac only)
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  eval "$(/usr/libexec/path_helper)"
-fi
-
-# Zsh Autosuggestions
-source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-
-# Zsh Syntax Highlighting
-source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 
 # FZF
 source <(fzf --zsh)
@@ -117,25 +122,15 @@ alias nvc="cd ~/.config/nvim && nvim && cd"
 alias zc="cd ~/ && nvim .zshrc"
 alias scr="cd ~/.scripts/ && nvim && cd"
 
+# Run Fastfetch After TMUX
+fastfetch
+
 # ======================
 # TMUX (Auto-start)
 # ======================
 
 if [ -z "$TMUX" ]; then
   tmux
-fi
-
-# Run Fastfetch After TMUX
-fastfetch
-
-# ======================
-# Ensure .zshrc is only sourced once
-# ======================
-
-if [ -z "$ZSH_RC_SOURCED" ]; then
-  export ZSH_RC_SOURCED=1
-else
-  return 0
 fi
 
 # ======================
@@ -145,3 +140,10 @@ fi
 if [ -z "$ZSH" ]; then
   exec zsh
 fi
+
+# bun completions
+[ -s "/home/rave/.bun/_bun" ] && source "/home/rave/.bun/_bun"
+
+# bun
+export BUN_INSTALL="$HOME/.bun"
+export PATH="$BUN_INSTALL/bin:$PATH"
