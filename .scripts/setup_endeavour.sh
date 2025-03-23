@@ -164,6 +164,7 @@ setup_development_environment() {
 ##############################################
 ### Mobile Development Setup
 ##############################################
+
 setup_mobile_development() {
   print_header "📱 Setting Up Mobile Development..."
 
@@ -176,6 +177,11 @@ setup_mobile_development() {
   # Set the Android SDK path
   export ANDROID_HOME=/opt/android-sdk
   export PATH=$PATH:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
+
+  # Install JDK 8 and JDK 17
+  print_header "Installing JDK 8 and JDK 17..."
+  install_or_skip "jdk8" 'sudo pacman -S --noconfirm jdk8-openjdk' "Installing JDK 8"
+  install_or_skip "jdk17" 'sudo pacman -S --noconfirm jdk17-openjdk' "Installing JDK 17"
 
   # Temporarily switch to JDK 8 for Android SDK tools
   print_header "Temporarily switching to JDK 8 for Android SDK tools..."
