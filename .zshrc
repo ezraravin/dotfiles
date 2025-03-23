@@ -121,7 +121,8 @@ alias zc="cd ~/ && nvim .zshrc"
 alias scr="cd ~/.scripts/ && nvim . && cd"
 alias hc="cd ~/.config/hypr && nvim . && cd"
 alias hctl="hyprctl"
-alias os="ollama serve"
+alias so="ollama serve"
+alias sk="sudo pkill ollama"
 
 # Run Fastfetch After TMUX
 fastfetch
