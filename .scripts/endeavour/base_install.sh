@@ -193,7 +193,27 @@ setup_development_environment() {
   fi
 
   # Install Node.js, Bun, and Yarn
-  install_or_skip "nodejs" 'sudo pacman -S --noconfirm npm nodejs pnpm yarn && curl -fsSL https://bun.sh/install | bash' "Installing npm, Node.js, Bun, pnpm, yarn"
+  print_section "  ↳ Installing Node.js, Bun, pnpm, npm and Yarn..."
+  # Install Node.js and npm
+  if ! command_exists node || ! command_exists npm; then
+    install_or_skip "nodejs" 'sudo pacman -S --noconfirm nodejs npm' "Installing Node.js and npm"
+  fi
+
+  # Install pnpm
+  if ! command_exists pnpm; then
+    install_or_skip "pnpm" 'sudo pacman -S --noconfirm pnpm' "Installing pnpm"
+  fi
+
+  # Install yarn
+  if ! command_exists yarn; then
+    install_or_skip "yarn" 'sudo pacman -S --noconfirm yarn' "Installing yarn"
+  fi
+
+  # Install bun
+  if ! command_exists bun; then
+    print_section "  ↳ Installing bun..."
+    curl -fsSL https://bun.sh/install | bash && print_success "bun installed." || print_error "Failed to install bun."
+  fi
 
   # Install Python
   install_or_skip "python" 'sudo pacman -S --noconfirm python' "Installing Python"
