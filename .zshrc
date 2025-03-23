@@ -123,6 +123,7 @@ alias zc="cd ~/ && nvim .zshrc"
 alias scr="cd ~/.scripts/ && nvim . && cd"
 alias hc="cd ~/.config/hypr && nvim . && cd"
 alias hctl="hyprctl"
+alias os="ollama serve"
 
 # Run Fastfetch After TMUX
 fastfetch
