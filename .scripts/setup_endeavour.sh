@@ -90,7 +90,7 @@ print_warning() {
 # Function to print an error message
 print_error() {
   local message=$1
-  echo -e "${RED}❎ Error: $message${NC}. Skipping process..."
+  echo -e "${RED}❎ Error: $message${NC}"
 }
 
 ##############################################
@@ -185,9 +185,9 @@ setup_mobile_development() {
 
   # Temporarily switch to JDK 8 for Android SDK tools
   print_header "Temporarily switching to JDK 8 for Android SDK tools..."
-  sudo archlinux-java set java-17-openjdk
-  export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
-  print_success "Temporarily using JDK 17."
+  sudo archlinux-java set java-8-openjdk
+  export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
+  print_success "Temporarily using JDK 8."
 
   # Install platform-tools
   print_section "Installing platform-tools..."
