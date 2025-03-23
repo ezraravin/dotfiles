@@ -24,6 +24,16 @@ trap cleanup EXIT
 ### Helper Functions
 ##############################################
 
+# Function to check if a package is installed using pacman or yay
+package_installed() {
+  local package=$1
+  if pacman -Qs "$package" >/dev/null 2>&1 || yay -Qs "$package" >/dev/null 2>&1; then
+    return 0 # Package is installed
+  else
+    return 1 # Package is not installed
+  fi
+}
+
 # Function to check if a command exists
 command_exists() {
   command -v "$1" >/dev/null 2>&1
@@ -35,7 +45,7 @@ install_or_skip() {
   local install_command=$2
   local description=$3
 
-  if ! command_exists "$package"; then
+  if ! package_installed "$package"; then
     print_section "  ↳ $description..."
     echo "  ↳ Installing $package..."
     if eval "$install_command"; then
@@ -131,9 +141,14 @@ configure_git() {
   read -p "Enter your default Git branch (e.g., main): " GIT_BRANCH
 
   # Configure Git
-  install_or_skip "git" "git config --global user.email '$GIT_EMAIL'" "Setting Git email"
-  install_or_skip "git" "git config --global user.name '$GIT_NAME'" "Setting Git name"
-  install_or_skip "git" "git config --global init.defaultBranch '$GIT_BRANCH'" "Setting default Git branch"
+  print_section "  ↳ Setting Git email..."
+  git config --global user.email "$GIT_EMAIL" && print_success "Git email configured." || print_error "Failed to configure Git email."
+
+  print_section "  ↳ Setting Git name..."
+  git config --global user.name "$GIT_NAME" && print_success "Git name configured." || print_error "Failed to configure Git name."
+
+  print_section "  ↳ Setting default Git branch..."
+  git config --global init.defaultBranch "$GIT_BRANCH" && print_success "Default Git branch configured." || print_error "Failed to configure default Git branch."
 }
 
 ##############################################
@@ -149,7 +164,8 @@ configure_system() {
   print_header "⚙️ Configuring System Settings..."
 
   # Enable Bluetooth
-  install_or_skip "bluetooth" "sudo systemctl start bluetooth && sudo systemctl enable bluetooth" "Enabling Bluetooth"
+  print_section "  ↳ Enabling Bluetooth..."
+  sudo systemctl start bluetooth && sudo systemctl enable bluetooth && print_success "Bluetooth enabled." || print_error "Failed to enable Bluetooth."
 }
 
 ##############################################
@@ -169,10 +185,15 @@ setup_development_environment() {
   print_header "👨💻 Setting Up Development Environment..."
 
   # Install PHP, Composer, Laravel
-  install_or_skip "php" '/bin/bash -c "$(curl -fsSL https://php.new/install/linux)"' "Installing PHP, Composer, Laravel"
+  print_section "  ↳ Installing PHP, Composer, Laravel..."
+  if command_exists php && command_exists composer && command_exists laravel; then
+    echo "  ↳ PHP, Composer, and Laravel already installed. Skipping..."
+  else
+    /bin/bash -c "$(curl -fsSL https://php.new/install/linux)" && print_success "PHP, Composer, Laravel installed." || print_error "Failed to install PHP, Composer, Laravel."
+  fi
 
   # Install Node.js, Bun, and Yarn
-  install_or_skip "npm" 'sudo pacman -S --noconfirm npm nodejs pnpm yarn && curl -fsSL https://bun.sh/install | bash' "Installing npm, Node.js, Bun, pnpm, yarn"
+  install_or_skip "nodejs" 'sudo pacman -S --noconfirm npm nodejs pnpm yarn && curl -fsSL https://bun.sh/install | bash' "Installing npm, Node.js, Bun, pnpm, yarn"
 
   # Install Python
   install_or_skip "python" 'sudo pacman -S --noconfirm python' "Installing Python"
@@ -217,7 +238,8 @@ setup_shell_environment() {
   fi
 
   # Change default shell to Zsh
-  install_or_skip "zsh" 'sudo chsh -s $(which zsh) $USER' "Changing default shell to Zsh"
+  print_section "  ↳ Changing default shell to Zsh..."
+  sudo chsh -s "$(which zsh)" "$USER" && print_success "Default shell changed to Zsh." || print_error "Failed to change default shell to Zsh."
 
   # Install Zsh plugins
   install_or_skip "zsh-syntax-highlighting" 'sudo pacman -S --noconfirm zsh-syntax-highlighting' "Installing Zsh syntax highlighting"
@@ -264,7 +286,12 @@ configure_dotfiles() {
   print_header "🔧 Configuring Git & Dotfiles..."
 
   # Clone and apply dotfiles
-  install_or_skip "dotfiles" 'git clone git@gitlab.com:ezraravinmateus/dotfiles.git "$HOME/dotfiles" && rsync -a "$HOME/dotfiles/." "$HOME/" && rm -rf "$HOME/dotfiles"' "Cloning and applying dotfiles"
+  print_section "  ↳ Cloning and applying dotfiles..."
+  if [[ ! -d "$HOME/dotfiles" ]]; then
+    git clone git@gitlab.com:ezraravinmateus/dotfiles.git "$HOME/dotfiles" && rsync -a "$HOME/dotfiles/." "$HOME/" && rm -rf "$HOME/dotfiles" && print_success "Dotfiles applied." || print_error "Failed to apply dotfiles."
+  else
+    echo "  ↳ Dotfiles already applied. Skipping..."
+  fi
 }
 
 ##############################################
