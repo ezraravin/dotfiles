@@ -1,3 +1,4 @@
+
 #!/bin/bash
 
 # Enable error handling and verbose output
@@ -46,6 +47,23 @@ install_or_skip() {
   else
     echo "  ↳ $package already installed. Skipping..."
   fi
+}
+
+# Function to pull Ollama models
+pull_ollama_models() {
+  print_header "📥 Pulling Ollama Models..."
+
+  # List of models to pull
+  local models=("deepseek-r1" "qwen2.5" "qwen2.5-coder" "deepseek-coder-v2" "deepseek-llm" "deepseek-v2")
+
+  for model in "${models[@]}"; do
+    print_section "  ↳ Pulling $model..."
+    if ollama pull "$model"; then
+      print_success "Successfully pulled $model."
+    else
+      print_error "Failed to pull $model."
+    fi
+  done
 }
 
 # ANSI color codes for colorful output
@@ -172,6 +190,13 @@ install_applications() {
 
   # Install Ollama (if not already installed)
   install_or_skip "ollama" 'curl -fsSL https://ollama.com/install.sh | sh' "Installing Ollama"
+
+  # Pull Ollama models after installation
+  if command_exists ollama; then
+    pull_ollama_models
+  else
+    print_error "Ollama not found. Skipping model pull."
+  fi
 }
 
 ##############################################
@@ -284,3 +309,4 @@ main() {
 
 # Start the main
 main
+
