@@ -11,10 +11,10 @@ exec > >(tee -i setup.log) 2>&1
 cleanup() {
   exit_status=$?
   if [ $exit_status -eq 0 ]; then
-    echo "✅ Installation successful. Setup.log has been deleted."
+    print_success "Installation successful. Setup.log has been deleted."
     rm -f setup.log
   else
-    echo "❌ Installation failed. Error details from setup.log:"
+    print_error "Installation failed. Error details from setup.log:"
   fi
 }
 
@@ -29,29 +29,22 @@ command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
 
-# Function to install a package if it doesn't exist
-install_if_missing() {
+# Combined function to install a package if missing or skip if already installed
+install_or_skip() {
   local package=$1
   local install_command=$2
+  local description=$3
 
   if ! command_exists "$package"; then
+    print_section "  ↳ $description..."
     echo "  ↳ Installing $package..."
-    eval "$install_command"
+    if eval "$install_command"; then
+      print_success "$description"
+    else
+      print_error "$description"
+    fi
   else
-    echo "  ↳ $package already installed."
-  fi
-}
-
-# Function to execute a command and skip if it fails
-run_or_skip() {
-  local description=$1
-  local command=$2
-
-  echo "  ↳ $description..."
-  if eval "$command"; then
-    echo "  ✅ Success: $description"
-  else
-    echo "  ❌ Failed: $description. Skipping..."
+    echo "  ↳ $package already installed. Skipping..."
   fi
 }
 
@@ -64,42 +57,47 @@ NC='\033[0m' # No Color
 
 # Function to print a header with a message
 print_header() {
+  local message=$1
   echo -e "${GREEN}"
   echo "===================================================================="
-  echo -e "\$1"
+  echo -e "$message"
   echo "===================================================================="
   echo -e "${NC}"
 }
 
 # Function to print a section with a message
 print_section() {
+  local message=$1
   echo -e "${BLUE}"
   echo "--------------------------------------------------------------------"
-  echo -e "\$1"
+  echo -e "$message"
   echo "--------------------------------------------------------------------"
   echo -e "${NC}"
 }
 
 # Function to print a success message
 print_success() {
-  echo -e "${GREEN}[SUCCESS] \$1${NC}"
+  local message=$1
+  echo -e "${GREEN}✅ Success: $message${NC}."
 }
 
 # Function to print a warning message
 print_warning() {
-  echo -e "${YELLOW}[WARNING] \$1${NC}"
+  local message=$1
+  echo -e "${YELLOW}⚠️ Warning: $message${NC}."
 }
 
 # Function to print an error message
 print_error() {
-  echo -e "${RED}[ERROR] \$1${NC}"
+  local message=$1
+  echo -e "${RED}❎ Error: $message${NC}. Skipping process..."
 }
 
 ##############################################
 ### Git Configuration Function
 ##############################################
 configure_git() {
-  echo "🔧 Configuring Git..."
+  print_header "🔧 Configuring Git..."
 
   # Check if Git is already configured
   if git config --global --get user.email &>/dev/null &&
@@ -116,57 +114,56 @@ configure_git() {
   read -p "Enter your default Git branch (e.g., main): " GIT_BRANCH
 
   # Configure Git
-  run_or_skip "Setting Git email" "git config --global user.email '$GIT_EMAIL'"
-  run_or_skip "Setting Git name" "git config --global user.name '$GIT_NAME'"
-  run_or_skip "Setting default Git branch" "git config --global init.defaultBranch '$GIT_BRANCH'"
+  install_or_skip "git" "git config --global user.email '$GIT_EMAIL'" "Setting Git email"
+  install_or_skip "git" "git config --global user.name '$GIT_NAME'" "Setting Git name"
+  install_or_skip "git" "git config --global init.defaultBranch '$GIT_BRANCH'" "Setting default Git branch"
 }
 
 ##############################################
 ### Prompt for Sudo Password
 ##############################################
-echo "🔐 Enter your sudo password to proceed:"
+print_header "🔐 Enter your sudo password to proceed:"
 sudo -v
 
 ##############################################
 ### System Configuration
 ##############################################
 configure_system() {
-  echo "⚙️ Configuring System Settings..."
+  print_header "⚙️ Configuring System Settings..."
 
   # Enable Bluetooth
-  run_or_skip "Enabling Bluetooth" 'sudo systemctl start bluetooth && sudo systemctl enable bluetooth'
+  install_or_skip "bluetooth" "sudo systemctl start bluetooth && sudo systemctl enable bluetooth" "Enabling Bluetooth"
 }
 
 ##############################################
 ### Package Management Setup
 ##############################################
 setup_package_management() {
-  echo "📦 Setting Up Package Management..."
+  print_header "📦 Setting Up Package Management..."
 
   # Install Yay (AUR helper)
-  run_or_skip "Installing Yay" 'sudo pacman -S --noconfirm base-devel git && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm && cd .. && rm -rf yay'
+  install_or_skip "yay" "sudo pacman -S --noconfirm base-devel git && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm && cd .. && rm -rf yay" "Installing Yay"
 }
 
 ##############################################
 ### Development Environment Setup
 ##############################################
 setup_development_environment() {
-  echo "👨💻 Setting Up Development Environment..."
+  print_header "👨💻 Setting Up Development Environment..."
 
   # Install PHP, Composer, Laravel
-  run_or_skip "Installing PHP, Composer, Laravel" '/bin/bash -c "$(curl -fsSL https://php.new/install/linux)"'
+  install_or_skip "php" '/bin/bash -c "$(curl -fsSL https://php.new/install/linux)"' "Installing PHP, Composer, Laravel"
 
   # Install Node.js, Bun, and Yarn
-  run_or_skip "Installing npm, Node.js, Bun, pnpm, yarn" 'sudo pacman -S --noconfirm npm nodejs pnpm yarn && curl -fsSL https://bun.sh/install | bash'
+  install_or_skip "npm" 'sudo pacman -S --noconfirm npm nodejs pnpm yarn && curl -fsSL https://bun.sh/install | bash' "Installing npm, Node.js, Bun, pnpm, yarn"
 
   # Install Python
-  run_or_skip "Installing Python" 'sudo pacman -S --noconfirm python'
+  install_or_skip "python" 'sudo pacman -S --noconfirm python' "Installing Python"
 }
 
 ##############################################
 ### Mobile Development Setup
 ##############################################
-
 setup_mobile_development() {
   print_header "📱 Setting Up Mobile Development..."
 
@@ -179,11 +176,6 @@ setup_mobile_development() {
   # Set the Android SDK path
   export ANDROID_HOME=/opt/android-sdk
   export PATH=$PATH:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
-
-  # Install JDK 8 and JDK 17
-  print_header "Installing JDK 8 and JDK 17..."
-  install_or_skip "jdk8" 'sudo pacman -S --noconfirm jdk8-openjdk' "Installing JDK 8"
-  install_or_skip "jdk17" 'sudo pacman -S --noconfirm jdk17-openjdk' "Installing JDK 17"
 
   # Temporarily switch to JDK 8 for Android SDK tools
   print_header "Temporarily switching to JDK 8 for Android SDK tools..."
@@ -245,50 +237,47 @@ setup_mobile_development() {
 ### Application Installation
 ##############################################
 install_applications() {
-  echo "📦 Installing Applications..."
+  print_header "📦 Installing Applications..."
 
   # Install Brave Browser
-  run_or_skip "Installing Brave Browser" 'curl -fsS https://dl.brave.com/install.sh | sh'
+  install_or_skip "brave" 'curl -fsS https://dl.brave.com/install.sh | sh' "Installing Brave Browser"
 
   # Install Ollama (if not already installed)
-  if ! command_exists ollama; then
-    run_or_skip "Installing Ollama" 'curl -fsSL https://ollama.com/install.sh | sh'
-  else
-    echo "  ↳ Ollama already installed. Skipping..."
-  fi
+  install_or_skip "ollama" 'curl -fsSL https://ollama.com/install.sh | sh' "Installing Ollama"
 }
 
 ##############################################
 ### Shell Environment Setup
 ##############################################
 setup_shell_environment() {
-  echo "🐚 Configuring Shell Environment..."
+  print_header "🐚 Configuring Shell Environment..."
 
   # Install Zsh
-  run_or_skip "Installing Zsh" 'sudo pacman -S --noconfirm zsh'
+  install_or_skip "zsh" 'sudo pacman -S --noconfirm zsh' "Installing Zsh"
 
   # Install Oh My Zsh (if not already installed)
   if [[ ! -d ~/.oh-my-zsh ]]; then
-    run_or_skip "Installing Oh My Zsh" 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended'
+    install_or_skip "oh-my-zsh" 'sh -c "$(curl -fsSL https://raw.github.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended' "Installing Oh My Zsh"
   else
     echo "  ↳ Oh My Zsh already installed. Skipping..."
   fi
 
   # Change default shell to Zsh
-  run_or_skip "Changing default shell to Zsh" 'sudo chsh -s $(which zsh) $USER'
+  install_or_skip "zsh" 'sudo chsh -s $(which zsh) $USER' "Changing default shell to Zsh"
 
   # Install Zsh plugins
-  run_or_skip "Installing Zsh plugins" 'sudo pacman -S --noconfirm zsh-syntax-highlighting zsh-autosuggestions'
+  install_or_skip "zsh-syntax-highlighting" 'sudo pacman -S --noconfirm zsh-syntax-highlighting' "Installing Zsh syntax highlighting"
+  install_or_skip "zsh-autosuggestions" 'sudo pacman -S --noconfirm zsh-autosuggestions' "Installing Zsh autosuggestions"
 
   # Install Zoxide
-  run_or_skip "Installing Zoxide" 'curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh'
+  install_or_skip "zoxide" 'curl -sSfL https://raw.githubusercontent.com/ajeetdsouza/zoxide/main/install.sh | sh' "Installing Zoxide"
 
   # Install Oh My Posh
-  run_or_skip "Installing Oh My Posh" 'curl -s https://ohmyposh.dev/install.sh | bash -s'
+  install_or_skip "oh-my-posh" 'curl -s https://ohmyposh.dev/install.sh | bash -s' "Installing Oh My Posh"
 
   # Install TPM (Tmux Plugin Manager)
   if [[ ! -d ~/.tmux/plugins/tpm ]]; then
-    run_or_skip "Installing TPM (Tmux Plugin Manager)" 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm'
+    install_or_skip "tpm" 'git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm' "Installing TPM (Tmux Plugin Manager)"
   else
     echo "  ↳ TPM already installed. Skipping..."
   fi
@@ -298,46 +287,43 @@ setup_shell_environment() {
   if command_exists tmux; then
     # Install plugins (ignore errors if some plugins are already installed)
     if tmux run-shell ~/.tmux/plugins/tpm/bin/install_plugins; then
-      echo "  ✅ Tmux plugins installed successfully."
+      print_success "Tmux plugins installed successfully."
     else
-      echo "  ⚠️ Some Tmux plugins were already installed. Continuing..."
+      print_warning "Some Tmux plugins were already installed. Continuing..."
     fi
 
     # Reload Tmux configuration
     if tmux source-file ~/.tmux.conf; then
-      echo "  ✅ Tmux configuration reloaded successfully."
+      print_success "Tmux configuration reloaded successfully."
     else
-      echo "  ❌ Failed to reload Tmux configuration. Skipping..."
+      print_error "Failed to reload Tmux configuration. Skipping..."
     fi
   else
-    echo "  ❌ Tmux not found. Skipping Tmux setup."
+    print_error "Tmux not found. Skipping Tmux setup."
   fi
 }
 
 ##############################################
 ### Git & Dotfiles Configuration
 ##############################################
-configure_git_and_dotfiles() {
-  echo "🔧 Configuring Git & Dotfiles..."
-
-  # Configure Git
-  configure_git
+configure_dotfiles() {
+  print_header "🔧 Configuring Git & Dotfiles..."
 
   # Clone and apply dotfiles
-  run_or_skip "Cloning and applying dotfiles" 'git clone git@gitlab.com:ezraravinmateus/dotfiles.git "$HOME/dotfiles" && rsync -a "$HOME/dotfiles/." "$HOME/" && rm -rf "$HOME/dotfiles"'
+  install_or_skip "dotfiles" 'git clone git@gitlab.com:ezraravinmateus/dotfiles.git "$HOME/dotfiles" && rsync -a "$HOME/dotfiles/." "$HOME/" && rm -rf "$HOME/dotfiles"' "Cloning and applying dotfiles"
 }
 
 ##############################################
 ### Finalize System Setup
 ##############################################
 finalize_system_setup() {
-  echo "🔧 Finalizing System Setup..."
+  print_header "🔧 Finalizing System Setup..."
 
   # Install NVIDIA Drivers
-  run_or_skip "Installing NVIDIA Drivers" 'sudo pacman -S --noconfirm nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings'
+  install_or_skip "nvidia" 'sudo pacman -S --noconfirm nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings' "Installing NVIDIA Drivers"
 
   # Update system
-  run_or_skip "Updating system" 'sudo pacman -Syu --noconfirm'
+  install_or_skip "system-update" 'sudo pacman -Syu --noconfirm' "Updating system"
 }
 
 ##############################################
@@ -357,15 +343,16 @@ main() {
   install_applications
   setup_shell_environment
   setup_package_management
-  configure_git_and_dotfiles
+  configure_dotfiles
   setup_development_environment
   setup_mobile_development
 
   # Finalize system setup (NVIDIA drivers and system update)
   finalize_system_setup
 
-  echo "✅ Setup complete! Some changes may require a restart."
+  print_success "Setup complete! Some changes may require a restart."
   echo "🔍 Review installation log: setup.log"
 }
 
 # Start the main
+main
