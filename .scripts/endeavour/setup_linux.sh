@@ -12,8 +12,5 @@ yay -S --noconfirm marp-cli spotify spotify-adblock whatsapp-for-linux arduino-i
 # FLUTTER ANDROID SDK
 sudo chown -R $USER:$USER /opt/android-sdk
 
-# INSTALL HOMEBREW
-/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
-
 # INSTALL JETBRAINS NERD FONT
-curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip && sudo unzip JetBrainsMono.zip -d /usr/share/fonts/truetype/ && sudo rm -rf JetBrainsMono.zip
+# curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip && sudo unzip JetBrainsMono.zip -d /usr/share/fonts/truetype/ && sudo rm -rf JetBrainsMono.zip
