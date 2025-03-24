@@ -14,3 +14,5 @@ sudo pacman -S --noconfirm hyprland hyprpaper zsh neovim tmux eza waybar obs-stu
 
 # INSTALL JETBRAINS NERD FONT
 # curl -LO https://github.com/ryanoasis/nerd-fonts/releases/download/v3.0.2/JetBrainsMono.zip && sudo unzip JetBrainsMono.zip -d /usr/share/fonts/truetype/ && sudo rm -rf JetBrainsMono.zip
+#
+sudo usermod -a -G uucp $USER
