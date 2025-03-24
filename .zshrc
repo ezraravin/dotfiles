@@ -128,9 +128,6 @@ alias os="ollama serve"
 # Run Fastfetch After TMUX
 fastfetch
 
-# Run Fastfetch After TMUX
-fastfetch
-
 # ======================
 # TMUX (Auto-start)
 # ======================
