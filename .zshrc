@@ -127,19 +127,19 @@ alias os="ollama serve"
 fastfetch
 
 # ======================
-# TMUX (Auto-start)
-# ======================
-
-if [ -z "$TMUX" ]; then
-  tmux
-fi
-
-# ======================
 # Ensure Zsh is running
 # ======================
 
 if [ -z "$ZSH" ]; then
   exec zsh
+fi
+
+# ======================
+# TMUX (Auto-start)
+# ======================
+
+if [ -z "$TMUX" ]; then
+  tmux
 fi
 
 # bun completions
