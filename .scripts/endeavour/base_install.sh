@@ -187,8 +187,11 @@ install_applications() {
 
   # Install Brave Browser
   install_or_skip "brave" 'curl -fsS https://dl.brave.com/install.sh | sh' "Installing Brave Browser"
+}
 
-  # Install Ollama (if not already installed)
+install_ai()
+{
+    # Install Ollama (if not already installed)
   install_or_skip "ollama" 'curl -fsSL https://ollama.com/install.sh | sh' "Installing Ollama"
 
   # Pull Ollama models after installation
@@ -295,7 +298,6 @@ main() {
   setup_package_management
   configure_dotfiles
   setup_development_environment
-  setup_mobile_development
 
   # Finalize system setup (NVIDIA drivers and system update)
   finalize_system_setup
