@@ -1,4 +1,3 @@
-
 #!/bin/bash
 
 # Enable error handling and verbose output
@@ -189,9 +188,8 @@ install_applications() {
   install_or_skip "brave" 'curl -fsS https://dl.brave.com/install.sh | sh' "Installing Brave Browser"
 }
 
-install_ai()
-{
-    # Install Ollama (if not already installed)
+install_ai() {
+  # Install Ollama (if not already installed)
   install_or_skip "ollama" 'curl -fsSL https://ollama.com/install.sh | sh' "Installing Ollama"
 
   # Pull Ollama models after installation
@@ -298,9 +296,8 @@ main() {
   setup_shell_environment
   setup_package_management
   setup_development_environment
-
-  # Finalize system setup (NVIDIA drivers and system update)
   finalize_system_setup
+  sudo reboot
 
   print_success "Setup complete! Some changes may require a restart."
   echo "🔍 Review installation log: setup.log"
@@ -308,4 +305,3 @@ main() {
 
 # Start the main
 main
-
