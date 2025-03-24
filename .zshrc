@@ -121,8 +121,11 @@ alias zc="cd ~/ && nvim .zshrc"
 alias scr="cd ~/.scripts/ && nvim . && cd"
 alias hc="cd ~/.config/hypr && nvim . && cd"
 alias hctl="hyprctl"
-alias so="ollama serve"
-alias sk="sudo pkill ollama"
+
+# Ollama
+alias os="ollama serve"
+alias ok="sudo pkill ollama"
+alias ov="ps aux | grep ollama"
 
 # Run Fastfetch After TMUX
 fastfetch
@@ -151,5 +154,7 @@ export BUN_INSTALL="$HOME/.bun"
 export PATH="$BUN_INSTALL/bin:$PATH"
 
 # CUDA
-export PATH=/opt/cuda/bin:$PATH
-export LD_LIBRARY_PATH=/opt/cuda/lib64:$LD_LIBRARY_PATH
+export CUDA_HOME=/opt/cuda
+export PATH=$CUDA_HOME/bin:$PATH
+export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
+export OLLAMA_LLM_LIBRARY="cuda_v11" # Force CUDA library
