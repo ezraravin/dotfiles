@@ -263,7 +263,7 @@ configure_dotfiles() {
   print_header "🔧 Configuring Git & Dotfiles..."
 
   # Clone and apply dotfiles
-  install_or_skip "dotfiles" 'git clone git@gitlab.com:ezraravinmateus/dotfiles.git "$HOME/dotfiles" && rsync -a "$HOME/dotfiles/." "$HOME/" && rm -rf "$HOME/dotfiles"' "Cloning and applying dotfiles"
+  install_or_skip "dotfiles" 'git clone git@gitlab.com/ezraravinmateus/dotfiles.git "$HOME/dotfiles" && rsync -a "$HOME/dotfiles/." "$HOME/" && rm -rf "$HOME/dotfiles"' "Cloning and applying dotfiles"
 }
 
 ##############################################
@@ -271,9 +271,6 @@ configure_dotfiles() {
 ##############################################
 finalize_system_setup() {
   print_header "🔧 Finalizing System Setup..."
-
-  # Install NVIDIA Drivers
-  install_or_skip "nvidia" 'sudo pacman -S --noconfirm nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings' "Installing NVIDIA Drivers"
 
   # Update system
   install_or_skip "system-update" 'sudo pacman -Syu --noconfirm' "Updating system"
