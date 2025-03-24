@@ -293,7 +293,7 @@ main() {
 
   configure_git
   configure_system
-    configure_dotfiles
+  configure_dotfiles
   install_applications
   setup_shell_environment
   setup_package_management
