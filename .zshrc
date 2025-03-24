@@ -2,7 +2,6 @@
 # Environment Variables
 # ======================
 
-# Homebrew Path
 if [[ "$OSTYPE" == "darwin"* ]]; then
   # macOS-specific configurations
   # Homebrew
@@ -19,7 +18,6 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
   source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
 elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
   # Linux-specific configurations
-  # export HOMEBREW_PREFIX="/home/linuxbrew/.linuxbrew"
   # Local Bin Path
   export PATH=$PATH:$HOME/.local/bin
   # Zsh Autosuggestions
