@@ -266,7 +266,7 @@ configure_dotfiles() {
   print_header "🔧 Configuring Git & Dotfiles..."
 
   # Clone and apply dotfiles
-  install_or_skip "dotfiles" 'git clone git@gitlab.com/ezraravinmateus/dotfiles.git "$HOME/dotfiles" && rsync -a "$HOME/dotfiles/." "$HOME/" && rm -rf "$HOME/dotfiles"' "Cloning and applying dotfiles"
+  install_or_skip "dotfiles" 'git clone git@gitlab.com:ezraravinmateus/dotfiles.git "$HOME/dotfiles" && rsync -a "$HOME/dotfiles/." "$HOME/" && rm -rf "$HOME/dotfiles"' "Cloning and applying dotfiles"
 }
 
 ##############################################
