@@ -293,10 +293,10 @@ main() {
 
   configure_git
   configure_system
+    configure_dotfiles
   install_applications
   setup_shell_environment
   setup_package_management
-  configure_dotfiles
   setup_development_environment
 
   # Finalize system setup (NVIDIA drivers and system update)
