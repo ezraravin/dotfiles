@@ -182,13 +182,15 @@ setup_development_environment() {
     /bin/bash -c "$(curl -fsSL https://php.new/install/linux)" && print_success "PHP, Composer, Laravel installed." || print_error "Failed to install PHP, Composer, Laravel."
   fi
 
-  # Install Node.js, Bun, and Yarn
+  # Install Node.js, Bun, and Yarn, npm, pnpm
   print_section "  ↳ Installing Node.js, Bun, pnpm, npm and Yarn..."
-  # Install Node.js and npm
+
+  # Install Node.js
   if ! command_exists node; then
     install_or_skip "nodejs" 'sudo pacman -S --noconfirm nodejs' "Installing Node.js"
   fi
 
+  # Install npm
   if ! command_exists npm; then
     install_or_skip "nodejs" 'sudo pacman -S --noconfirm npm' "Installing npm"
   fi
