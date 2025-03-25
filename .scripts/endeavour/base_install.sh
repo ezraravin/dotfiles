@@ -220,17 +220,6 @@ install_applications() {
   install_or_skip "brave" 'curl -fsS https://dl.brave.com/install.sh | sh' "Installing Brave Browser"
 }
 
-install_ai() {
-  # Install Ollama (if not already installed)
-  install_or_skip "ollama" 'curl -fsSL https://ollama.com/install.sh | sh' "Installing Ollama"
-
-  # Pull Ollama models after installation
-  if command_exists ollama; then
-    pull_ollama_models
-  else
-    print_error "Ollama not found. Skipping model pull."
-  fi
-}
 
 ##############################################
 ### Shell Environment Setup
@@ -330,9 +319,9 @@ main() {
   configure_git
   configure_system
   configure_dotfiles
-  install_applications
   setup_shell_environment
   setup_development_environment
+    install_applications
   finalize_system_setup
   sudo reboot
 
