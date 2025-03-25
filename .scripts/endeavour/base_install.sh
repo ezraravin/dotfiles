@@ -168,7 +168,6 @@ configure_system() {
   sudo systemctl start bluetooth && sudo systemctl enable bluetooth && print_success "Bluetooth enabled." || print_error "Failed to enable Bluetooth."
 }
 
-
 ##############################################
 ### Development Environment Setup
 ##############################################
@@ -186,8 +185,12 @@ setup_development_environment() {
   # Install Node.js, Bun, and Yarn
   print_section "  ↳ Installing Node.js, Bun, pnpm, npm and Yarn..."
   # Install Node.js and npm
-  if ! command_exists node || ! command_exists npm; then
-    install_or_skip "nodejs" 'sudo pacman -S --noconfirm nodejs npm' "Installing Node.js and npm"
+  if ! command_exists node; then
+    install_or_skip "nodejs" 'sudo pacman -S --noconfirm nodejs' "Installing Node.js"
+  fi
+
+  if ! command_exists npm; then
+    install_or_skip "nodejs" 'sudo pacman -S --noconfirm npm' "Installing npm"
   fi
 
   # Install pnpm
@@ -219,7 +222,6 @@ install_applications() {
   # Install Brave Browser
   install_or_skip "brave" 'curl -fsS https://dl.brave.com/install.sh | sh' "Installing Brave Browser"
 }
-
 
 ##############################################
 ### Shell Environment Setup
@@ -321,7 +323,7 @@ main() {
   configure_dotfiles
   setup_shell_environment
   setup_development_environment
-    install_applications
+  install_applications
   finalize_system_setup
   sudo reboot
 
