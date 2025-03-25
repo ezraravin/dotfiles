@@ -168,15 +168,6 @@ configure_system() {
   sudo systemctl start bluetooth && sudo systemctl enable bluetooth && print_success "Bluetooth enabled." || print_error "Failed to enable Bluetooth."
 }
 
-##############################################
-### Package Management Setup
-##############################################
-setup_package_management() {
-  print_header "📦 Setting Up Package Management..."
-
-  # Install Yay (AUR helper)
-  install_or_skip "yay" "sudo pacman -S --noconfirm base-devel git && git clone https://aur.archlinux.org/yay.git && cd yay && makepkg -si --noconfirm && cd .. && rm -rf yay" "Installing Yay"
-}
 
 ##############################################
 ### Development Environment Setup
@@ -341,7 +332,6 @@ main() {
   configure_dotfiles
   install_applications
   setup_shell_environment
-  setup_package_management
   setup_development_environment
   finalize_system_setup
   sudo reboot
