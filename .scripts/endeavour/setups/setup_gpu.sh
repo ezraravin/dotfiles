@@ -1,20 +1,23 @@
 #!/bin/bash
-# setup_gpu.sh - GPU Driver Configuration
+# ==============================================
+# GPU Driver Configuration Script
+#
 # Description:
-#   Auto-detects GPU hardware and installs appropriate drivers:
-#   - NVIDIA (LTS/DKMS options)
-#   - AMD (Open-source)
-#   - Intel (Integrated graphics)
+#   Auto-detects GPU hardware and installs:
+#   - NVIDIA drivers (LTS/DKMS options)
+#   - AMD open-source drivers
+#   - Intel integrated graphics
 #   - Optimus hybrid setups
+# ==============================================
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 source "$SCRIPT_DIR/../cli_colors.sh"
 
-# -------------------------
+# ======================
 # GPU Detection
-# -------------------------
+# ======================
 detect_gpu() {
-  print_header "🔍 Detecting GPU Hardware"
+  print_header "🔍 Hardware Detection"
 
   if lspci | grep -i "VGA.*NVIDIA" >/dev/null; then
     if lspci | grep -i "VGA.*Intel" >/dev/null; then
@@ -31,13 +34,13 @@ detect_gpu() {
   fi
 }
 
-# -------------------------
-# NVIDIA Driver Installation
-# -------------------------
+# ======================
+# NVIDIA Driver Setup
+# ======================
 choose_nvidia_driver() {
-  print_section "🔘 NVIDIA Driver Selection"
-  echo "Which NVIDIA driver would you like to install?"
-  echo "1) NVIDIA-LTS (Recommended for linux-lts kernel users)"
+  print_section "🟢 NVIDIA Driver Selection"
+  echo -e "${BLUE}Choose your NVIDIA driver:${NC}"
+  echo "1) NVIDIA-LTS (Recommended for linux-lts kernel)"
   echo "2) NVIDIA-DKMS (Recommended for regular/zen kernels)"
   echo "3) Skip NVIDIA installation"
 
@@ -56,7 +59,7 @@ choose_nvidia_driver() {
         echo "skip"
         break
         ;;
-      *) print_error "Invalid option. Please choose 1-3" ;;
+      *) print_error "Please enter 1, 2, or 3" ;;
     esac
   done
 }
@@ -66,11 +69,11 @@ install_nvidia_driver() {
 
   case $driver_type in
     "lts")
-      print_section "🟢 Installing NVIDIA-LTS"
+      print_section "📦 Installing NVIDIA-LTS"
       install_or_skip "nvidia-lts" "sudo pacman -S --noconfirm nvidia-lts" "NVIDIA LTS Driver"
       ;;
     "dkms")
-      print_section "🟡 Installing NVIDIA-DKMS"
+      print_section "⚙️ Installing NVIDIA-DKMS"
       install_or_skip "nvidia-dkms" "sudo pacman -S --noconfirm nvidia-dkms dkms linux-headers" "NVIDIA DKMS Driver"
       ;;
     "skip")
@@ -81,11 +84,11 @@ install_nvidia_driver() {
 
   # Common NVIDIA packages
   local common_packages=(
-    nvidia-utils
-    lib32-nvidia-utils
-    nvidia-settings
-    vulkan-icd-loader
-    lib32-vulkan-icd-loader
+    "nvidia-utils"
+    "lib32-nvidia-utils"
+    "nvidia-settings"
+    "vulkan-icd-loader"
+    "lib32-vulkan-icd-loader"
   )
 
   for pkg in "${common_packages[@]}"; do
@@ -93,47 +96,48 @@ install_nvidia_driver() {
   done
 
   # Regenerate initramfs
-  if ! sudo mkinitcpio -P; then
+  print_section "🔄 Regenerating Initramfs"
+  if sudo mkinitcpio -P; then
+    print_success "Initramfs updated successfully"
+  else
     print_error "Failed to regenerate initramfs"
     return 1
   fi
 }
 
-# -------------------------
-# AMD Driver Installation
-# -------------------------
+# ======================
+# AMD Driver Setup
+# ======================
 install_amd_driver() {
-  print_header "🔴 Installing AMD Drivers"
+  print_header "🔴 AMD Graphics Setup"
 
   local amd_packages=(
-    mesa
-    vulkan-radeon
-    lib32-vulkan-radeon
-    vulkan-icd-loader
-    lib32-vulkan-icd-loader
+    "mesa"
+    "vulkan-radeon"
+    "lib32-vulkan-radeon"
+    "vulkan-icd-loader"
+    "lib32-vulkan-icd-loader"
+    "libva-mesa-driver"
+    "mesa-vdpau"
   )
 
   for pkg in "${amd_packages[@]}"; do
     install_or_skip "$pkg" "sudo pacman -S --noconfirm $pkg" "$pkg"
   done
-
-  # Additional recommended for AMD
-  install_or_skip "libva-mesa-driver" "sudo pacman -S --noconfirm libva-mesa-driver" "VA-API Drivers"
-  install_or_skip "mesa-vdpau" "sudo pacman -S --noconfirm mesa-vdpau" "VDPAU Drivers"
 }
 
-# -------------------------
-# Intel Driver Installation
-# -------------------------
+# ======================
+# Intel Driver Setup
+# ======================
 install_intel_driver() {
-  print_header "🔵 Installing Intel Drivers"
+  print_header "🔵 Intel Graphics Setup"
 
   local intel_packages=(
-    mesa
-    vulkan-intel
-    lib32-vulkan-intel
-    intel-media-sdk
-    libva-intel-driver
+    "mesa"
+    "vulkan-intel"
+    "lib32-vulkan-intel"
+    "intel-media-sdk"
+    "libva-intel-driver"
   )
 
   for pkg in "${intel_packages[@]}"; do
@@ -141,11 +145,11 @@ install_intel_driver() {
   done
 }
 
-# -------------------------
+# ======================
 # Optimus Setup
-# -------------------------
+# ======================
 setup_optimus() {
-  print_header "🟡 Configuring NVIDIA Optimus"
+  print_header "🟡 NVIDIA Optimus Configuration"
 
   local driver_type=$(choose_nvidia_driver)
   [[ "$driver_type" == "skip" ]] && return
@@ -158,16 +162,16 @@ setup_optimus() {
   install_or_skip "optimus-manager" "yay -S --noconfirm optimus-manager optimus-manager-qt" "Optimus Manager"
   install_or_skip "bbswitch" "sudo pacman -S --noconfirm bbswitch" "BBSwitch"
 
-  print_section "🛠 Optimus Configuration Notes"
-  echo -e "${GREEN}After reboot, you can control GPU mode with:${NC}"
-  echo "  optimus-manager --switch nvidia  # Dedicated NVIDIA"
-  echo "  optimus-manager --switch hybrid  # Hybrid mode"
-  echo "  optimus-manager --switch integrated  # Intel only"
+  print_section "ℹ️  Optimus Usage Notes"
+  echo -e "${GREEN}After reboot, control GPU mode with:${NC}"
+  echo "  optimus-manager --switch nvidia    # Dedicated NVIDIA"
+  echo "  optimus-manager --switch hybrid    # Hybrid mode"
+  echo "  optimus-manager --switch integrated # Intel only"
 }
 
-# -------------------------
-# Main Installation Flow
-# -------------------------
+# ======================
+# Main Execution
+# ======================
 main() {
   local gpu_type=$(detect_gpu)
 
@@ -191,12 +195,11 @@ main() {
   esac
 
   if [[ "$gpu_type" =~ (NVIDIA|Optimus) ]]; then
-    print_success "GPU setup complete!"
-    echo -e "${YELLOW}➤ A reboot is required for NVIDIA changes to take effect${NC}"
+    print_success "NVIDIA setup complete!"
+    echo -e "${YELLOW}➤ Reboot required for changes to take effect${NC}"
   else
     print_success "GPU setup completed successfully"
   fi
 }
 
-# Only execute if run directly
 [[ "${BASH_SOURCE[0]}" == "${0}" ]] && main
