@@ -1,44 +1,61 @@
-# ANSI color codes for colorful output
+#!/bin/bash
+# cli_colors.sh - Common functions for all scripts
+
+# ANSI color codes
 GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 RED='\033[0;31m'
 NC='\033[0m' # No Color
 
-# Function to print a header with a message
+# Output functions
 print_header() {
-  local message=$1
-  echo -e "${GREEN}"
-  echo "===================================================================="
-  echo -e "$message"
-  echo "===================================================================="
-  echo -e "${NC}"
+  echo -e "${GREEN}\n===================================================================="
+  echo -e "$1"
+  echo -e "====================================================================${NC}"
 }
 
-# Function to print a section with a message
 print_section() {
-  local message=$1
-  echo -e "${BLUE}"
-  echo "--------------------------------------------------------------------"
-  echo -e "$message"
-  echo "--------------------------------------------------------------------"
-  echo -e "${NC}"
+  echo -e "${BLUE}\n--------------------------------------------------------------------"
+  echo -e "$1"
+  echo -e "--------------------------------------------------------------------${NC}"
 }
 
-# Function to print a success message
 print_success() {
-  local message=$1
-  echo -e "${GREEN}✅ Success: $message${NC}."
+  echo -e "${GREEN}✅ Success: $1${NC}"
 }
 
-# Function to print a warning message
 print_warning() {
-  local message=$1
-  echo -e "${YELLOW}⚠️ Warning: $message${NC}."
+  echo -e "${YELLOW}⚠️ Warning: $1${NC}"
 }
 
-# Function to print an error message
 print_error() {
-  local message=$1
-  echo -e "${RED}❎ Error: $message${NC}"
+  echo -e "${RED}❎ Error: $1${NC}"
+}
+
+# Helper functions
+package_installed() {
+  local package=$1
+  pacman -Qs "$package" >/dev/null 2>&1 || yay -Qs "$package" >/dev/null 2>&1
+}
+
+command_exists() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+install_or_skip() {
+  local package=$1
+  local install_cmd=$2
+  local description=$3
+
+  if ! package_installed "$package"; then
+    print_section "Installing $description..."
+    if eval "$install_cmd"; then
+      print_success "Installed $description"
+    else
+      print_error "Failed to install $description"
+    fi
+  else
+    print_warning "$package already installed. Skipping..."
+  fi
 }
