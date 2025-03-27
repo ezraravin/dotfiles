@@ -48,6 +48,19 @@ ollama pull deepseek-v2
 ollama pull deepseek-r1
 echo "✅ AI tools configured"
 
+# SETUP - APPS
+echo "🖥️ Desktop Applications Setup"
+echo "🌐 Installing Browsers"
+curl -fsS https://dl.brave.com/install.sh | sh
+yay -S --noconfirm whatsapp-for-linux
+echo "🎵 Installing Music"
+yay -S --noconfirm spotify spotify-adblock
+echo "🎬 Installing Media"
+sudo pacman -S --noconfirm vlc obs-studio
+echo "🎨 Installing Design"
+yay -S --noconfirm penpot-desktop-bin
+echo "✅ Applications installed"
+
 # CONFIG - Update system
 sudo pacman -Syu --noconfirm
 sudo pacman -Sc --noconfirm
