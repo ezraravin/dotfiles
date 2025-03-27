@@ -126,16 +126,6 @@ sudo curl -o /etc/udev/rules.d/60-arduino.rules https://raw.githubusercontent.co
 sudo udevadm control --reload
 echo "✅ Arduino ready"
 
-# SETUP - MOBILE DEV
-echo "📱 Mobile Dev Setup"
-yay -S --noconfirm flutter android-studio android-sdk android-platform-tools jdk17-openjdk jdk8-openjdk
-export ANDROID_HOME=/opt/android-sdk
-export PATH=$PATH:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
-yes | sdkmanager --licenses
-yes | flutter doctor --android-licenses
-yay -S --noconfirm scrcpy
-echo "✅ Mobile dev ready"
-
 # CONFIG - Update system
 sudo pacman -Syu --noconfirm
 sudo pacman -Sc --noconfirm
