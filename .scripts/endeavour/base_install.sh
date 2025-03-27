@@ -30,6 +30,7 @@ cleanup() {
 trap cleanup EXIT
 
 # Function to prompt for SSH passphrase
+#
 prompt_ssh() {
   print_header "🔑 SSH Configuration"
   read -p "Do you want to use SSH for Git operations? (y/n): " USE_SSH
@@ -360,6 +361,7 @@ main() {
     kill -0 "$$" || exit
   done 2>/dev/null &
 
+  prompt_ssh
   configure_git
   configure_system
   configure_dotfiles
