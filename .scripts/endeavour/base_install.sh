@@ -9,7 +9,7 @@ while true; do
   kill -0 "$$" || exit
 done 2>/dev/null &
 
-# SSH Setup (runs as normal user)
+# GIT - SSH Setup (runs as normal user)
 read -p "Use SSH for Git? [y/N]: " ssh_choice
 if [[ "$ssh_choice" =~ ^[Yy]$ ]]; then
   read -p "Name for SSH key: " key_name
@@ -22,11 +22,11 @@ else
   GIT_CLONE_PREFIX="https://gitlab.com/"
 fi
 
-# Dotfiles (runs as normal user)
+# GIT - Dotfiles (runs as normal user)
 [ ! -d ~/dotfiles ] && git clone $GIT_CLONE_PREFIX/ezraravinmateus/dotfiles.git ~/dotfiles &&
   cp -r ~/dotfiles/. ~/ && rm -rf ~/dotfiles
 
-# Git Config (runs as normal user)
+# GIT - Git Config (runs as normal user)
 if ! git config --global user.email &>/dev/null; then
   read -p "Git email: " git_email
   read -p "Git name: " git_name
@@ -35,10 +35,10 @@ if ! git config --global user.email &>/dev/null; then
   git config --global init.defaultBranch main
 fi
 
-# Enable bluetooth
+# CONFIG - Enable bluetooth
 sudo systemctl enable --now bluetooth
 
-# Update system
+# CONFIG - Update system
 sudo pacman -Syu --noconfirm
 sudo pacman -Sc --noconfirm
 
