@@ -122,10 +122,11 @@ alias scr="cd ~/.scripts/ && nvim . && cd"
 alias hc="cd ~/.config/hypr && nvim . && cd"
 alias hctl="hyprctl"
 
-# Ollama
+# AI
 alias os="ollama serve"
 alias ok="sudo pkill ollama"
 alias ov="ps aux | grep ollama"
+alias cb="chatbox"
 
 # Run Fastfetch After TMUX
 fastfetch
