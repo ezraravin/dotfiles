@@ -1,4 +1,7 @@
 #!/bin/bash
+# base_install.sh - Main Install Script
+
+source ./cli_colors.sh
 
 # Enable error handling and verbose output
 set -e
@@ -92,68 +95,6 @@ install_or_skip() {
   else
     echo "  ↳ $package already installed. Skipping..."
   fi
-}
-
-# Function to pull Ollama models
-pull_ollama_models() {
-  print_header "📥 Pulling Ollama Models..."
-
-  # List of models to pull
-  local models=("deepseek-r1" "qwen2.5" "qwen2.5-coder" "deepseek-coder-v2" "deepseek-llm" "deepseek-v2")
-
-  for model in "${models[@]}"; do
-    print_section "  ↳ Pulling $model..."
-    if ollama pull "$model"; then
-      print_success "Successfully pulled $model."
-    else
-      print_error "Failed to pull $model."
-    fi
-  done
-}
-
-# ANSI color codes for colorful output
-GREEN='\033[0;32m'
-YELLOW='\033[1;33m'
-BLUE='\033[0;34m'
-RED='\033[0;31m'
-NC='\033[0m' # No Color
-
-# Function to print a header with a message
-print_header() {
-  local message=$1
-  echo -e "${GREEN}"
-  echo "===================================================================="
-  echo -e "$message"
-  echo "===================================================================="
-  echo -e "${NC}"
-}
-
-# Function to print a section with a message
-print_section() {
-  local message=$1
-  echo -e "${BLUE}"
-  echo "--------------------------------------------------------------------"
-  echo -e "$message"
-  echo "--------------------------------------------------------------------"
-  echo -e "${NC}"
-}
-
-# Function to print a success message
-print_success() {
-  local message=$1
-  echo -e "${GREEN}✅ Success: $message${NC}."
-}
-
-# Function to print a warning message
-print_warning() {
-  local message=$1
-  echo -e "${YELLOW}⚠️ Warning: $message${NC}."
-}
-
-# Function to print an error message
-print_error() {
-  local message=$1
-  echo -e "${RED}❎ Error: $message${NC}"
 }
 
 ##############################################
