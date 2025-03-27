@@ -7,7 +7,11 @@ source "$SCRIPT_DIR/cli_colors.sh"
 # Enable error handling and verbose output
 set -e
 set -o pipefail
-exec > >(while read -r line; do echo "[$(date '+%Y-%m-%d %H:%M:%S')] $line"; done | tee -a setup.log)
+if command -v ts >/dev/null; then
+  exec > >(ts '[%Y-%m-%d %H:%M:%S]' | tee -a setup.log)
+else
+  exec > >(while read -r line; do echo "[$(date '+%Y-%m-%d %H:%M:%S')] $line"; done | tee -a setup.log)
+fi
 
 # Use parallel downloads (add to base_install.sh)
 sudo sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
