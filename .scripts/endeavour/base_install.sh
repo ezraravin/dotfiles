@@ -38,6 +38,21 @@ fi
 # CONFIG - Enable bluetooth
 sudo systemctl enable --now bluetooth
 
+# SETUP - AI
+echo "🤖 AI Development Setup"
+echo "🦙 Installing Ollama"
+curl -fsSL https://ollama.com/install.sh | sh
+echo "💬 Installing Chatbox"
+yay -S --noconfirm chatbox-bin
+echo "📥 Downloading AI Models"
+ollama pull deepseek-coder-v2
+ollama pull deepseek-v2
+ollama pull deepseek-r1
+ollama pull qwen2.5-coder
+ollama pull qwen2.5
+ollama pull qwq
+echo "✅ AI tools configured"
+
 # CONFIG - Update system
 sudo pacman -Syu --noconfirm
 sudo pacman -Sc --noconfirm
