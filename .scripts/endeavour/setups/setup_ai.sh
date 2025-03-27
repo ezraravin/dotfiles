@@ -9,6 +9,16 @@
 #   Requires yay for AUR packages
 #   Internet connection needed for model downloads
 
+# Add model size information
+declare -A model_sizes=(
+  ["deepseek-coder-v2"]="9GB"
+  ["deepseek-v2"]="9GB"
+  ["deepseek-r1"]="5GB"
+  ["qwen2.5"]="5GB"
+  ["qwen2.5-coder"]="5GB"
+  ["qwq"]="20GB"
+)
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 source "$SCRIPT_DIR/../cli_colors.sh"
 
@@ -23,12 +33,18 @@ install_chatbox() {
 }
 
 download_models() {
+
+  echo -e "${YELLOW}Estimated size: ${model_sizes[$model]}${NC}"
+  read -p "Continue? [Y/n]: " confirm
+  [[ "$confirm" =~ ^[Nn] ]] && continue
   print_section "📥 Downloading AI Models"
   local models=(
-    "deepseek-coder" # DeepSeek's Programming-focused model
-    "deepseek-v3"    # DeepSeek's general-purpose model
-    "deepseek-r1"    # DeepSeek's reasoning model
-    "qwen2.5"        # Alibaba's multilingual model
+    "deepseek-coder-v2" # DeepSeek's coding model
+    "deepseek-v2"       # DeepSeek's general-purpose model
+    "deepseek-r1"       # DeepSeek's reasoning model
+    "qwen2.5-coder"     # Alibaba's coding model
+    "qwen2.5"           # Alibaba's multilingual model
+    "qwq"               # Alibaba's reasoning model
   )
 
   for model in "${models[@]}"; do

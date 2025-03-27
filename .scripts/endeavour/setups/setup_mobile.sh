@@ -40,6 +40,9 @@ setup_mobile() {
 
   print_success "Mobile development ready"
   echo -e "${YELLOW}Run 'flutter doctor' for verification${NC}"
+
+  # Add useful tools
+  install_or_skip "scrcpy" "yay -S --noconfirm scrcpy" "Android device mirroring"
 }
 
 [[ "${BASH_SOURCE[0]}" == "${0}" ]] && setup_mobile

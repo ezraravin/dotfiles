@@ -44,6 +44,12 @@ install_hyprland() {
 
 main() {
   install_hyprland
+
+  # Add NVIDIA/Wayland check
+  if lspci | grep -i nvidia && ! grep -q "nvidia-drm.modeset=1" /etc/default/grub; then
+    print_warning "NVIDIA detected - ensure you have:"
+    echo -e "${YELLOW}options nvidia-drm modeset=1${NC} in your kernel parameters"
+  fi
 }
 
 [[ "${BASH_SOURCE[0]}" == "${0}" ]] && main

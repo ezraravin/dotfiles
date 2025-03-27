@@ -25,11 +25,7 @@ configure_git() {
   read -p "Enter default branch name [main/master]: " GIT_BRANCH
 
   # Apply configuration with error handling
-  git config --global user.email "$GIT_EMAIL" &&
-    git config --global user.name "$GIT_NAME" &&
-    git config --global init.defaultBranch "$GIT_BRANCH" &&
-    print_success "Git configuration saved" ||
-    print_error "Failed to configure Git settings"
+  git config --global user.email "$GIT_EMAIL" && git config --global user.name "$GIT_NAME" && print_success "Git configuration saved" || print_error "Failed to configure Git settings"
 }
 
 # Execute only if run directly (not sourced)

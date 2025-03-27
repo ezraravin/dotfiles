@@ -16,25 +16,20 @@ setup_apps() {
 
   print_section "🌐 Browsers & Communication"
   install_or_skip "brave-browser" "curl -fsS https://dl.brave.com/install.sh | sh" "Brave Browser"
-  install_or_skip "whatsapp-for-linux" "yay -S --noconfirm whatsapp-for-linux-bin" "WhatsApp Desktop"
+  install_or_skip "whatsapp-for-linux" "yay -S --noconfirm whatsapp-for-linux" "WhatsApp Desktop"
 
   print_section "🎵 Music & Audio"
   install_or_skip "spotify" "yay -S --noconfirm spotify" "Spotify"
-  install_or_skip "spotify-adblock" "yay -S --noconfirm spotify-adblock-git" "Spotify Adblock"
+  install_or_skip "spotify-adblock" "yay -S --noconfirm spotify-adblock" "Spotify Adblock"
 
   print_section "🎬 Media & Production"
   install_or_skip "vlc" "sudo pacman -S --noconfirm vlc" "VLC Media Player"
   install_or_skip "obs-studio" "sudo pacman -S --noconfirm obs-studio" "OBS Studio"
-  install_or_skip "davinci-resolve" "yay -S --noconfirm davinci-resolve-studio" "DaVinci Resolve Studio"
 
   print_section "🎨 Design & Creativity"
   install_or_skip "penpot-desktop" "yay -S --noconfirm penpot-desktop-bin" "Penpot Designer"
 
   print_success "All applications processed"
-  echo -e "${YELLOW}Note: Some applications may require additional setup:"
-  echo -e "- Spotify Adblock: Follow post-install instructions"
-  echo -e "- DaVinci Resolve: May need proprietary drivers"
-  echo -e "- Penpot: First launch may take longer${NC}"
 }
 
 [[ "${BASH_SOURCE[0]}" == "${0}" ]] && setup_apps

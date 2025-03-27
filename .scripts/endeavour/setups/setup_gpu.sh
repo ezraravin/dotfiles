@@ -40,6 +40,12 @@ detect_gpu() {
     echo "None"
   fi
 }
+# CUDA option
+install_cuda() {
+  print_section "🧮 Installing CUDA Toolkit"
+  install_or_skip "cuda" "sudo pacman -S --noconfirm cuda" "NVIDIA CUDA"
+  echo 'export PATH=/opt/cuda/bin:$PATH' >>~/.bashrc
+}
 
 # ======================
 # NVIDIA Driver Setup
@@ -206,6 +212,12 @@ main() {
     echo -e "${YELLOW}➤ Reboot required for changes to take effect${NC}"
   else
     print_success "GPU setup completed successfully"
+  fi
+
+  # Add to NVIDIA installation
+  if [[ "$driver_type" != "skip" ]]; then
+    read -p "Install CUDA Toolkit? [y/N]: " cuda_choice
+    [[ "$cuda_choice" =~ ^[Yy] ]] && install_cuda
   fi
 }
 

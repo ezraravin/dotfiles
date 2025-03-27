@@ -84,25 +84,22 @@ main() {
   done 2>/dev/null &
 
   # Initial configuration
-  run_script "configure_git.sh"
+  execute_install_phase "./configs/configure_system.sh"
+  execute_install_phase "./configs/configure_git.sh"
+  execute_install_phase "./configs/configure_dotfiles.sh"
 
-  # Core installation phases
-  execute_install_phase "Environment" \
-    "setup_shell.sh" \
-    "setup_linux.sh"
+  # Core System Installation
+  execute_install_phase "./setups/setup_shell.sh"
+  execute_install_phase "./setups/setup_linux.sh"
 
-  execute_install_phase "Development" \
-    "setup_dev_env.sh" \
-    "setup_mobile.sh" \
-    "setup_ai.sh"
-
-  execute_install_phase "Applications" \
-    "setup_apps.sh" \
-    "setup_gpu_driver.sh"
+  execute_install_phase "./setups/setup_dev_env.sh"
+  execute_install_phase "./setups/setup_ai.sh"
+  execute_install_phase "./setups/setup_apps.sh"
+  execute_install_phase "./setups/setup_gpu.sh"
 
   # Finalization
-  run_script "configure_dotfiles.sh"
-  run_script "finalize_setup.sh"
+  execute_install_phase "./configs/configure_dotfiles.sh"
+  execute_install_phase "finalize_setup.sh"
 
   # Completion
   print_header "🎉 Installation Complete!"
