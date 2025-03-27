@@ -1,22 +1,6 @@
 #!/bin/bash
 # base_install.sh - Comprehensive System Installation and Configuration Script
 
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-
-# Enable strict error handling and verbose logging
-set -e
-set -o pipefail
-
-# Setup logging with timestamping if available
-if command -v ts >/dev/null; then
-  exec > >(ts '[%Y-%m-%d %H:%M:%S]' | tee -a setup.log)
-else
-  exec > >(while read -r line; do echo "[$(date '+%Y-%m-%d %H:%M:%S')] $line"; done | tee -a setup.log)
-fi
-
-# Enable parallel package downloads for faster installations
-sudo sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
-
 ##############################################
 ### Configuration Functions
 ##############################################
@@ -173,23 +157,6 @@ main() {
   configure_dotfiles
   configure_git
   configure_system
-
-  # Core Installation Phases
-  execute_install_phase "Environment Setup" \
-    "./config/setup_shell.sh" \
-    "./config/setup_linux.sh"
-
-  execute_install_phase "Development Environment" \
-    "./setups/setup_dev_env.sh" \
-    "./setups/setup_mobile.sh" \
-    "./setups/setup_ai.sh"
-
-  execute_install_phase "Application Installation" \
-    "./setups/setup_apps.sh" \
-    "./setups/setup_gpu.sh"
-
-  execute_install_phase "Finalization" \
-    "./utilities/finalize_setup.sh"
 
   # Installation Complete
   echo "Installation Complete!"
