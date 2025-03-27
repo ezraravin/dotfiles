@@ -6,6 +6,7 @@
 #   - Utilities (hyprpaper, hyprlock)
 #   - Waybar integration
 #   - Required portals and utilities
+#   - Wayland clipboard
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 source "$SCRIPT_DIR/../cli_colors.sh"
@@ -14,13 +15,14 @@ install_hyprland() {
   print_header "🌌 Hyprland Installation"
 
   local core_packages=(
-    hyprland        # Main compositor
-    hyprpaper       # Wallpaper utility
-    hyprlock        # Screen locker
-    waybar-hyprland # Hyprland-compatible status bar
-    wofi            # Application launcher
-    grim            # Screenshot tool
-    slurp           # Region selection
+    hyprland     # Main compositor
+    hyprpaper    # Wallpaper utility
+    hyprlock     # Screen locker
+    waybar       # Hyprland-compatible status bar
+    wofi         # Application launcher
+    grim         # Screenshot tool
+    slurp        # Region selection
+    wl-clipboard # Clipboard for Wayland
   )
 
   # Install main packages

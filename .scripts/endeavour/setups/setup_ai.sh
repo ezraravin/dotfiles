@@ -27,6 +27,7 @@ download_models() {
   local models=(
     "deepseek-coder" # DeepSeek's Programming-focused model
     "deepseek-v3"    # DeepSeek's general-purpose model
+    "deepseek-r1"    # DeepSeek's reasoning model
     "qwen2.5"        # Alibaba's multilingual model
   )
 
