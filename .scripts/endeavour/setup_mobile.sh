@@ -1,77 +1,119 @@
-##############################################
-### Mobile Development Setup
-##############################################
+#!/bin/bash
+# setup_mobile.sh - Comprehensive Mobile Dev Setup (Android/Flutter)
 
-setup_mobile_development() {
-  print_header "📱 Setting Up Mobile Development..."
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+source "$SCRIPT_DIR/cli_colors.sh"
 
-  # Install Flutter
-  install_or_skip "flutter" 'yay -S --noconfirm flutter' "Installing Flutter"
+# -------------------------
+# Android SDK Management
+# -------------------------
+manage_android_sdk() {
+  print_header "⚙️ Configuring Android SDK"
 
-  # Install Android Studio and SDK
-  install_or_skip "android-studio" 'yay -S --noconfirm android-studio android-sdk android-sdk-build-tools android-sdk-cmdline-tools-latest' "Installing Android Studio and SDK"
-
-  # Set the Android SDK path
   export ANDROID_HOME=/opt/android-sdk
-  export PATH=$PATH:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
+  export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin:$ANDROID_HOME/platform-tools
 
-  # Install JDK 8 and JDK 17
-  print_header "Installing JDK 8 and JDK 17..."
-  install_or_skip "jdk8" 'sudo pacman -S --noconfirm jdk8-openjdk' "Installing JDK 8"
-  install_or_skip "jdk17" 'sudo pacman -S --noconfirm jdk17-openjdk' "Installing JDK 17"
+  # Install critical components
+  local components=(
+    "platform-tools"
+    "platforms;android-34"
+    "build-tools;34.0.0"
+    "emulator"
+    "patcher;v4"
+  )
 
-  # Temporarily switch to JDK 8 for Android SDK tools
-  print_header "Temporarily switching to JDK 8 for Android SDK tools..."
-  sudo archlinux-java set java-8-openjdk
-  export JAVA_HOME=/usr/lib/jvm/java-8-openjdk
-  print_success "Temporarily using JDK 8."
+  for component in "${components[@]}"; do
+    if ! sdkmanager --list_installed | grep -q "$component"; then
+      print_section "Installing $component..."
+      yes | sdkmanager "$component" &&
+        print_success "Installed $component" ||
+        print_error "Failed to install $component"
+    else
+      print_warning "$component already installed"
+    fi
+  done
+}
 
-  # Install platform-tools
-  print_section "Installing platform-tools..."
-  install_or_skip "platform-tools" 'yes | sdkmanager "platform-tools"' "Installing platform-tools"
-  print_success "Platform-tools installed successfully."
+# -------------------------
+# Java Environment Setup
+# -------------------------
+setup_java() {
+  print_header "☕ Java Environment Setup"
 
-  # Find and install the latest build-tools
-  print_section "Finding the latest build-tools version..."
-  LATEST_BUILD_TOOLS=$(sdkmanager --list | grep "build-tools;" | awk '{print $1}' | sort -V | tail -n 1)
+  # Install JDKs
+  local jdks=(
+    jdk17-openjdk
+    jdk8-openjdk
+  )
 
-  if [ -z "$LATEST_BUILD_TOOLS" ]; then
-    print_error "No build-tools found."
-  else
-    print_section "Installing $LATEST_BUILD_TOOLS..."
-    install_or_skip "build-tools" "yes | sdkmanager \"$LATEST_BUILD_TOOLS\"" "Installing build-tools"
-    print_success "Build-tools $LATEST_BUILD_TOOLS installed successfully."
-    echo -e "${BLUE}Installed build-tools:${NC}"
-    sdkmanager --list_installed | grep "build-tools;"
-  fi
+  for jdk in "${jdks[@]}"; do
+    install_or_skip "$jdk" "sudo pacman -S --noconfirm $jdk" "$jdk"
+  done
 
-  # Find and install the latest Android platform
-  print_section "Finding the latest Android platform..."
-  LATEST_PLATFORM=$(sdkmanager --list | grep "platforms;android" | awk '{print $1}' | sort -V | tail -n 1)
-
-  if [ -z "$LATEST_PLATFORM" ]; then
-    print_error "No Android platforms found."
-  else
-    print_section "Installing latest Android platform: $LATEST_PLATFORM..."
-    install_or_skip "platform" "yes | sdkmanager \"$LATEST_PLATFORM\"" "Installing Android platform"
-    print_success "Android platform $LATEST_PLATFORM installed successfully."
-  fi
-
-  # Verify installed components
-  print_section "Verifying installed components..."
-  sdkmanager --list_installed
-  print_success "Installed components verified."
-
-  # Accept Android licenses
-  print_section "Accepting Android licenses..."
-  install_or_skip "android-licenses" 'yes | flutter doctor --android-licenses' "Accepting Android licenses"
-  print_success "Android licenses accepted."
-
-  # Switch back to JDK 17
-  print_header "Switching back to JDK 17..."
+  # Configure Java versions
+  print_section "Configuring Java versions..."
   sudo archlinux-java set java-17-openjdk
   export JAVA_HOME=/usr/lib/jvm/java-17-openjdk
-  print_success "JDK 17 is now the default Java version."
-
-  print_header "Android SDK setup complete!"
 }
+
+# -------------------------
+# Flutter Post-Install
+# -------------------------
+setup_flutter() {
+  print_header "📱 Flutter Environment"
+
+  # Add Flutter to PATH if not already present
+  if ! grep -q "flutter/bin" ~/.zshrc; then
+    echo 'export PATH="$PATH:$HOME/flutter/bin"' >>~/.zshrc
+  fi
+
+  # Enable Linux desktop support
+  flutter config --enable-linux-desktop
+
+  # Run doctor
+  print_section "Running Flutter Doctor..."
+  flutter doctor -v
+}
+
+# -------------------------
+# Main Installation Flow
+# -------------------------
+main() {
+  print_header "🚀 Starting Mobile Dev Setup"
+
+  # 1. Install core packages
+  print_section "📦 Installing Core Packages"
+  local packages=(
+    flutter
+    android-studio
+    android-sdk
+    android-sdk-build-tools
+    android-sdk-platform-tools
+    android-emulator
+  )
+
+  for pkg in "${packages[@]}"; do
+    install_or_skip "$pkg" "yay -S --noconfirm $pkg" "$pkg"
+  done
+
+  # 2. Setup environment
+  setup_java
+  manage_android_sdk
+
+  # 3. Accept licenses
+  print_section "📝 Accepting Android Licenses"
+  yes | sdkmanager --licenses
+  yes | flutter doctor --android-licenses
+
+  # 4. Flutter setup
+  setup_flutter
+
+  print_success "Mobile development setup complete!"
+  echo -e "${YELLOW}Next steps:"
+  echo "1. Launch Android Studio to complete setup"
+  echo "2. Create a virtual device in AVD Manager"
+  echo "3. Run 'flutter create my_app' to test"
+  echo "4. Source your shell: source ~/.zshrc${NC}"
+}
+
+[[ "${BASH_SOURCE[0]}" == "${0}" ]] && main

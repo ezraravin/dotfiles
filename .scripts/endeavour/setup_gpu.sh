@@ -1,6 +1,6 @@
 #!/bin/bash
 # setup_gpu_driver.sh - Complete GPU Driver Installation Script
-#
+
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 source "$SCRIPT_DIR/cli_colors.sh"
 
