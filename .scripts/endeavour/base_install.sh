@@ -28,10 +28,8 @@ fi
 
 # GIT - Git Config (runs as normal user)
 if ! git config --global user.email &>/dev/null; then
-  read -p "Git email: " git_email
-  read -p "Git name: " git_name
-  git config --global user.email "$git_email"
-  git config --global user.name "$git_name"
+  git config --global user.email "ezraravin@proton.me"
+  git config --global user.name "Rave"
   git config --global init.defaultBranch main
 fi
 
