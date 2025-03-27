@@ -36,6 +36,61 @@ fi
 # CONFIG - Enable bluetooth
 sudo systemctl enable --now bluetooth
 
+# SETUP - DISPLAY MANAGER
+echo "🖥️ SDDM Setup"
+sudo pacman -S --noconfirm sddm
+sudo systemctl enable --now sddm
+echo "✅ SDDM installed"
+
+# SETUP - GPU DRIVER
+echo "🔍 GPU Detection"
+if lspci | grep -i "VGA.*NVIDIA"; then
+  echo "🟢 NVIDIA detected"
+  sudo pacman -S --noconfirm nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings
+  sudo mkinitcpio -P
+elif lspci | grep -i "VGA.*AMD"; then
+  echo "🔴 AMD detected"
+  sudo pacman -S --noconfirm mesa vulkan-radeon lib32-vulkan-radeon
+elif lspci | grep -i "VGA.*Intel"; then
+  echo "🔵 Intel detected"
+  sudo pacman -S --noconfirm mesa vulkan-intel lib32-vulkan-intel
+fi
+echo "✅ GPU setup complete - reboot required"
+
+# SETUP - LINUX
+echo "🐧 Core Linux Setup"
+sudo pacman -S --noconfirm eza bat ripgrep fd nautilus
+sudo pacman -S --noconfirm btop cava fastfetch
+sudo pacman -S --noconfirm curl wget blueman
+echo "✅ Core system tools installed"
+
+# SETUP - HYPRLAND
+echo "🌌 Hyprland Setup"
+sudo pacman -S --noconfirm hyprland hyprpaper hyprlock waybar wofi grim slurp wl-clipboard
+echo "✅ Hyprland installed"
+
+# SETUP - SWAY
+echo "🌊 Sway Setup"
+sudo pacman -S --noconfirm sway swaybg swaylock-effects
+sudo pacman -S --noconfirm waybar wofi grim slurp wl-clipboard
+echo "✅ Sway installed - configure ~/.config/sway/config"
+
+# SETUP - DEV ENVIRONMENT
+echo "👨💻 Dev Environment Setup"
+sudo pacman -S --noconfirm nodejs npm python jdk-openjdk yarn pnpm lazygit docker docker-compose
+/bin/bash -c "$(curl -fsSL https://php.new/install/linux)"
+curl -fsSL https://bun.sh/install | bash
+echo "✅ Dev tools installed"
+
+# SETUP - SHELL
+echo "🐚 Shell Setup"
+sudo pacman -S --noconfirm zsh zsh-syntax-highlighting zsh-autosuggestions zsh-completions
+sudo pacman -S --noconfirm zoxide fzf thefuck
+curl -s https://ohmyposh.dev/install.sh | bash -s
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+chsh -s $(which zsh)
+echo "✅ Shell configured"
+
 # SETUP - AI
 echo "🤖 AI Development Setup"
 echo "🦙 Installing Ollama"
@@ -60,6 +115,24 @@ sudo pacman -S --noconfirm vlc obs-studio
 echo "🎨 Installing Design"
 yay -S --noconfirm penpot-desktop-bin
 echo "✅ Applications installed"
+
+# SETUP - ARDUINO
+echo "⚡ Arduino Setup"
+yay -S --noconfirm arduino-ide
+sudo usermod -a -G uucp,tty $USER
+sudo curl -o /etc/udev/rules.d/60-arduino.rules https://raw.githubusercontent.com/arduino/ArduinoCore-avr/master/60-arduino-avr-core.rules
+sudo udevadm control --reload
+echo "✅ Arduino ready"
+
+# SETUP - MOBILE DEV
+echo "📱 Mobile Dev Setup"
+yay -S --noconfirm flutter android-studio android-sdk android-platform-tools jdk17-openjdk jdk8-openjdk
+export ANDROID_HOME=/opt/android-sdk
+export PATH=$PATH:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
+yes | sdkmanager --licenses
+yes | flutter doctor --android-licenses
+yay -S --noconfirm scrcpy
+echo "✅ Mobile dev ready - run 'flutter doctor'"
 
 # CONFIG - Update system
 sudo pacman -Syu --noconfirm
