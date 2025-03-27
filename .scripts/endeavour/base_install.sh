@@ -1,6 +1,35 @@
 #!/bin/bash
-# Simple System Setup Script
+# Ask if user wants to use SSH
+read -p "Configure Git to use SSH? [y/N]: " use_ssh
+if [[ "$use_ssh" =~ ^[Yy]$ ]]; then
+  # Get PC name for key comment
+  pc_name=$(hostname)
+  read -p "Enter name for this PC [$pc_name]: " input_name
+  pc_name=${input_name:-$pc_name}
 
+  # Generate SSH key if it doesn't exist
+  ssh_key="$HOME/.ssh/id_ed25519"
+  if [ ! -f "$ssh_key" ]; then
+    ssh-keygen -t ed25519 -C "$pc_name $(date +%Y-%m-%d)" -N "" -f "$ssh_key"
+    eval "$(ssh-agent -s)" >/dev/null
+    ssh-add "$ssh_key"
+  fi
+
+  # Show public key and instructions
+  echo -e "\nPublic key (add to your Git account):"
+  cat "$ssh_key.pub"
+  echo -e "\n1. Copy the key above"
+  echo "2. Add it to your Git provider's SSH settings"
+  echo "3. Test with: ssh -T git@gitlab.com"
+
+  # Set Git to use SSH
+  GIT_CLONE_PREFIX="git@gitlab.com:"
+else
+  # Set Git to use HTTPS
+  GIT_CLONE_PREFIX="https://gitlab.com/"
+fi
+
+echo -e "\nGit will clone using: $GIT_CLONE_PREFIX"
 # Dotfiles setup
 echo "Setting up dotfiles..."
 if [ ! -d "$HOME/dotfiles" ]; then
