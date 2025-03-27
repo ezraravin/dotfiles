@@ -11,14 +11,49 @@ exec > >(tee -i setup.log) 2>&1
 cleanup() {
   exit_status=$?
   if [ $exit_status -eq 0 ]; then
-    print_success "Installation successful. Setup.log has been deleted."
-    rm -f setup.log
+    # Don't delete setup.log if we haven't prompted for reboot yet
+    if [ -z "${REBOOT_CHOICE+x}" ]; then
+      print_success "Installation successful. Setup.log has been preserved."
+    else
+      if [[ "$REBOOT_CHOICE" =~ ^[Yy]$ ]]; then
+        print_success "Installation successful. System will reboot."
+      else
+        print_success "Installation successful. Setup.log has been preserved."
+      fi
+    fi
   else
     print_error "Installation failed. Error details from setup.log:"
+    tail -n 20 setup.log
   fi
 }
 
 trap cleanup EXIT
+
+# Function to prompt for SSH passphrase
+prompt_ssh() {
+  print_header "🔑 SSH Configuration"
+  read -p "Do you want to use SSH for Git operations? (y/n): " USE_SSH
+  if [[ "$USE_SSH" =~ ^[Yy]$ ]]; then
+    print_section "  ↳ Setting up SSH..."
+    if [[ ! -f ~/.ssh/id_ed25519 ]]; then
+      ssh-keygen -t ed25519 -C "Rave's PC"
+      eval "$(ssh-agent -s)"
+      read -sp "Enter passphrase for your SSH key (leave empty if none): " SSH_PASSPHRASE
+      echo
+      if [[ -n "$SSH_PASSPHRASE" ]]; then
+        ssh-add ~/.ssh/id_ed25519 <<<"$SSH_PASSPHRASE"
+      else
+        ssh-add ~/.ssh/id_ed25519
+      fi
+      print_success "SSH key generated and added to agent"
+    else
+      print_warning "SSH key already exists. Skipping generation."
+    fi
+    GIT_CLONE_PREFIX="git@gitlab.com:"
+  else
+    GIT_CLONE_PREFIX="https://gitlab.com/"
+  fi
+}
 
 ##############################################
 ### Helper Functions
@@ -286,13 +321,18 @@ setup_shell_environment() {
 ##############################################
 ### Git & Dotfiles Configuration
 ##############################################
+
 configure_dotfiles() {
   print_header "🔧 Configuring Git & Dotfiles..."
 
   # Clone and apply dotfiles
   print_section "  ↳ Cloning and applying dotfiles..."
   if [[ ! -d "$HOME/dotfiles" ]]; then
-    git clone git@gitlab.com:ezraravinmateus/dotfiles.git "$HOME/dotfiles" && rsync -a "$HOME/dotfiles/." "$HOME/" && rm -rf "$HOME/dotfiles" && print_success "Dotfiles applied." || print_error "Failed to apply dotfiles."
+    git clone "${GIT_CLONE_PREFIX}ezraravinmateus/dotfiles.git" "$HOME/dotfiles" &&
+      rsync -a "$HOME/dotfiles/." "$HOME/" &&
+      rm -rf "$HOME/dotfiles" &&
+      print_success "Dotfiles applied." ||
+      print_error "Failed to apply dotfiles."
   else
     echo "  ↳ Dotfiles already applied. Skipping..."
   fi
@@ -327,10 +367,17 @@ main() {
   setup_development_environment
   install_applications
   finalize_system_setup
-  sudo reboot
 
-  print_success "Setup complete! Some changes may require a restart."
-  echo "🔍 Review installation log: setup.log"
+  # Reboot confirmation
+  print_header "🎉 Installation Complete!"
+  read -p "Do you want to reboot now? (y/n): " REBOOT_CHOICE
+  if [[ "$REBOOT_CHOICE" =~ ^[Yy]$ ]]; then
+    print_section "  ↳ Rebooting system..."
+    sudo reboot
+  else
+    print_success "Setup complete! Some changes may require a restart."
+    echo "🔍 Review installation log: setup.log"
+  fi
 }
 
 # Start the main
