@@ -35,8 +35,10 @@ if ! git config --global user.email &>/dev/null; then
   git config --global init.defaultBranch main
 fi
 
-# System commands (uses cached sudo)
+# Enable bluetooth
 sudo systemctl enable --now bluetooth
+
+# Update system
 sudo pacman -Syu --noconfirm
 sudo pacman -Sc --noconfirm
 
