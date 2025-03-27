@@ -2,7 +2,6 @@
 # base_install.sh - Comprehensive System Installation and Configuration Script
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-source "$SCRIPT_DIR/cli_colors.sh"
 
 # Enable strict error handling and verbose logging
 set -e
@@ -23,40 +22,40 @@ sudo sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
 ##############################################
 
 configure_dotfiles() {
-  print_header "🎛️ Dotfiles Configuration"
+  echo "🎛️ Dotfiles Configuration"
   local dotfiles_dir="$HOME/dotfiles"
   local clone_url="${GIT_CLONE_PREFIX:-https://gitlab.com/}ezraravinmateus/dotfiles.git"
 
   if [[ -d "$dotfiles_dir" ]]; then
-    print_warning "Dotfiles already exist at $dotfiles_dir"
+    echo "Warning: Dotfiles already exist at $dotfiles_dir"
     return 0
   fi
 
-  print_section "Cloning Dotfiles Repository"
+  echo "Cloning Dotfiles Repository"
   if git clone "$clone_url" "$dotfiles_dir"; then
     rsync -av "$dotfiles_dir/" "$HOME/" &&
       rm -rf "$dotfiles_dir" &&
-      print_success "Dotfiles successfully synchronized to home directory" ||
-      print_error "Failed to apply dotfiles"
+      echo "Dotfiles successfully synchronized to home directory" ||
+      echo "Error: Failed to apply dotfiles"
   else
-    print_error "Failed to clone dotfiles repository"
+    echo "Error: Failed to clone dotfiles repository"
     return 1
   fi
 }
 
 configure_git() {
-  print_header "🔧 Git Configuration"
+  echo "🔧 Git Configuration"
 
   # Check for existing configuration
   if git config --global --get user.email &>/dev/null &&
     git config --global --get user.name &>/dev/null &&
     git config --global --get init.defaultBranch &>/dev/null; then
-    print_warning "Git configuration already exists - skipping setup"
+    echo "Warning: Git configuration already exists - skipping setup"
     return 0
   fi
 
   # Interactive configuration
-  print_section "User Identity Setup"
+  echo "User Identity Setup"
   read -rp "Enter Git email (for commits): " GIT_EMAIL
   read -rp "Enter Git name (for commits): " GIT_NAME
   read -rp "Enter default branch name [main]: " GIT_BRANCH
@@ -66,39 +65,39 @@ configure_git() {
   git config --global user.email "$GIT_EMAIL" &&
     git config --global user.name "$GIT_NAME" &&
     git config --global init.defaultBranch "$GIT_BRANCH" &&
-    print_success "Git configuration saved" ||
-    print_error "Failed to configure Git settings"
+    echo "Git configuration saved" ||
+    echo "Error: Failed to configure Git settings"
 }
 
 configure_system() {
-  print_header "⚙️ System Configuration"
+  echo "⚙️ System Configuration"
 
   # Bluetooth Service
-  print_section "Bluetooth Service Setup"
+  echo "Bluetooth Service Setup"
   if sudo systemctl enable --now bluetooth; then
-    print_success "Bluetooth service activated"
+    echo "Bluetooth service activated"
   else
-    print_error "Failed to configure Bluetooth"
+    echo "Error: Failed to configure Bluetooth"
   fi
 
   # Time Synchronization
-  print_section "Network Time Protocol (NTP)"
+  echo "Network Time Protocol (NTP)"
   if sudo timedatectl set-ntp true; then
-    print_success "Time synchronization enabled"
+    echo "Time synchronization enabled"
   else
-    print_warning "NTP configuration failed (network time may be inaccurate)"
+    echo "Warning: NTP configuration failed (network time may be inaccurate)"
   fi
 
   # Firewall Configuration
-  print_section "Firewall Setup"
+  echo "Firewall Setup"
   if ! sudo pacman -Qs firewalld >/dev/null; then
     if sudo pacman -S --noconfirm firewalld && sudo systemctl enable --now firewalld; then
-      print_success "Firewall service enabled"
+      echo "Firewall service enabled"
     else
-      print_warning "Firewall setup incomplete (manual configuration needed)"
+      echo "Warning: Firewall setup incomplete (manual configuration needed)"
     fi
   else
-    print_warning "Firewalld already installed - skipping configuration"
+    echo "Warning: Firewalld already installed - skipping configuration"
   fi
 }
 
@@ -110,16 +109,16 @@ cleanup() {
   local exit_status=$?
   if [ $exit_status -eq 0 ]; then
     if [ -z "${REBOOT_CHOICE+x}" ]; then
-      print_success "✅ Installation successful. Setup.log preserved."
+      echo "Installation successful. Setup.log preserved."
     else
       [[ "$REBOOT_CHOICE" =~ ^[Yy]$ ]] &&
-        print_success "🔄 System will reboot to apply changes." ||
-        print_success "📋 Setup.log preserved. Reboot recommended."
+        echo "System will reboot to apply changes." ||
+        echo "Setup.log preserved. Reboot recommended."
     fi
   else
-    print_error "❌ Installation failed. Last 20 lines from setup.log:"
+    echo "Error: Installation failed. Last 20 lines from setup.log:"
     tail -n 20 setup.log
-    print_warning "⚠️  Check setup.log for detailed error information"
+    echo "Warning: Check setup.log for detailed error information"
   fi
 }
 
@@ -128,15 +127,15 @@ run_script() {
   local script_path="$SCRIPT_DIR/$script_name"
 
   if [[ -f "$script_path" && -x "$script_path" ]]; then
-    print_header "🏃 Running $script_name"
+    echo "Running $script_name"
     if "$script_path"; then
       return 0
     else
-      print_error "$script_name failed with exit code $?"
+      echo "Error: $script_name failed with exit code $?"
       return 1
     fi
   else
-    print_error "Script not found or not executable: $script_name"
+    echo "Error: Script not found or not executable: $script_name"
     return 1
   fi
 }
@@ -146,10 +145,10 @@ execute_install_phase() {
   shift
   local scripts=("$@")
 
-  print_header "🚀 Starting $phase_name Phase"
+  echo "Starting $phase_name Phase"
   for script in "${scripts[@]}"; do
     if ! run_script "$script"; then
-      print_warning "⚠️  Continuing despite $script failure"
+      echo "Warning: Continuing despite $script failure"
       sleep 2 # Pause to ensure user sees the warning
     fi
   done
@@ -161,7 +160,7 @@ execute_install_phase() {
 
 main() {
   # Keep sudo session alive throughout installation
-  print_section "🔐 Maintaining Sudo Session"
+  echo "Maintaining Sudo Session"
   sudo -v
   while true; do
     sudo -n true
@@ -170,7 +169,7 @@ main() {
   done 2>/dev/null &
 
   # Initial System Configuration
-  print_header "⚙️ System Configuration Phase"
+  echo "System Configuration Phase"
   configure_dotfiles
   configure_git
   configure_system
@@ -193,12 +192,12 @@ main() {
     "./utilities/finalize_setup.sh"
 
   # Installation Complete
-  print_header "🎉 Installation Complete!"
+  echo "Installation Complete!"
   read -rp "Reboot now to apply all changes? (y/n): " REBOOT_CHOICE
   if [[ "$REBOOT_CHOICE" =~ ^[Yy]$ ]]; then
     sudo reboot
   else
-    print_success "Changes may require restart. Log saved to setup.log"
+    echo "Changes may require restart. Log saved to setup.log"
   fi
 }
 
