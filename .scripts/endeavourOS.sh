@@ -1,11 +1,6 @@
 #!/bin/bash
 # Simple System Setup with one-time sudo
 
-# Unified function to check if something is installed
-is_installed() {
-  command -v "$1" >/dev/null 2>&1 || pacman -Qi "$1" &>/dev/null
-}
-
 # Ask for sudo once and keep it alive in background
 sudo -v
 while true; do
@@ -42,109 +37,69 @@ fi
 sudo systemctl enable --now bluetooth
 
 # SETUP - DISPLAY MANAGER
-if ! is_installed sddm; then
-  echo "🖥️ SDDM Setup"
-  sudo pacman -S --noconfirm sddm
-  sudo systemctl enable --now sddm
-  echo "✅ SDDM installed"
-fi
+echo "🖥️ SDDM Setup"
+sudo pacman -S --noconfirm sddm
+sudo systemctl enable --now sddm
+echo "✅ SDDM installed"
 
 # SETUP - GPU DRIVER
 echo "🔍 GPU Detection"
 if lspci | grep -i "VGA.*NVIDIA"; then
   echo "🟢 NVIDIA detected"
-  if ! is_installed nvidia-dkms; then
-    sudo pacman -S --noconfirm nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings
-    # For CUDA support (required for LLMs)
-    sudo pacman -S --noconfirm cuda cudnn
-    sudo mkinitcpio -P
-  fi
+  sudo pacman -S --noconfirm nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings
+  # For CUDA support (required for LLMs)
+  sudo pacman -S --noconfirm cuda cudnn
+  sudo mkinitcpio -P
 elif lspci | grep -i "VGA.*AMD"; then
   echo "🔴 AMD detected"
-  if ! is_installed mesa; then
-    sudo pacman -S --noconfirm mesa vulkan-radeon lib32-vulkan-radeon
-  fi
+  sudo pacman -S --noconfirm mesa vulkan-radeon lib32-vulkan-radeon
 elif lspci | grep -i "VGA.*Intel"; then
   echo "🔵 Intel detected"
-  if ! is_installed mesa; then
-    sudo pacman -S --noconfirm mesa vulkan-intel lib32-vulkan-intel
-  fi
+  sudo pacman -S --noconfirm mesa vulkan-intel lib32-vulkan-intel
 fi
 echo "✅ GPU setup complete - reboot required"
 
 # SETUP - LINUX
 echo "🐧 Core Linux Setup"
-for pkg in eza bat ripgrep fd nautilus btop cava fastfetch curl wget blueman; do
-  if ! is_installed "$pkg"; then
-    sudo pacman -S --noconfirm "$pkg"
-  fi
-done
+sudo pacman -S --noconfirm eza bat ripgrep fd nautilus
+sudo pacman -S --noconfirm btop cava fastfetch
+sudo pacman -S --noconfirm curl wget blueman
 echo "✅ Core system tools installed"
 
 # SETUP - HYPRLAND
 echo "🌌 Hyprland Setup"
-for pkg in hyprland hyprpaper hyprlock waybar wofi grim slurp wl-clipboard; do
-  if ! is_installed "$pkg"; then
-    sudo pacman -S --noconfirm "$pkg"
-  fi
-done
+sudo pacman -S --noconfirm hyprland hyprpaper hyprlock waybar wofi grim slurp wl-clipboard
 echo "✅ Hyprland installed"
 
 # SETUP - SWAY
 echo "🌊 Sway Setup"
-for pkg in sway swaybg swaylock-effects waybar wofi grim slurp wl-clipboard; do
-  if ! is_installed "$pkg"; then
-    sudo pacman -S --noconfirm "$pkg"
-  fi
-done
+sudo pacman -S --noconfirm sway swaybg swaylock-effects
+sudo pacman -S --noconfirm waybar wofi grim slurp wl-clipboard
 echo "✅ Sway installed - configure ~/.config/sway/config"
 
 # SETUP - DEV ENVIRONMENT
 echo "👨💻 Dev Environment Setup"
-for pkg in nodejs npm python yarn pnpm lazygit docker docker-compose; do
-  if ! is_installed "$pkg"; then
-    sudo pacman -S --noconfirm "$pkg"
-  fi
-done
-if ! is_installed lazydocker; then
-  yay -S --noconfirm lazydocker
-fi
-if ! is_installed php; then
-  /bin/bash -c "$(curl -fsSL https://php.new/install/linux)"
-fi
-if ! is_installed bun; then
-  curl -fsSL https://bun.sh/install | bash
-fi
+sudo pacman -S --noconfirm nodejs npm python yarn pnpm lazygit docker docker-compose
+yay -S lazydocker
+/bin/bash -c "$(curl -fsSL https://php.new/install/linux)"
+curl -fsSL https://bun.sh/install | bash
 echo "✅ Dev tools installed"
 
 # SETUP - SHELL
 echo "🐚 Shell Setup"
-for pkg in zsh zsh-syntax-highlighting zsh-autosuggestions zsh-completions zoxide fzf thefuck; do
-  if ! is_installed "$pkg"; then
-    sudo pacman -S --noconfirm "$pkg"
-  fi
-done
-if ! is_installed oh-my-posh; then
-  curl -s https://ohmyposh.dev/install.sh | bash -s
-fi
-if [ ! -d ~/.oh-my-zsh ]; then
-  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-fi
-if [ "$SHELL" != "$(which zsh)" ]; then
-  sudo chsh -s $(which zsh)
-fi
+sudo pacman -S --noconfirm zsh zsh-syntax-highlighting zsh-autosuggestions zsh-completions
+sudo pacman -S --noconfirm zoxide fzf thefuck
+curl -s https://ohmyposh.dev/install.sh | bash -s
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+sudo chsh -s $(which zsh)
 echo "✅ Shell configured"
 
 # SETUP - AI
 echo "🤖 AI Development Setup"
-if ! is_installed ollama; then
-  echo "🦙 Installing Ollama"
-  curl -fsSL https://ollama.com/install.sh | sh
-fi
-if ! is_installed chatbox-bin; then
-  echo "💬 Installing Chatbox"
-  yay -S --noconfirm chatbox-bin
-fi
+echo "🦙 Installing Ollama"
+curl -fsSL https://ollama.com/install.sh | sh
+echo "💬 Installing Chatbox"
+yay -S --noconfirm chatbox-bin
 echo "📥 Downloading AI Models"
 ollama pull deepseek-coder-v2
 ollama pull deepseek-v2
@@ -153,32 +108,21 @@ echo "✅ AI tools configured"
 
 # SETUP - APPS
 echo "🖥️ Desktop Applications Setup"
-if ! is_installed brave-browser; then
-  echo "🌐 Installing Brave Browser"
-  curl -fsS https://dl.brave.com/install.sh | sh
-fi
-if ! is_installed whatsapp-for-linux; then
-  yay -S --noconfirm whatsapp-for-linux
-fi
-if ! is_installed spotify; then
-  echo "🎵 Installing Spotify"
-  yay -S --noconfirm spotify spotify-adblock
-fi
-for pkg in vlc obs-studio; do
-  if ! is_installed "$pkg"; then
-    sudo pacman -S --noconfirm "$pkg"
-  fi
-done
+echo "🌐 Installing Browsers"
+curl -fsS https://dl.brave.com/install.sh | sh
+yay -S --noconfirm whatsapp-for-linux
+echo "🎵 Installing Music"
+yay -S --noconfirm spotify spotify-adblock
+echo "🎬 Installing Media"
+sudo pacman -S --noconfirm vlc obs-studio
 echo "✅ Applications installed"
 
 # SETUP - ARDUINO
 echo "⚡ Arduino Setup"
-if ! is_installed arduino-ide; then
-  yay -S --noconfirm arduino-ide
-  sudo usermod -a -G uucp,tty $USER
-  sudo curl -o /etc/udev/rules.d/60-arduino.rules https://raw.githubusercontent.com/arduino/ArduinoCore-avr/master/60-arduino-avr-core.rules
-  sudo udevadm control --reload
-fi
+yay -S --noconfirm arduino-ide
+sudo usermod -a -G uucp,tty $USER
+sudo curl -o /etc/udev/rules.d/60-arduino.rules https://raw.githubusercontent.com/arduino/ArduinoCore-avr/master/60-arduino-avr-core.rules
+sudo udevadm control --reload
 echo "✅ Arduino ready"
 
 # CONFIG - Update system
