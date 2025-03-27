@@ -13,6 +13,13 @@
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 source "$SCRIPT_DIR/../cli_colors.sh"
 
+# In setup_gpu.sh
+cleanup_nvidia() {
+  sudo pacman -Rns nvidia-*
+  sudo mkinitcpio -P # Revert initramfs
+}
+trap cleanup_nvidia ERR
+
 # ======================
 # GPU Detection
 # ======================

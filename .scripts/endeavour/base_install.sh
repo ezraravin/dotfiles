@@ -7,7 +7,14 @@ source "$SCRIPT_DIR/cli_colors.sh"
 # Enable error handling and verbose output
 set -e
 set -o pipefail
-exec > >(tee -i setup.log) 2>&1
+exec > >(ts '[%Y-%m-%d %H:%M:%S]' | tee -a setup.log)
+
+# Use parallel downloads (add to base_install.sh)
+sudo sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
+
+# Add to base_install.sh
+sudo pacman -S --noconfirm reflector
+sudo reflector --latest 10 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
 
 ##############################################
 ### Cleanup Function
