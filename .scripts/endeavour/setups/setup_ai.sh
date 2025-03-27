@@ -39,3 +39,32 @@ main() {
 
 # Run if executed directly
 [[ "${BASH_SOURCE[0]}" == "${0}" ]] && main
+
+#
+#
+#
+
+#!/bin/bash
+# setup_ai.sh - AI Tools
+
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
+source "$SCRIPT_DIR/../cli_colors.sh"
+
+setup_ai() {
+  print_header "🤖 AI Tools"
+
+  install_or_skip "ollama" "curl -fsSL https://ollama.com/install.sh | sh" "Ollama"
+  install_or_skip "chatbox" "yay -S --noconfirm chatbox-bin" "Chatbox"
+
+  if command_exists ollama; then
+    print_section "Pulling Models"
+    local models=("deepseek-coder" "llama3")
+    for model in "${models[@]}"; do
+      ollama pull $model
+    done
+  fi
+
+  print_success "AI tools ready"
+}
+
+[[ "${BASH_SOURCE[0]}" == "${0}" ]] && setup_ai
