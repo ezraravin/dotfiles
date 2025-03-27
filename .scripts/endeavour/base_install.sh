@@ -88,7 +88,7 @@ sudo pacman -S --noconfirm zsh zsh-syntax-highlighting zsh-autosuggestions zsh-c
 sudo pacman -S --noconfirm zoxide fzf thefuck
 curl -s https://ohmyposh.dev/install.sh | bash -s
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-chsh -s $(which zsh)
+sudo chsh -s $(which zsh)
 echo "✅ Shell configured"
 
 # SETUP - AI
