@@ -114,8 +114,6 @@ echo "🎵 Installing Music"
 yay -S --noconfirm spotify spotify-adblock
 echo "🎬 Installing Media"
 sudo pacman -S --noconfirm vlc obs-studio
-echo "🎨 Installing Design"
-yay -S --noconfirm penpot-desktop-bin
 echo "✅ Applications installed"
 
 # SETUP - ARDUINO
