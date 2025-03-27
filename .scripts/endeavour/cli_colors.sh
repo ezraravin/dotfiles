@@ -33,29 +33,42 @@ print_error() {
   echo -e "${RED}❎ Error: $1${NC}"
 }
 
-# Helper functions
-package_installed() {
-  local package=$1
-  pacman -Qs "$package" >/dev/null 2>&1 || yay -Qs "$package" >/dev/null 2>&1
-}
+# Unified installation check
+is_installed() {
+  local identifier=$1
 
-command_exists() {
-  command -v "$1" >/dev/null 2>&1
+  # First check if command exists
+  command -v "$identifier" >/dev/null 2>&1 && return 0
+
+  # Then check if package is installed (only for pacman packages)
+  if pacman -Qs "$identifier" >/dev/null 2>&1; then
+    return 0
+  fi
+
+  return 1
 }
 
 install_or_skip() {
-  local package=$1
+  local identifier=$1 # Can be package name or command name
   local install_cmd=$2
   local description=$3
 
-  if ! package_installed "$package"; then
-    print_section "Installing $description..."
-    if eval "$install_cmd"; then
+  if is_installed "$identifier"; then
+    print_warning "$description ($identifier) already installed/available. Skipping..."
+    return 0
+  fi
+
+  print_section "Installing $description..."
+  if eval "$install_cmd"; then
+    if is_installed "$identifier"; then
       print_success "Installed $description"
+      return 0
     else
-      print_error "Failed to install $description"
+      print_error "Installation succeeded but $description doesn't appear to be installed"
+      return 1
     fi
   else
-    print_warning "$package already installed. Skipping..."
+    print_error "Failed to install $description"
+    return 1
   fi
 }

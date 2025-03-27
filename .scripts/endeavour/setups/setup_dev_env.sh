@@ -1,42 +1,49 @@
 #!/bin/bash
-# setup_dev_env.sh - Development Tools
+# setup_dev_env.sh - Development Environment Setup
+# Description:
+#   Installs core development tools including:
+#   - Programming languages (Node.js, Python, Java, PHP)
+#   - Package managers (Yarn, pnpm)
+#   - Development tools (Docker, Lazygit)
+#   - Bun JavaScript runtime
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 source "$SCRIPT_DIR/../cli_colors.sh"
 
 setup_dev() {
-  print_header "👨💻 Development Environment"
+  print_header "👨💻 Development Environment Setup"
 
-  # Languages
+  # Core programming languages
   local langs=(
-    nodejs
-    npm
-    python
-    jdk-openjdk
-    php
-    composer
+    nodejs      # JavaScript runtime
+    npm         # Node package manager
+    python      # Python interpreter
+    jdk-openjdk # Java Development Kit
+    php         # PHP runtime
+    composer    # PHP dependency manager
   )
 
-  # Tools
+  # Development tools and utilities
   local tools=(
-    yarn
-    pnpm
-    lazygit
-    docker
-    docker-compose
+    yarn           # Alternative package manager
+    pnpm           # Fast, disk-efficient package manager
+    lazygit        # Terminal UI for Git
+    docker         # Container platform
+    docker-compose # Container orchestration
   )
 
-  # Install all
+  # Install all packages with error handling
   for pkg in "${langs[@]}" "${tools[@]}"; do
     install_or_skip "$pkg" "sudo pacman -S --noconfirm $pkg" "$pkg"
   done
 
-  # Bun (special install)
+  # Special installation for Bun (not in official repos)
   if ! command_exists bun; then
+    print_section "Installing Bun Runtime"
     curl -fsSL https://bun.sh/install | bash
   fi
 
-  print_success "Dev environment ready"
+  print_success "Development environment configured"
 }
 
 [[ "${BASH_SOURCE[0]}" == "${0}" ]] && setup_dev

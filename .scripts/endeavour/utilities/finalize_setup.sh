@@ -1,30 +1,54 @@
 #!/bin/bash
-# finalize_setup.sh - System Finalization
+# finalize_setup.sh - Post-Installation System Finalization
+# Description:
+#   Performs essential post-installation tasks:
+#   - System updates
+#   - Package cache cleanup
+#   - Reboot recommendation check
+# Usage:
+#   Should be run after all other setup scripts complete
+# Dependencies:
+#   Requires sudo privileges
+#   Checks for /var/run/reboot-required flag
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 source "$SCRIPT_DIR/../cli_colors.sh"
 
 finalize_setup() {
-  print_header "🔚 Finalizing Setup"
+  print_header "🏁 Completing System Setup"
 
-  # System update
-  print_section "System Update"
-  sudo pacman -Syu --noconfirm &&
-    print_success "System updated" ||
-    print_error "System update failed"
-
-  # Cleanup
-  print_section "Cleaning Up"
-  sudo pacman -Sc --noconfirm &&
-    print_success "Package cache cleaned" ||
-    print_warning "Cleanup failed"
-
-  # Check for reboot recommendation
-  if [[ -f /var/run/reboot-required ]]; then
-    print_section "Reboot Recommended"
-    read -p "Reboot now? (y/n): " REBOOT_CHOICE
-    [[ "$REBOOT_CHOICE" =~ ^[Yy]$ ]] && sudo reboot
+  # System Update
+  print_section "🔄 Performing System Update"
+  if sudo pacman -Syu --noconfirm; then
+    print_success "System packages updated successfully"
+  else
+    print_error "System update failed - check network connection"
+    return 1
   fi
+
+  # Package Cleanup
+  print_section "🧹 Cleaning Package Cache"
+  if sudo pacman -Sc --noconfirm; then
+    print_success "Freed disk space by cleaning package cache"
+  else
+    print_warning "Package cleanup encountered issues"
+  fi
+
+  # Reboot Check
+  if [[ -f /var/run/reboot-required ]]; then
+    print_section "⚠️ System Reboot Recommended"
+    echo -e "${YELLOW}Some changes require a reboot to take effect${NC}"
+    read -p "Reboot now? (y/N): " REBOOT_CHOICE
+    if [[ "$REBOOT_CHOICE" =~ ^[Yy]$ ]]; then
+      print_section "Rebooting System..."
+      sudo reboot
+    else
+      print_warning "Postpone reboot at your own risk"
+    fi
+  fi
+
+  print_success "System finalization complete"
+  echo -e "${GREEN}All setup tasks finished successfully${NC}"
 }
 
 [[ "${BASH_SOURCE[0]}" == "${0}" ]] && finalize_setup

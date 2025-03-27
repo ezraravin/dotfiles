@@ -1,138 +1,57 @@
 #!/bin/bash
-# base_install.sh - Main Installation Orchestrator
+# prompt_ssh.sh - SSH Key Configuration
+# Description:
+#   Interactive SSH key setup for Git operations:
+#   - Generates ED25519 SSH key if none exists
+#   - Starts SSH agent and adds key
+#   - Displays public key for hosting services
+# Configuration:
+#   Sets GIT_CLONE_PREFIX environment variable
+#   Uses "Rave's PC" as key comment
+# Notes:
+#   Requires user input for confirmation
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-source "$SCRIPT_DIR/cli_colors.sh"
-
-# Enable error handling and verbose output
-set -e
-set -o pipefail
-exec > >(tee -i setup.log) 2>&1
-
-##############################################
-### Cleanup Function
-##############################################
-cleanup() {
-  local exit_status=$?
-  if [ $exit_status -eq 0 ]; then
-    if [ -z "${REBOOT_CHOICE+x}" ]; then
-      print_success "Installation successful. Setup.log preserved."
-    else
-      [[ "$REBOOT_CHOICE" =~ ^[Yy]$ ]] &&
-        print_success "System will reboot." ||
-        print_success "Setup.log preserved."
-    fi
-  else
-    print_error "Installation failed. Last 20 lines from setup.log:"
-    tail -n 20 setup.log
-  fi
-}
-trap cleanup EXIT
-
-##############################################
-### Core Configuration Functions
-##############################################
+source "$SCRIPT_DIR/../cli_colors.sh"
 
 prompt_ssh() {
-  print_header "🔑 SSH Configuration"
-  read -p "Use SSH for Git operations? (y/n): " USE_SSH
-  if [[ "$USE_SSH" =~ ^[Yy]$ ]]; then
-    print_section "Setting up SSH..."
-    if [[ ! -f ~/.ssh/id_ed25519 ]]; then
-      ssh-keygen -t ed25519 -C "Rave's PC" -N "" -f ~/.ssh/id_ed25519
-      eval "$(ssh-agent -s)"
-      ssh-add ~/.ssh/id_ed25519
-      print_success "SSH key generated"
-    else
-      print_warning "SSH key exists"
-    fi
-    GIT_CLONE_PREFIX="git@gitlab.com:"
-  else
-    GIT_CLONE_PREFIX="https://gitlab.com/"
-  fi
-}
+  print_header "🔑 SSH Key Configuration"
 
-configure_system() {
-  print_header "⚙️ System Configuration"
-  sudo systemctl enable --now bluetooth && print_success "Bluetooth enabled"
-}
+  # Prompt for SSH setup
+  read -p "Configure SSH for Git operations? [y/N]: " USE_SSH
+  [[ "$USE_SSH" =~ ^[Yy]$ ]] || return 0
 
-##############################################
-### Script Execution Functions
-##############################################
+  local ssh_key="$HOME/.ssh/id_ed25519"
+  local key_comment="Rave's PC $(date +%Y-%m-%d)"
 
-run_script() {
-  local script_name=$1
-  local script_path="$SCRIPT_DIR/$script_name"
-
-  if [[ -f "$script_path" && -x "$script_path" ]]; then
-    print_header "🏃 Running $script_name"
-    "$script_path" || {
-      print_error "$script_name failed"
+  # Key Generation
+  if [[ ! -f "$ssh_key" ]]; then
+    print_section "🔐 Generating New SSH Key"
+    ssh-keygen -t ed25519 \
+      -C "$key_comment" \
+      -N "" \
+      -f "$ssh_key" &&
+      {
+        eval "$(ssh-agent -s)"
+        ssh-add "$ssh_key"
+        print_success "SSH key generated and added to agent"
+        GIT_CLONE_PREFIX="git@gitlab.com:"
+      } || {
+      print_error "Failed to generate SSH key"
       return 1
     }
   else
-    print_error "Script not found/executable: $script_name"
-    return 1
+    print_warning "Existing SSH key found at: $ssh_key"
   fi
+
+  # Key Display
+  print_section "📋 Public Key (Add to Git Services)"
+  echo -e "${BLUE}"
+  cat "${ssh_key}.pub"
+  echo -e "${NC}"
+  echo -e "${YELLOW}Important: Add this key to your Git hosting provider:"
+  echo "1. Copy the key above"
+  echo "2. Paste in your Git account's SSH settings${NC}"
 }
 
-execute_install_phase() {
-  local phase_name=$1
-  shift
-  local scripts=("$@")
-
-  print_header "🚀 Starting $phase_name Phase"
-  for script in "${scripts[@]}"; do
-    run_script "$script" || {
-      print_warning "Continuing despite $script failure"
-      continue
-    }
-  done
-}
-
-##############################################
-### Main Installation Flow
-##############################################
-
-main() {
-  # Keep sudo alive
-  sudo -v
-  while true; do
-    sudo -n true
-    sleep 60
-    kill -0 "$$" || exit
-  done 2>/dev/null &
-
-  # Initial configuration
-  prompt_ssh
-  configure_system
-  run_script "configure_git.sh"
-
-  # Core installation phases
-  execute_install_phase "Environment" \
-    "setup_shell.sh" \
-    "setup_linux.sh"
-
-  execute_install_phase "Development" \
-    "setup_dev_env.sh" \
-    "setup_mobile.sh" \
-    "setup_ai.sh"
-
-  execute_install_phase "Applications" \
-    "setup_apps.sh" \
-    "setup_gpu_driver.sh"
-
-  # Finalization
-  run_script "configure_dotfiles.sh"
-  run_script "finalize_setup.sh"
-
-  # Completion
-  print_header "🎉 Installation Complete!"
-  read -p "Reboot now? (y/n): " REBOOT_CHOICE
-  [[ "$REBOOT_CHOICE" =~ ^[Yy]$ ]] && sudo reboot ||
-    print_success "Changes may require restart"
-}
-
-# Execute only if run directly
-[[ "${BASH_SOURCE[0]}" == "${0}" ]] && main
+[[ "${BASH_SOURCE[0]}" == "${0}" ]] && prompt_ssh

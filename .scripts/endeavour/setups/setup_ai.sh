@@ -1,70 +1,63 @@
 #!/bin/bash
-# setup_ai.sh - AI tools installation
-
-SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
-source "$SCRIPT_DIR/cli_colors.sh"
-
-install_ollama() {
-  install_or_skip "ollama" "curl -fsSL https://ollama.com/install.sh | sh" "Ollama"
-}
-
-install_chatbox() {
-  install_or_skip "chatbox" "yay -S --noconfirm chatbox-bin" "Chatbox"
-}
-
-pull_models() {
-  local models=(
-    "deepseek-r1" "qwen2.5" "qwen2.5-coder"
-    "deepseek-coder-v2" "deepseek-llm" "deepseek-v2"
-  )
-
-  for model in "${models[@]}"; do
-    print_section "Pulling $model"
-    ollama pull "$model" && print_success "Pulled $model" || print_error "Failed to pull $model"
-  done
-}
-
-main() {
-  print_header "🤖 Setting Up AI Tools"
-
-  install_ollama
-  install_chatbox
-
-  if command_exists ollama; then
-    pull_models
-  else
-    print_error "Ollama not installed - skipping model downloads"
-  fi
-}
-
-# Run if executed directly
-[[ "${BASH_SOURCE[0]}" == "${0}" ]] && main
-
-#
-#
-#
-
-#!/bin/bash
-# setup_ai.sh - AI Tools
+# setup_ai.sh - AI Development Environment Setup
+# Description:
+#   Installs and configures AI development tools including:
+#   - Ollama (local LLM framework)
+#   - Chatbox (GUI chat interface)
+#   - Pre-downloads common AI models
+# Notes:
+#   Requires yay for AUR packages
+#   Internet connection needed for model downloads
 
 SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" >/dev/null 2>&1 && pwd)"
 source "$SCRIPT_DIR/../cli_colors.sh"
 
-setup_ai() {
-  print_header "🤖 AI Tools"
-
-  install_or_skip "ollama" "curl -fsSL https://ollama.com/install.sh | sh" "Ollama"
-  install_or_skip "chatbox" "yay -S --noconfirm chatbox-bin" "Chatbox"
-
-  if command_exists ollama; then
-    print_section "Pulling Models"
-    local models=("deepseek-coder" "llama3")
-    for model in "${models[@]}"; do
-      ollama pull $model
-    done
-  fi
-
-  print_success "AI tools ready"
+install_ollama() {
+  print_section "🦙 Installing Ollama"
+  install_or_skip "ollama" "curl -fsSL https://ollama.com/install.sh | sh" "Ollama LLM Framework"
 }
 
-[[ "${BASH_SOURCE[0]}" == "${0}" ]] && setup_ai
+install_chatbox() {
+  print_section "💬 Installing Chatbox"
+  install_or_skip "chatbox" "yay -S --noconfirm chatbox-bin" "Chatbox GUI"
+}
+
+download_models() {
+  print_section "📥 Downloading AI Models"
+  local models=(
+    "deepseek-coder" # DeepSeek's Programming-focused model
+    "deepseek-v3"    # DeepSeek's general-purpose model
+    "qwen2.5"        # Alibaba's multilingual model
+  )
+
+  for model in "${models[@]}"; do
+    print_section "  Downloading $model"
+    if ollama pull "$model"; then
+      print_success "Model downloaded: $model"
+    else
+      print_error "Failed to download: $model"
+    fi
+  done
+}
+
+main() {
+  print_header "🤖 AI Development Setup"
+
+  # Core installations
+  install_ollama
+  install_chatbox
+
+  # Model setup if Ollama installed
+  if command_exists ollama; then
+    download_models
+  else
+    print_warning "Ollama not found - skipping model downloads"
+  fi
+
+  print_success "AI tools configured"
+  echo -e "${YELLOW}Usage:"
+  echo "  Start Chatbox: chatbox"
+  echo "  Run Ollama: ollama run [model-name]${NC}"
+}
+
+[[ "${BASH_SOURCE[0]}" == "${0}" ]] && main
