@@ -9,6 +9,10 @@ while true; do
   kill -0 "$$" || exit
 done 2>/dev/null &
 
+command_exists() {
+  command -v "$1" >/dev/null 2>&1
+}
+
 # GIT - SSH Setup (runs as normal user)
 read -p "Use SSH for Git? [y/N]: " ssh_choice
 if [[ "$ssh_choice" =~ ^[Yy]$ ]]; then
@@ -96,15 +100,23 @@ echo "✅ Shell configured"
 
 # SETUP - AI
 echo "🤖 AI Development Setup"
-echo "🦙 Installing Ollama"
-curl -fsSL https://ollama.com/install.sh | sh
-echo "💬 Installing Chatbox"
-yay -S --noconfirm chatbox-bin
-echo "📥 Downloading AI Models"
-ollama pull deepseek-coder-v2
-ollama pull deepseek-v2
-ollama pull deepseek-r1
-echo "✅ AI tools configured"
+echo "🦙 Checking Ollama installation"
+if command_exists ollama; then
+  echo "✅ Ollama is already installed - skipping installation"
+else
+  echo "Installing Ollama..."
+  curl -fsSL https://ollama.com/install.sh | sh
+fi
+# Download AI models (only if Ollama is installed)
+if command_exists ollama; then
+  echo "📥 Downloading AI Models"
+  ollama pull deepseek-coder-v2
+  ollama pull deepseek-v2
+  ollama pull deepseek-r1
+  echo "✅ AI tools configured"
+else
+  echo "⚠️ Ollama not installed - skipping model downloads"
+fi
 
 # SETUP - APPS
 echo "🖥️ Desktop Applications Setup"
