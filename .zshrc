@@ -126,7 +126,7 @@ alias hctl="hyprctl"
 alias os="ollama serve"
 alias ok="sudo pkill ollama"
 alias ov="ps aux | grep ollama"
-alias cb="chatbox"
+alias cb="Chatbox"
 
 # Run Fastfetch After TMUX
 fastfetch
