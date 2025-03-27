@@ -132,7 +132,7 @@ export PATH=$PATH:$ANDROID_HOME/tools/bin:$ANDROID_HOME/platform-tools
 yes | sdkmanager --licenses
 yes | flutter doctor --android-licenses
 yay -S --noconfirm scrcpy
-echo "✅ Mobile dev ready - run 'flutter doctor'"
+echo "✅ Mobile dev ready"
 
 # CONFIG - Update system
 sudo pacman -Syu --noconfirm
