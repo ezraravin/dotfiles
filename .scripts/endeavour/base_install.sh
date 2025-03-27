@@ -84,22 +84,28 @@ main() {
   done 2>/dev/null &
 
   # Initial configuration
-  execute_install_phase "./configs/configure_system.sh"
-  execute_install_phase "./configs/configure_git.sh"
-  execute_install_phase "./configs/configure_dotfiles.sh"
+  execute_install_phase "Configuration" \
+    "./utilities/prompt_ssh.sh" \
+    "./configs/configure_dotfiles.sh" \
+    "./configs/configure_system.sh" \
+    "./configs/configure_dotfiles.sh"
 
-  # Core System Installation
-  execute_install_phase "./setups/setup_shell.sh"
-  execute_install_phase "./setups/setup_linux.sh"
+  # Core installation phases
+  execute_install_phase "Environment" \
+    "./config/setup_shell.sh" \
+    "./config/setup_linux.sh"
 
-  execute_install_phase "./setups/setup_dev_env.sh"
-  execute_install_phase "./setups/setup_ai.sh"
-  execute_install_phase "./setups/setup_apps.sh"
-  execute_install_phase "./setups/setup_gpu.sh"
+  execute_install_phase "Development" \
+    "./setups/setup_dev_env.sh" \
+    "./setups/setup_mobile.sh" \
+    "./setups/setup_ai.sh"
 
-  # Finalization
-  execute_install_phase "./configs/configure_dotfiles.sh"
-  execute_install_phase "finalize_setup.sh"
+  execute_install_phase "Applications" \
+    "./setups/setup_apps.sh" \
+    "./setups/setup_gpu.sh"
+
+  execute_install_phase "Finalization" \
+    "./utilities/finalize_setup.sh"
 
   # Completion
   print_header "🎉 Installation Complete!"
