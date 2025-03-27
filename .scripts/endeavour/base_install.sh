@@ -48,9 +48,6 @@ echo "📥 Downloading AI Models"
 ollama pull deepseek-coder-v2
 ollama pull deepseek-v2
 ollama pull deepseek-r1
-ollama pull qwen2.5-coder
-ollama pull qwen2.5
-ollama pull qwq
 echo "✅ AI tools configured"
 
 # CONFIG - Update system
