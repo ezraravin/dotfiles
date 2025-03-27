@@ -16,10 +16,6 @@ fi
 # Use parallel downloads (add to base_install.sh)
 sudo sed -i 's/^#ParallelDownloads/ParallelDownloads/' /etc/pacman.conf
 
-# Add to base_install.sh
-sudo pacman -S --noconfirm reflector
-sudo reflector --latest 10 --protocol https --sort rate --save /etc/pacman.d/mirrorlist
-
 ##############################################
 ### Cleanup Function
 ##############################################
@@ -39,34 +35,6 @@ cleanup() {
   fi
 }
 trap cleanup EXIT
-
-##############################################
-### Core Configuration Functions
-##############################################
-
-prompt_ssh() {
-  print_header "🔑 SSH Configuration"
-  read -p "Use SSH for Git operations? (y/n): " USE_SSH
-  if [[ "$USE_SSH" =~ ^[Yy]$ ]]; then
-    print_section "Setting up SSH..."
-    if [[ ! -f ~/.ssh/id_ed25519 ]]; then
-      ssh-keygen -t ed25519 -C "Rave's PC" -N "" -f ~/.ssh/id_ed25519
-      eval "$(ssh-agent -s)"
-      ssh-add ~/.ssh/id_ed25519
-      print_success "SSH key generated"
-    else
-      print_warning "SSH key exists"
-    fi
-    GIT_CLONE_PREFIX="git@gitlab.com:"
-  else
-    GIT_CLONE_PREFIX="https://gitlab.com/"
-  fi
-}
-
-configure_system() {
-  print_header "⚙️ System Configuration"
-  sudo systemctl enable --now bluetooth && print_success "Bluetooth enabled"
-}
 
 ##############################################
 ### Script Execution Functions
@@ -116,8 +84,6 @@ main() {
   done 2>/dev/null &
 
   # Initial configuration
-  prompt_ssh
-  configure_system
   run_script "configure_git.sh"
 
   # Core installation phases
