@@ -43,7 +43,7 @@ sudo systemctl enable --now bluetooth
 # SETUP - DISPLAY MANAGER
 echo "🖥️ SDDM Setup"
 sudo pacman -S --noconfirm sddm
-sudo systemctl enable --now sddm
+sudo systemctl enable sddm
 echo "✅ SDDM installed"
 
 # SETUP - GPU DRIVER
