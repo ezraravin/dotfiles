@@ -13,11 +13,6 @@ command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
 
-# 🌈 Colorful echo function
-color_echo() {
-  echo -e "\e[1;34m$1\e[0m"
-}
-
 # 🔑 GIT - SSH Setup (runs as normal user)
 color_echo "🔐 GIT SSH SETUP"
 read -p "Use SSH for Git? [y/N]: " ssh_choice
