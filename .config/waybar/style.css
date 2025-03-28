@@ -1,7 +1,7 @@
 * {
     font-family: "JetBrains Nerd Font", sans-serif;
     font-size: 16px;
-    color: #ffffff;
+    color: #fafafa;
     font-weight: bold;
 }
 
@@ -21,13 +21,13 @@ window#waybar {
 #workspaces {
     background-color: #000000;
     border-radius: 9999px; /* Max rounded */
-    padding: 0 5px;
+    padding: 0 8px;
 }
 
 #workspaces button {
     padding: 0 8px;
     background: transparent;
-    min-width: 15px;
+    min-width: 16px;
 }
 
 #workspaces button.active {
@@ -45,13 +45,13 @@ window#waybar {
     background-color: #000000;
     border-top-left-radius: 9999px;
     border-bottom-left-radius: 9999px;
-    padding: 0 15px;
+    padding: 0 16px;
 }
 
 /* All right modules - no individual backgrounds */
 .modules-right > widget > * {
     background-color: transparent;
-    padding: 0 5px;
+    padding: 0 4px;
 }
 
 /* Module-specific colors */
@@ -59,12 +59,6 @@ window#waybar {
     color: #5e81ac;
 }
 #network {
-    color: #a3be8c;
-}
-#pulseaudio#output {
-    color: #b48ead;
-}
-#pulseaudio#input {
     color: #a3be8c;
 }
 #power-profiles-daemon {
