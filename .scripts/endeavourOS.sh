@@ -106,31 +106,11 @@ fi
 sudo chsh -s $(which zsh) $USER
 echo "✅ Shell configured"
 
-# AI Tools
+# iI Tools
 echo "🤖 AI Setup"
 echo "💬 Installing Chatbox"
 yay -S --noconfirm chatbox-bin
-
-echo "🦙 Checking Ollama"
-if command_exists ollama; then
-  echo "✅ Ollama installed"
-else
-  echo "📥 Installing Ollama"
-  curl -fsSL https://ollama.com/install.sh | sh
-fi
-
-if command_exists ollama; then
-  echo "📥 Downloading models:"
-  echo "💻 deepseek-coder-v2"
-  ollama pull deepseek-coder-v2
-  echo "🧠 deepseek-v2"
-  ollama pull deepseek-v2
-  echo "🔍 deepseek-r1"
-  ollama pull deepseek-r1
-  echo "✅ AI setup complete"
-else
-  echo "⚠️ Ollama not installed"
-fi
+echo "✅ AI setup complete"
 
 # Applications
 echo "🖥️ App Setup"
