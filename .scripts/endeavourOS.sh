@@ -91,6 +91,20 @@ echo "🐚 Shell Setup"
 sudo pacman -S --noconfirm zsh zsh-syntax-highlighting zsh-autosuggestions zsh-completions tmux neovim zoxide fzf thefuck imagemagick librsvg chafa ffmpeg ttf-jetbrains-mono-nerd
 curl -s https://ohmyposh.dev/install.sh | bash -s
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+
+# Tmux Plugin Manager
+echo "🖥️ Setting up Tmux Plugin Manager"
+[ ! -d ~/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# Install tmux plugins
+if [ -f ~/.tmux.conf ]; then
+  echo "🔌 Installing Tmux plugins"
+  tmux start-server
+  tmux new-session -d
+  ~/.tmux/plugins/tpm/scripts/install_plugins.sh
+  tmux kill-server
+  echo "✅ Tmux plugins installed"
+fi
+
 sudo chsh -s $(which zsh)
 echo "✅ Shell configured"
 
