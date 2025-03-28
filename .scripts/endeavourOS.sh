@@ -161,6 +161,6 @@ sudo pacman -Sc --noconfirm
 curl -fsSL "https://gitlab.com/ezraravinmateus/dotfiles/-/raw/HEAD/.zshrc" >~/.zshrc
 
 # Reboot prompt
-echo "🎉 Setup complete!"
-read -p "Reboot now? [y/N]: " reboot_choice
-[[ "$reboot_choice" =~ ^[Yy]$ ]] && sudo reboot
+echo "🎉 Setup complete! Rebooting in 5 seconds..."
+sleep 5
+sudo reboot
