@@ -70,7 +70,7 @@ sudo pacman -S --noconfirm eza bat ripgrep fd nautilus btop cava fastfetch bluem
 echo "✅ Core tools installed"
 
 # Window Managers
-echo "🌌 🌊 Hyprland Setup"
+echo "🌌 Hyprland Setup"
 sudo pacman -S --noconfirm hyprland hyprpaper hyprlock waybar wofi grim slurp wl-clipboard
 echo "✅ Hyprland & Sway installed"
 
@@ -164,4 +164,3 @@ curl -fsSL "https://gitlab.com/ezraravinmateus/dotfiles/-/raw/HEAD/.zshrc" >~/.z
 echo "🎉 Setup complete! Rebooting in 5 seconds..."
 sleep 5
 sudo reboot
-
