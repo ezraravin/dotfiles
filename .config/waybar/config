@@ -19,16 +19,10 @@
         "custom/power"
     ],
     "hyprland/window": {
-        "format": "{}",
         "max-length": 50
     },
     "hyprland/workspaces": {
-        "format": "{icon}",
-        "format-icons": {
-            "urgent": "",
-            "active": "",
-            "default": ""
-        }
+        "format": "{name}"    
     },
     "bluetooth": {
         "format": "",
