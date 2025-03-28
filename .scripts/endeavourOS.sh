@@ -1,7 +1,7 @@
 #!/bin/bash
-# Simple System Setup with one-time sudo
+# 🚀 EndeavourOS Setup Script - One-Time Sudo Magic! ✨
 
-# Ask for sudo once and keep it alive in background
+# 🔒 Ask for sudo once and keep it alive in background
 sudo -v
 while true; do
   sudo -n true
@@ -13,7 +13,13 @@ command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
 
-# GIT - SSH Setup (runs as normal user)
+# 🌈 Colorful echo function
+color_echo() {
+  echo -e "\e[1;34m$1\e[0m"
+}
+
+# 🔑 GIT - SSH Setup (runs as normal user)
+color_echo "🔐 GIT SSH SETUP"
 read -p "Use SSH for Git? [y/N]: " ssh_choice
 if [[ "$ssh_choice" =~ ^[Yy]$ ]]; then
   read -p "Name for SSH key: " key_name
@@ -26,7 +32,7 @@ else
   GIT_CLONE_PREFIX="https://gitlab.com/"
 fi
 
-# GIT - Dotfiles (runs as normal user)
+# 📂 GIT - Dotfiles (runs as normal user)
 [ ! -d ~/dotfiles ] && git clone $GIT_CLONE_PREFIX/ezraravinmateus/dotfiles.git ~/dotfiles &&
   cp -r ~/dotfiles/. ~/ && rm -rf ~/dotfiles
 
@@ -65,9 +71,7 @@ echo "✅ GPU setup complete - reboot required"
 
 # SETUP - LINUX
 echo "🐧 Core Linux Setup"
-sudo pacman -S --noconfirm eza bat ripgrep fd nautilus
-sudo pacman -S --noconfirm btop cava fastfetch
-sudo pacman -S --noconfirm curl wget blueman
+sudo pacman -S --noconfirm eza bat ripgrep fd nautilus btop cava fastfetch blueman
 echo "✅ Core system tools installed"
 
 # SETUP - HYPRLAND
