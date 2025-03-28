@@ -1,0 +1,4 @@
+show_images=true    # Enable icons
+image_size=24      # Set icon size
+width=600          # Adjust width
+prompt="Apps"      # Search bar prompt
