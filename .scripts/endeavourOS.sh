@@ -84,7 +84,7 @@ echo "✅ Sway installed - configure ~/.config/sway/config"
 # SETUP - DEV ENVIRONMENT
 echo "👨💻 Dev Environment Setup"
 sudo pacman -S --noconfirm nodejs npm python yarn pnpm lazygit docker docker-compose
-yay -S lazydocker
+yay -S --noconfirm lazydocker
 /bin/bash -c "$(curl -fsSL https://php.new/install/linux)"
 curl -fsSL https://bun.sh/install | bash
 echo "✅ Dev tools installed"
