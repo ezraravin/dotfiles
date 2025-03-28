@@ -2,6 +2,7 @@
     font-family: "JetBrains Nerd Font", sans-serif;
     font-size: 16px;
     color: #ffffff;
+    font-weight: bold;
 }
 
 window#waybar {
@@ -11,9 +12,9 @@ window#waybar {
 /* Left section - window title */
 #window {
     background-color: #000000;
-    border-radius: 9999px; /* Max rounded */
+    border-bottom-right-radius: 9999px;
+    border-top-right-radius: 9999px;
     padding: 0 15px;
-    margin-left: 10px;
 }
 
 /* Center section - workspaces */
@@ -21,7 +22,6 @@ window#waybar {
     background-color: #000000;
     border-radius: 9999px; /* Max rounded */
     padding: 0 5px;
-    margin: 0 10px;
 }
 
 #workspaces button {
@@ -43,9 +43,9 @@ window#waybar {
 /* Right section - unified black bar */
 .modules-right {
     background-color: #000000;
-    border-radius: 9999px; /* Max rounded */
+    border-top-left-radius: 9999px;
+    border-bottom-left-radius: 9999px;
     padding: 0 15px;
-    margin-right: 10px;
 }
 
 /* All right modules - no individual backgrounds */
