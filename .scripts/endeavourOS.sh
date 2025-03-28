@@ -103,7 +103,7 @@ if [ -f ~/.tmux.conf ]; then
   echo "✅ Tmux plugins installed"
 fi
 
-chsh -s $(which zsh)
+sudo chsh -s $(which zsh) $USER
 echo "✅ Shell configured"
 
 # AI Tools
