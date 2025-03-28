@@ -99,6 +99,8 @@ echo "✅ Shell configured"
 
 # SETUP - AI
 echo "🤖 AI Development Setup"
+echo "Installing Chatbox"
+yay -S --noconfirm chatbox-bin
 echo "🦙 Checking Ollama installation"
 if command_exists ollama; then
   echo "✅ Ollama is already installed - skipping installation"
