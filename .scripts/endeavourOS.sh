@@ -14,7 +14,7 @@ command_exists() {
 }
 
 # 🔑 GIT - SSH Setup (runs as normal user)
-color_echo "🔐 GIT SSH SETUP"
+echo "🔐 GIT SSH SETUP"
 read -p "Use SSH for Git? [y/N]: " ssh_choice
 if [[ "$ssh_choice" =~ ^[Yy]$ ]]; then
   read -p "Name for SSH key: " key_name
