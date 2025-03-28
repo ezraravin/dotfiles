@@ -1,7 +1,7 @@
 #!/bin/bash
-# 🚀 EndeavourOS Setup Script - One-Time Sudo Magic! ✨
+# EndeavourOS Setup Script
 
-# 🔒 Ask for sudo once and keep it alive in background
+# Ask for sudo once and keep it alive
 sudo -v
 while true; do
   sudo -n true
@@ -13,46 +13,46 @@ command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
 
-# 🔑 GIT - SSH Setup (runs as normal user)
-echo "🔐 GIT SSH SETUP"
+# Git SSH Setup
+echo "🔐 Git SSH Setup"
 read -p "Use SSH for Git? [y/N]: " ssh_choice
 if [[ "$ssh_choice" =~ ^[Yy]$ ]]; then
   read -p "Name for SSH key: " key_name
   ssh-keygen -t ed25519 -C "$key_name" -N "" -f ~/.ssh/id_ed25519
-  echo "Public key (add to Git account):"
+  echo "📋 Public key (add to Git account):"
   cat ~/.ssh/id_ed25519.pub
+  echo "🔗 Paste this in your Git account settings!"
   read -p "Press Enter after adding key to Git account..."
   GIT_CLONE_PREFIX="git@gitlab.com:"
 else
   GIT_CLONE_PREFIX="https://gitlab.com/"
 fi
 
-# 📂 GIT - Dotfiles (runs as normal user)
+# Dotfiles
 [ ! -d ~/dotfiles ] && git clone $GIT_CLONE_PREFIX/ezraravinmateus/dotfiles.git ~/dotfiles &&
   cp -r ~/dotfiles/. ~/ && rm -rf ~/dotfiles
 
-# GIT - Git Config (runs as normal user)
+# Git Config
 if ! git config --global user.email &>/dev/null; then
   git config --global user.email "ezraravin@proton.me"
   git config --global user.name "Rave"
   git config --global init.defaultBranch main
 fi
 
-# CONFIG - Enable bluetooth
+# Bluetooth
 sudo systemctl enable --now bluetooth
 
-# SETUP - DISPLAY MANAGER
+# Display Manager
 echo "🖥️ SDDM Setup"
 sudo pacman -S --noconfirm sddm
 sudo systemctl enable sddm
 echo "✅ SDDM installed"
 
-# SETUP - GPU DRIVER
+# GPU Drivers
 echo "🔍 GPU Detection"
 if lspci | grep -i "VGA.*NVIDIA"; then
   echo "🟢 NVIDIA detected"
   sudo pacman -S --noconfirm nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings
-  # For CUDA support (required for LLMs)
   sudo pacman -S --noconfirm cuda cudnn
   sudo mkinitcpio -P
 elif lspci | grep -i "VGA.*AMD"; then
@@ -62,74 +62,78 @@ elif lspci | grep -i "VGA.*Intel"; then
   echo "🔵 Intel detected"
   sudo pacman -S --noconfirm mesa vulkan-intel lib32-vulkan-intel
 fi
-echo "✅ GPU setup complete - reboot required"
+echo "✅ GPU setup complete"
 
-# SETUP - LINUX
-echo "🐧 Core Linux Setup"
+# Core Tools
+echo "🐧 Core Setup"
 sudo pacman -S --noconfirm eza bat ripgrep fd nautilus btop cava fastfetch blueman
-echo "✅ Core system tools installed"
+echo "✅ Core tools installed"
 
-# SETUP - HYPRLAND
+# Window Managers
 echo "🌌 Hyprland Setup"
 sudo pacman -S --noconfirm hyprland hyprpaper hyprlock waybar wofi grim slurp wl-clipboard
 echo "✅ Hyprland installed"
 
-# SETUP - SWAY
 echo "🌊 Sway Setup"
-sudo pacman -S --noconfirm sway swaybg swaylock-effects
-sudo pacman -S --noconfirm waybar wofi grim slurp wl-clipboard
-echo "✅ Sway installed - configure ~/.config/sway/config"
+sudo pacman -S --noconfirm sway swaybg swaylock-effects waybar wofi grim slurp wl-clipboard
+echo "✅ Sway installed"
 
-# SETUP - DEV ENVIRONMENT
-echo "👨💻 Dev Environment Setup"
-sudo pacman -S --noconfirm nodejs npm python yarn pnpm lazygit docker docker-compose
-yay -S --noconfirm lazydocker
+# Dev Environment
+echo "👨💻 Dev Setup"
+sudo pacman -S --noconfirm nodejs npm python yarn pnpm lazygit docker docker-compose visidata
+yay -S --noconfirm lazydocker marp-cli
 /bin/bash -c "$(curl -fsSL https://php.new/install/linux)"
 curl -fsSL https://bun.sh/install | bash
 echo "✅ Dev tools installed"
 
-# SETUP - SHELL
+# Shell
 echo "🐚 Shell Setup"
-sudo pacman -S --noconfirm zsh zsh-syntax-highlighting zsh-autosuggestions zsh-completions tmux neovim zoxide fzf thefuck
+sudo pacman -S --noconfirm zsh zsh-syntax-highlighting zsh-autosuggestions zsh-completions tmux neovim zoxide fzf thefuck imagemagick librsvg chafa ffmpeg webp ttf-jetbrains-mono-nerd
 curl -s https://ohmyposh.dev/install.sh | bash -s
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 sudo chsh -s $(which zsh)
 echo "✅ Shell configured"
 
-# SETUP - AI
-echo "🤖 AI Development Setup"
-echo "Installing Chatbox"
+# AI Tools
+echo "🤖 AI Setup"
+echo "💬 Installing Chatbox"
 yay -S --noconfirm chatbox-bin
-echo "🦙 Checking Ollama installation"
+
+echo "🦙 Checking Ollama"
 if command_exists ollama; then
-  echo "✅ Ollama is already installed - skipping installation"
+  echo "✅ Ollama installed"
 else
-  echo "Installing Ollama..."
+  echo "📥 Installing Ollama"
   curl -fsSL https://ollama.com/install.sh | sh
 fi
-# Download AI models (only if Ollama is installed)
+
 if command_exists ollama; then
-  echo "📥 Downloading AI Models"
+  echo "📥 Downloading models:"
+  echo "🧑💻 deepseek-coder-v2"
   ollama pull deepseek-coder-v2
+  echo "🧠 deepseek-v2"
   ollama pull deepseek-v2
+  echo "🔍 deepseek-r1"
   ollama pull deepseek-r1
-  echo "✅ AI tools configured"
+  echo "✅ AI setup complete"
 else
-  echo "⚠️ Ollama not installed - skipping model downloads"
+  echo "⚠️ Ollama not installed"
 fi
 
-# SETUP - APPS
-echo "🖥️ Desktop Applications Setup"
-echo "🌐 Installing Browsers"
+# Applications
+echo "🖥️ App Setup"
+echo "🌐 Browsers"
 curl -fsS https://dl.brave.com/install.sh | sh
 yay -S --noconfirm whatsapp-for-linux
-echo "🎵 Installing Music"
-yay -S --noconfirm spotify spotify-adblock
-echo "🎬 Installing Media"
-sudo pacman -S --noconfirm vlc obs-studio
-echo "✅ Applications installed"
 
-# SETUP - ARDUINO
+echo "🎵 Music"
+yay -S --noconfirm spotify spotify-adblock
+
+echo "🎬 Media"
+sudo pacman -S --noconfirm vlc obs-studio
+echo "✅ Apps installed"
+
+# Arduino
 echo "⚡ Arduino Setup"
 yay -S --noconfirm arduino-ide
 sudo usermod -a -G uucp,tty $USER
@@ -137,9 +141,11 @@ sudo curl -o /etc/udev/rules.d/60-arduino.rules https://raw.githubusercontent.co
 sudo udevadm control --reload
 echo "✅ Arduino ready"
 
-# CONFIG - Update system
+# Final update
 sudo pacman -Syu --noconfirm
 sudo pacman -Sc --noconfirm
 
-read -p "Setup Complete. Reboot now? [y/N]: " reboot_choice
+# Reboot prompt
+echo "🎉 Setup complete!"
+read -p "Reboot now? [y/N]: " reboot_choice
 [[ "$reboot_choice" =~ ^[Yy]$ ]] && sudo reboot
