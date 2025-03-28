@@ -1,7 +1,13 @@
 * {
     font-family: "JetBrains Nerd Font", sans-serif;
-    font-size: 16px;
+    font-size: 14px;
     font-weight: bold;
+}
+
+.modules-left {
+    background-color: #212121;
+    border-bottom-right-radius: 16px;
+    padding: 8px 16px;
 }
 
 window#waybar {
@@ -9,27 +15,18 @@ window#waybar {
     color: #fafafa;
 }
 
-/* Left section - window title */
 #window {
     background-color: #212121;
     padding: 0 16px;
-    padding-bottom: 4px;
-    border-bottom-left-radius: 8px;
-    border-bottom-right-radius: 8px;
 }
 
-/* Center section - workspaces */
 #workspaces {
     background-color: #212121;
-    border-bottom-right-radius: 16px;
-    padding: 8px;
 }
 
 #workspaces button {
     margin-right: 4px;
-    background: transparent;
     color: #7f7f7f;
-    border-radius: 320px;
 }
 
 #workspaces button.active {

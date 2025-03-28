@@ -1,12 +1,9 @@
-
 {
     "layer": "top",
     "position": "top",
     "spacing": 4,
     "modules-left": [
-        "hyprland/workspaces"
-    ],
-    "modules-center": [
+        "hyprland/workspaces",
         "hyprland/window"
     ],
     "modules-right": [
@@ -22,6 +19,7 @@
         "max-length": 50
     },
     "hyprland/workspaces": {
+        "separator": false,
         "format": "{name}"    
     },
     "bluetooth": {
@@ -32,7 +30,7 @@
     "network": {
         "tooltip": true,
         "tooltip-format": "Network: <big><b>{essid}</b></big>\nSignal strength: <b>{signaldBm}dBm ({signalStrength}%)</b>\nFrequency: <b>{frequency}MHz</b>\nInterface: <b>{ifname}</b>\nBandwidth: <b>  {bandwidthDownBytes}   {bandwidthUpBytes}</b>",
-        "format-wifi": " {essid} ({signalStrength}%)",
+        "format-wifi": "  {essid} ({signalStrength}%)",
         "format-disconnected": "󰖪 Disconnected",
         "format-ethernet": "󰈀 {ipaddr}/{cidr}",
         "format-linked": "{ifname} (No IP) ",
