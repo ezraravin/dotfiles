@@ -70,8 +70,8 @@ sudo pacman -S --noconfirm eza bat ripgrep fd nautilus btop cava fastfetch bluem
 echo "✅ Core tools installed"
 
 # Window Managers
-echo "🌌 🌊 Hyprland & Sway Setup"
-sudo pacman -S --noconfirm sway swaybg hyprland hyprpaper hyprlock waybar wofi grim slurp wl-clipboard
+echo "🌌 🌊 Hyprland Setup"
+sudo pacman -S --noconfirm hyprland hyprpaper hyprlock waybar wofi grim slurp wl-clipboard
 echo "✅ Hyprland & Sway installed"
 
 # Dev Environment
