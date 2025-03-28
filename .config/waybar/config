@@ -1,58 +1,83 @@
+
 {
-    "layer": "top", // Waybar at top layer
-    "position": "top", // Waybar position (top|bottom|left|right)
-    // "height": 0, // Waybar height (to be removed for auto height)
-    "spacing": 4, // Gaps between modules (4px)
-    // Choose the order of the modules
+    "layer": "top",
+    "position": "top",
+    "spacing": 4,
     "modules-left": [
-        "hyprland/workspaces"
+        "hyprland/window"
     ],
     "modules-center": [
-        "clock"
+        "hyprland/workspaces"
     ],
     "modules-right": [
-        "pulseaudio",
+        "bluetooth",
         "network",
-        "battery",
+        "pulseaudio#output",
+        "pulseaudio#input",
         "power-profiles-daemon",
+        "battery",
+        "clock",
+        "custom/power"
     ],
-    // Modules configuration
+    "hyprland/window": {
+        "format": "{}",
+        "max-length": 50
+    },
     "hyprland/workspaces": {
-         "format": "{name}",
-         "format-icons": {
+        "format": "{icon}",
+        "format-icons": {
             "1": "",
-            "2": "",
+            "2": "",
             "3": "",
-            "10": "",
-            "5": "",
+            "4": "",
+            "10": "",
             "urgent": "",
             "active": "",
             "default": ""
-         }
-     },
-     "tray": 
-     {
-        "spacing": 8,
-        "icon-size": 16
-     },
-    "tray": {
-        "icon-size": 16,
-        "spacing": 8
+        }
     },
-    "clock": {
-        "format": "{:%H:%M %p}",
-        "format-alt": "{:%a, %d %b %Y}",
-        "tooltip-format": "<tt><small>{calendar}</small></tt>",
-        "calendar": 
-        {
-            "mode": "month",
-            "format": 
-            {
-                "months": "<span color='#ff6699'><b>{}</b></span>",
-                "days": "<span color='#cdd6f4'><b>{}</b></span>",
-                "weekdays": "<span color='#7CD37C'><b>{}</b></span>",
-                "today": "<span color='#ffcc66'><b>{}</b></span>"
-            }
+    "bluetooth": {
+        "format": "",
+        "format-disabled": "",
+        "on-click": "blueman-manager"
+    },
+    "network": {
+        "tooltip": true,
+        "tooltip-format": "Network: <big><b>{essid}</b></big>\nSignal strength: <b>{signaldBm}dBm ({signalStrength}%)</b>\nFrequency: <b>{frequency}MHz</b>\nInterface: <b>{ifname}</b>",
+        "format-wifi": " {essid} ({signalStrength}%)",
+        "format-disconnected": "󰖪 Disconnected",
+        "format-ethernet": "󰈀 {ipaddr}/{cidr}",
+        "format-linked": "{ifname} (No IP) ",
+        "format-alt": " {bandwidthDownBytes}  {bandwidthUpBytes}",
+        "interval": 2
+    },
+    "pulseaudio#output": {
+        "format": "{icon} {volume}%",
+        "format-bluetooth": "{icon} {volume}%",
+        "format-bluetooth-muted": "󰂲",
+        "format-muted": "󰝟 Muted",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "default": ["", "", ""]
+        },
+        "on-click": "pavucontrol",
+        "scroll-step": 5
+    },
+    "pulseaudio#input": {
+        "format": "{format_source}",
+        "format-source": " {volume}%",
+        "format-source-muted": " Muted",
+        "on-click": "pavucontrol",
+        "scroll-step": 5
+    },
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "format-icons": {
+            "performance": "",
+            "balanced": "󰾅",
+            "power-saver": ""
         }
     },
     "battery": {
@@ -61,51 +86,29 @@
             "warning": 30,
             "critical": 15
         },
-        "format": "{icon}   {capacity}%",
+        "format": "{icon} {capacity}%",
         "format-charging": "󰂄 {capacity}%",
         "format-plugged": "󰚥 {capacity}%",
-        "format-icons": ["", "", "", "", ""]
+        "format-icons": ["", "", "", "", ""],
+        "interval": 5
     },
-    "power-profiles-daemon": {
-      "format": "{icon}",
-      "tooltip-format": "Power profile: {profile}\nDriver: {driver}",
-      "tooltip": true,
-      "format-icons": {
-        "default": "",
-        "performance": "",
-        "balanced": "󰾅",
-        "power-saver": ""
-      }
+    "clock": {
+        "format": "{:%H:%M %p}",
+        "format-alt": "{:%a, %d %b %Y}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "month",
+            "format": {
+                "months": "<span color='#ff6699'><b>{}</b></span>",
+                "days": "<span color='#cdd6f4'><b>{}</b></span>",
+                "weekdays": "<span color='#7CD37C'><b>{}</b></span>",
+                "today": "<span color='#ffcc66'><b>{}</b></span>"
+            }
+        }
     },
-    "network": {
-        "tooltip": true,
-        "tooltip-format": "Network: <big><b>{essid}</b></big>\nSignal strength: <b>{signaldBm}dBm ({signalStrength}%)</b>\nFrequency: <b>{frequency}MHz</b>\nInterface: <b>{ifname}</b>",
-        "format-wifi": "  {essid} ({signalStrength}%)",
-        "format-disconnected": "󰖪   Disconnected",
-        "format-ethernet": "󰈀   {ipaddr}/{cidr}",
-        "format-linked": "{ifname} (No IP) ",
-        "format-disconnected": "Disconnected ⚠",
-
-        "format-alt": "<span foreground='#f9e2af'>  {bandwidthDownBytes}</span>  <span foreground='#f9e2af'>  {bandwidthUpBytes}</span>",
-        "interval": 2,
-    },
-    "pulseaudio": {
-        "format": "{icon} {volume}%",
-        "format-alt": "{format_source}",
-        "format-bluetooth": "{icon} {volume}%",
-        "format-bluetooth-muted": "󰂲",
-        "format-muted": "󰝟  Muted",
-        "format-source": " {volume}%",
-        "format-source-muted": "",
-        "format-icons": {
-            "headphone": "",
-            "hands-free": "",
-            "headset": "",
-            "phone": "",
-            "portable": "",
-            "car": "",
-            "default": [" ", " ", " "]
-        },
-        "on-click": "pavucontrol"
-    },
+    "custom/power": {
+        "format": "⏻",
+        "on-click": "wlogout"
+    }
 }
+

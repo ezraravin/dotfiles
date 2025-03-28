@@ -1,98 +1,84 @@
 * {
-    font-family: "JetBrains Nerd Font", "JetBrains Mono", sans-serif;
-    font-size: 14px;
+    font-family: "JetBrains Nerd Font", sans-serif;
+    font-size: 16px;
+    color: #ffffff;
 }
 
 window#waybar {
-    background: transparent;
+    background-color: transparent;
+}
+
+/* Left section - window title */
+#window {
+    background-color: #000000;
+    border-radius: 9999px; /* Max rounded */
+    padding: 0 15px;
+    margin-left: 10px;
+}
+
+/* Center section - workspaces */
+#workspaces {
+    background-color: #000000;
+    border-radius: 9999px; /* Max rounded */
+    padding: 0 5px;
+    margin: 0 10px;
 }
 
 #workspaces button {
-    padding: 0 12px;
-    border-radius: 16px;
-    background: #11111b;
-    color: #b4befe;
-    box-shadow: rgba(0, 0, 0, 0.116) 2 2 5 2px;
-    margin-left: 10px;
-    margin-top: 10px;
-    margin-bottom: 10px;
+    padding: 0 8px;
+    background: transparent;
+    min-width: 15px;
 }
 
 #workspaces button.active {
-    background-image: linear-gradient(120deg, #e0c3fc 0%, #8ec5fc 100%);
-    color: #212121;
-    border: #212121 solid 2px;
+    color: #ffffff;
     font-weight: bold;
 }
 
 #workspaces button.urgent {
-    color: #f38ba8;
-}
-
-#network,
-#cpu,
-#memory,
-#pulseaudio,
-#battery,
-#clock,
-#hyprland-window,
-#power-profiles-daemon,
-#temperature,
-#custom-notification {
-    padding: 0 12px;
-    border-radius: 16px;
-    background: #11111b;
-    color: #b4befe;
-    box-shadow: rgba(0, 0, 0, 0.116) 2 2 5 2px;
-    margin-top: 10px;
-    margin-bottom: 10px;
-    margin-right: 10px;
-}
-
-#clock {
-    background-image: linear-gradient(
-        45deg,
-        #ff9a9e 0%,
-        #fad0c4 99%,
-        #fad0c4 100%
-    );
-    color: #212121;
-    border: #212121 solid 2px;
-    font-weight: bold;
-}
-
-#pulseaudio {
-    color: #89b4fa;
-}
-
-#cpu {
-    color: #94e2d5;
-}
-
-#memory {
-    color: #74c7ec;
-}
-
-#network {
-    color: #f9e2af;
-}
-
-#battery {
-    color: #a6e3a1;
-}
-
-#battery.critical {
-    color: #f38ba8;
+    color: #ff0000;
     animation: blink 1s linear infinite;
 }
 
-@keyframes blink {
-    50% {
-        background-color: #f38ba8;
-        color: #1e1e2e;
-    }
+/* Right section - unified black bar */
+.modules-right {
+    background-color: #000000;
+    border-radius: 9999px; /* Max rounded */
+    padding: 0 15px;
+    margin-right: 10px;
 }
 
-#custom-notification {
-    color: #f5e0dc;
+/* All right modules - no individual backgrounds */
+.modules-right > widget > * {
+    background-color: transparent;
+    padding: 0 5px;
+}
+
+/* Module-specific colors */
+#bluetooth {
+    color: #5e81ac;
+}
+#network {
+    color: #a3be8c;
+}
+#pulseaudio#output {
+    color: #b48ead;
+}
+#pulseaudio#input {
+    color: #a3be8c;
+}
+#power-profiles-daemon {
+    color: #d08770;
+}
+#battery {
+    color: #a6e3a1;
+}
+#battery.critical {
+    color: #ff0000;
+}
+#clock {
+    color: #f5c2e7;
+}
+#custom-power {
+    color: #bf616a;
 }
