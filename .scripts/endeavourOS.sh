@@ -123,7 +123,7 @@ fi
 
 if command_exists ollama; then
   echo "📥 Downloading models:"
-  echo "🧑💻 deepseek-coder-v2"
+  echo "💻 deepseek-coder-v2"
   ollama pull deepseek-coder-v2
   echo "🧠 deepseek-v2"
   ollama pull deepseek-v2
@@ -145,6 +145,10 @@ yay -S --noconfirm spotify spotify-adblock
 
 echo "🎬 Media"
 sudo pacman -S --noconfirm vlc obs-studio
+
+echo "💾 Ventoy"
+yay -S --noconfirm ventoy
+
 echo "✅ Apps installed"
 
 # Arduino
