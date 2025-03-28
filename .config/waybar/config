@@ -11,9 +11,6 @@
         "clock"
     ],
     "modules-right": [
-        "cpu",
-        "temperature",
-        "memory",
         "pulseaudio",
         "network",
         "battery",
@@ -58,22 +55,6 @@
             }
         }
     },
-    "cpu": 
-    {
-        "format": "{icon0} {icon1} {icon2} {icon3}",
-     	"format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"],    
-        "interval": 2
-    },
-    "memory": {
-        "format": "{percentage}% ",
-        "format-alt": "{used:0.1f}GB/{total:0.1f}GB",
-        "unit": "GB"
-    },
-    "temperature": {
-        "critical-threshold": 80,
-        "format": "{temperatureC}°C {icon}",
-        "format-icons": [ "" ]
-    },
     "battery": {
         "states": {
             "good": 95,
@@ -99,7 +80,7 @@
     "network": {
         "tooltip": true,
         "tooltip-format": "Network: <big><b>{essid}</b></big>\nSignal strength: <b>{signaldBm}dBm ({signalStrength}%)</b>\nFrequency: <b>{frequency}MHz</b>\nInterface: <b>{ifname}</b>",
-        "format-wifi": "   {essid} ({signalStrength}%)",
+        "format-wifi": "  {essid} ({signalStrength}%)",
         "format-disconnected": "󰖪   Disconnected",
         "format-ethernet": "󰈀   {ipaddr}/{cidr}",
         "format-linked": "{ifname} (No IP) ",
@@ -113,7 +94,7 @@
         "format-alt": "{format_source}",
         "format-bluetooth": "{icon} {volume}%",
         "format-bluetooth-muted": "󰂲",
-        "format-muted": "󰝟 Muted",
+        "format-muted": "󰝟  Muted",
         "format-source": " {volume}%",
         "format-source-muted": "",
         "format-icons": {
@@ -123,7 +104,7 @@
             "phone": "",
             "portable": "",
             "car": "",
-            "default": ["", "", ""]
+            "default": [" ", " ", " "]
         },
         "on-click": "pavucontrol"
     },
