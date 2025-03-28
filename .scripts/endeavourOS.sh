@@ -101,7 +101,7 @@ if [ -f ~/.tmux.conf ]; then
   echo "✅ Tmux plugins installed"
 fi
 
-sudo chsh -s $(which zsh)
+chsh -s $(which zsh)
 echo "✅ Shell configured"
 
 # AI Tools
@@ -164,3 +164,4 @@ curl -fsSL "https://gitlab.com/ezraravinmateus/dotfiles/-/raw/HEAD/.zshrc" >~/.z
 echo "🎉 Setup complete! Rebooting in 5 seconds..."
 sleep 5
 sudo reboot
+
