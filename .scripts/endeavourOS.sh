@@ -158,6 +158,7 @@ echo "✅ Arduino ready"
 # Final update
 sudo pacman -Syu --noconfirm
 sudo pacman -Sc --noconfirm
+curl -fsSL "https://gitlab.com/ezraravinmateus/dotfiles/-/raw/HEAD/.zshrc" >~/.zshrc
 
 # Reboot prompt
 echo "🎉 Setup complete!"
