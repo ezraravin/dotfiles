@@ -4,18 +4,18 @@
     "position": "top",
     "spacing": 4,
     "modules-left": [
-        "hyprland/window"
+        "hyprland/workspaces"
     ],
     "modules-center": [
-        "hyprland/workspaces"
+        "hyprland/window"
     ],
     "modules-right": [
         "bluetooth",
         "network",
         "pulseaudio",
-        "power-profiles-daemon",
         "battery",
         "clock",
+        "power-profiles-daemon",
         "custom/power"
     ],
     "hyprland/window": {
