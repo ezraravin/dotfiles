@@ -42,8 +42,8 @@
         "format-disconnected": "󰖪 Disconnected",
         "format-ethernet": "󰈀 {ipaddr}/{cidr}",
         "format-linked": "{ifname} (No IP) ",
-        "format-alt": "",
-        "interval": 2
+        "interval": 2,
+        "on-click-right": "nm-connection-editor"
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",

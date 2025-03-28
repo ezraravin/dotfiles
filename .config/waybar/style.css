@@ -14,7 +14,7 @@ window#waybar {
     background-color: #000000;
     border-bottom-right-radius: 9999px;
     border-top-right-radius: 9999px;
-    padding: 0 15px;
+    padding: 0 16px;
 }
 
 /* Center section - workspaces */
@@ -47,7 +47,6 @@ window#waybar {
     border-bottom-left-radius: 9999px;
     padding: 0 16px;
 }
-
 /* All right modules - no individual backgrounds */
 .modules-right > widget > * {
     background-color: transparent;

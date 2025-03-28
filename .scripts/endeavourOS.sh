@@ -39,8 +39,12 @@ if ! git config --global user.email &>/dev/null; then
   git config --global init.defaultBranch main
 fi
 
-# Bluetooth
+# Bluetooth & Wifi
+echo "ᛒ Enabling Bluetooth"
 sudo systemctl enable --now bluetooth
+echo "🛜 Setup Wifi"
+sudo pacman -S --noconfirm connman
+sudo systemctl enable connman
 
 # Display Manager
 echo "🖥️ SDDM Setup"
