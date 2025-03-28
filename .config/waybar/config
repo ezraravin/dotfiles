@@ -32,7 +32,7 @@
     },
     "bluetooth": {
         "format": "",
-        "format-disabled": "",  // Bluetooth icon with a slash
+        "format-disabled": "󰂲",  // Bluetooth icon with a slash
         "on-click": "blueman-manager"
     },
     "network": {
