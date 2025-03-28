@@ -110,7 +110,6 @@ alias cd="z"
 alias f='nvim $(fzf --preview="bat --color=always {}")'
 
 # Development
-alias get_idf='. $HOME/esp/esp-idf/export.sh'
 alias xampp="sudo /opt/lampp/lampp start"
 alias py="python"
 alias py3="python3"
