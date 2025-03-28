@@ -75,7 +75,7 @@ sudo pacman -S --noconfirm hyprland hyprpaper hyprlock waybar wofi grim slurp wl
 echo "✅ Hyprland installed"
 
 echo "🌊 Sway Setup"
-sudo pacman -S --noconfirm sway swaybg swaylock-effects waybar wofi grim slurp wl-clipboard
+sudo pacman -S --noconfirm sway swaybg waybar wofi grim slurp wl-clipboard
 echo "✅ Sway installed"
 
 # Dev Environment
