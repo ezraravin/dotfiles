@@ -1,120 +1,167 @@
-################
-### VARIABLES ##
-################
-set $mod Mod4
-set $terminal kitty
-set $fileManager nautilus
-set $menu wofi --show drun
-set $refreshWallpaper ~/.config/sway/scripts/random-wallpapers.sh
+#!/bin/bash
+# EndeavourOS Setup Script
 
-###############
-### AUTOSTART #
-###############
-exec nm-applet
-exec $terminal
-exec waybar
-exec swaybg -m fill -i ~/Pictures/wallpaper.png
-exec spotify
-exec brave
-exec spotify-adblock
+# Ask for sudo once and keep it alive
+sudo -v
+while true; do
+  sudo -n true
+  sleep 60
+  kill -0 "$$" || exit
+done 2>/dev/null &
 
-# Wallpaper refresh (using systemd timer instead of while loop)
-exec_always ~/.config/sway/scripts/wallpaper-timer.sh
-
-########################
-### ENVIRONMENT VARS ##
-########################
-set $env:XCURSOR_SIZE 24
-
-###################
-### LOOK & FEEL ##
-###################
-# Gaps (requires sway-git)
-gaps inner 4
-gaps outer 8
-smart_gaps on
-
-# Borders
-default_border pixel 1
-default_floating_border pixel 1
-hide_edge_borders smart
-
-################
-### INPUT ###
-################
-input "type:keyboard" {
-    repeat_rate 60
-    repeat_delay 200
-    xkb_layout us
+command_exists() {
+  command -v "$1" >/dev/null 2>&1
 }
 
-input "type:touchpad" {
-    natural_scroll enabled
-    tap enabled
-}
+# Git SSH Setup
+echo "🔐 Git SSH Setup"
+read -p "Use SSH for Git? [y/N]: " ssh_choice
+if [[ "$ssh_choice" =~ ^[Yy]$ ]]; then
+  read -p "Name for SSH key: " key_name
+  ssh-keygen -t ed25519 -C "$key_name" -N "" -f ~/.ssh/id_ed25519
+  echo "📋 Public key (add to Git account):"
+  cat ~/.ssh/id_ed25519.pub
+  echo "🔗 Paste this in your Git account settings!"
+  read -p "Press Enter after adding key to Git account..."
+  GIT_CLONE_PREFIX="git@gitlab.com:"
+else
+  GIT_CLONE_PREFIX="https://gitlab.com/"
+fi
 
-#################
-### KEYBINDS ###
-#################
-# Basic
-bindsym $mod+Return exec $terminal
-bindsym $mod+q kill
-bindsym $mod+e exec $fileManager
-bindsym $mod+f fullscreen
-bindsym $mod+d exec $menu
-bindsym $mod+r exec $refreshWallpaper
+# Dotfiles
+[ ! -d ~/dotfiles ] && git clone $GIT_CLONE_PREFIX/ezraravinmateus/dotfiles.git ~/dotfiles &&
+  cp -r ~/dotfiles/. ~/ && rm -rf ~/dotfiles
 
-# Window management
-bindsym $mod+h focus left
-bindsym $mod+j focus down
-bindsym $mod+k focus up
-bindsym $mod+l focus right
+# Git Config
+if ! git config --global user.email &>/dev/null; then
+  git config --global user.email "ezraravin@proton.me"
+  git config --global user.name "Rave"
+  git config --global init.defaultBranch main
+fi
 
-bindsym $mod+Shift+h move left
-bindsym $mod+Shift+j move down
-bindsym $mod+Shift+k move up
-bindsym $mod+Shift+l move right
+# Bluetooth & Wifi
+echo "ᛒ Enabling Bluetooth"
+sudo systemctl enable --now bluetooth
 
-# Workspaces
-bindsym $mod+1 workspace number 1
-bindsym $mod+2 workspace number 2
-bindsym $mod+0 workspace number 10
+# Display Manager
+echo "🖥️ SDDM Setup"
+sudo pacman -S --noconfirm sddm
+sudo systemctl enable sddm
+echo "✅ SDDM installed"
 
-bindsym $mod+Shift+1 move container to workspace number 1
-bindsym $mod+Shift+0 move container to workspace number 10
+# GPU Drivers
+echo "🔍 GPU Detection"
+if lspci | grep -i "VGA.*NVIDIA"; then
+  echo "🟢 NVIDIA detected"
+  sudo pacman -S --noconfirm nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings
+  sudo pacman -S --noconfirm cuda cudnn
+  sudo mkinitcpio -P
+elif lspci | grep -i "VGA.*AMD"; then
+  echo "🔴 AMD detected"
+  sudo pacman -S --noconfirm mesa vulkan-radeon lib32-vulkan-radeon
+elif lspci | grep -i "VGA.*Intel"; then
+  echo "🔵 Intel detected"
+  sudo pacman -S --noconfirm mesa vulkan-intel lib32-vulkan-intel
+fi
+echo "✅ GPU setup complete"
 
-# Multimedia keys
-bindsym XF86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
-bindsym XF86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
-bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
-bindsym XF86MonBrightnessUp exec brightnessctl set +10%
-bindsym XF86MonBrightnessDown exec brightnessctl set 10%-
+# Core Tools
+echo "🐧 Core Setup"
+sudo pacman -S --noconfirm eza bat ripgrep fd nautilus btop cava fastfetch blueman kitty
+echo "✅ Core tools installed"
 
-# Player controls
-bindsym XF86AudioNext exec playerctl next
-bindsym XF86AudioPlay exec playerctl play-pause
-bindsym XF86AudioPrev exec playerctl previous
+# Window Managers
+echo "🌌 Hyprland Setup"
+sudo pacman -S --noconfirm hyprland hyprpaper hyprlock waybar wofi grim slurp wl-clipboard
+echo "✅ Hyprland & Sway installed"
 
-########################
-### WINDOW RULES ###
-########################
-assign [class="kitty"] → workspace 1
-assign [class="Brave-browser"] → workspace 2
-assign [class="obs"] → workspace 3
-assign [class="kdenlive"] → workspace 4
-assign [class="whatsapp-linux-app"] → workspace 10
+# Dev Environment
+echo "👨💻 Dev Setup"
+sudo pacman -S --noconfirm nodejs npm python yarn pnpm lazygit docker docker-compose visidata
+yay -S --noconfirm lazydocker marp-cli
+/bin/bash -c "$(curl -fsSL https://php.new/install/linux)"
+curl -fsSL https://bun.sh/install | bash
+echo "✅ Dev tools installed"
 
-####################
-### NVIDIA CONFIG ##
-####################
-set $env:LIBVA_DRIVER_NAME nvidia
-set $env:__GLX_VENDOR_LIBRARY_NAME nvidia
-set $env:NVD_BACKEND direct
+# Shell
+echo "🐚 Shell Setup"
+sudo pacman -S --noconfirm zsh zsh-syntax-highlighting zsh-autosuggestions zsh-completions tmux neovim zoxide fzf thefuck imagemagick librsvg chafa ffmpeg ttf-jetbrains-mono-nerd yazi
+curl -s https://ohmyposh.dev/install.sh | bash -s
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
-# Enable mouse window dragging
-bindsym $mod+button1 move window
-bindsym $mod+button3 resize window
+# Tmux Plugin Manager
+echo "🖥️ Setting up Tmux Plugin Manager"
+[ ! -d ~/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# Install tmux plugins
+if [ -f ~/.tmux.conf ]; then
+  echo "🔌 Installing Tmux plugins"
+  tmux start-server
+  tmux new-session -d
+  ~/.tmux/plugins/tpm/scripts/install_plugins.sh
+  tmux kill-server
+  echo "✅ Tmux plugins installed"
+fi
 
-# Scratchpad implementation
-bindsym $mod+Shift+m move scratchpad
-bindsym $mod+m scratchpad show
+chsh -s $(which zsh)
+echo "✅ Shell configured"
+
+# AI Tools
+echo "🤖 AI Setup"
+echo "💬 Installing Chatbox"
+yay -S --noconfirm chatbox-bin
+
+echo "🦙 Checking Ollama"
+if command_exists ollama; then
+  echo "✅ Ollama installed"
+else
+  echo "📥 Installing Ollama"
+  curl -fsSL https://ollama.com/install.sh | sh
+fi
+
+if command_exists ollama; then
+  echo "📥 Downloading models:"
+  echo "💻 deepseek-coder-v2"
+  ollama pull deepseek-coder-v2
+  echo "🧠 deepseek-v2"
+  ollama pull deepseek-v2
+  echo "🔍 deepseek-r1"
+  ollama pull deepseek-r1
+  echo "✅ AI setup complete"
+else
+  echo "⚠️ Ollama not installed"
+fi
+
+# Applications
+echo "🖥️ App Setup"
+echo "🌐 Browsers"
+curl -fsS https://dl.brave.com/install.sh | sh
+yay -S --noconfirm whatsapp-for-linux
+
+echo "🎵 Music"
+yay -S --noconfirm spotify spotify-adblock
+
+echo "🎬 Media"
+sudo pacman -S --noconfirm vlc obs-studio
+
+echo "💾 Ventoy"
+yay -S --noconfirm ventoy-bin
+
+echo "✅ Apps installed"
+
+# Arduino
+echo "⚡ Arduino Setup"
+yay -S --noconfirm arduino-ide
+sudo usermod -a -G uucp,tty $USER
+sudo curl -o /etc/udev/rules.d/60-arduino.rules https://raw.githubusercontent.com/arduino/ArduinoCore-avr/master/60-arduino-avr-core.rules
+sudo udevadm control --reload
+echo "✅ Arduino ready"
+
+# Final update
+sudo pacman -Syu --noconfirm
+sudo pacman -Sc --noconfirm
+curl -fsSL "https://gitlab.com/ezraravinmateus/dotfiles/-/raw/HEAD/.zshrc" >~/.zshrc
+
+# Reboot prompt
+echo "🎉 Setup complete! Rebooting in 5 seconds..."
+sleep 5
+sudo reboot
