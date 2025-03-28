@@ -72,8 +72,7 @@ echo "✅ Core tools installed"
 
 # Window Managers
 echo "🌌 Hyprland Setup"
-# sudo pacman -S --noconfirm hyprland hyprpaper hyprlock waybar wofi grim slurp wl-clipboard
-sudo pacman -S --noconfirm sway
+sudo pacman -S --noconfirm hyprland hyprpaper hyprlock waybar wofi grim slurp wl-clipboard
 echo "✅ Hyprland installed"
 
 # Dev Environment
