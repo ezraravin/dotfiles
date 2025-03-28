@@ -51,7 +51,7 @@ export PATH="$HOME/.config/herd-lite/bin:$PATH"
 export PRETTIERD_DEFAULT_CONFIG="$HOME/.prettierrc"
 
 # PNPM
-export PNPM_HOME="/Users/ezra/Library/pnpm"
+export PNPM_HOME="/usr/bin/pnpm"
 case ":$PATH:" in
   *":$PNPM_HOME:"*) ;;
   *) export PATH="$PNPM_HOME:$PATH" ;;
