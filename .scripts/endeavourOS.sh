@@ -91,8 +91,7 @@ echo "✅ Dev tools installed"
 
 # SETUP - SHELL
 echo "🐚 Shell Setup"
-sudo pacman -S --noconfirm zsh zsh-syntax-highlighting zsh-autosuggestions zsh-completions
-sudo pacman -S --noconfirm zoxide fzf thefuck
+sudo pacman -S --noconfirm zsh zsh-syntax-highlighting zsh-autosuggestions zsh-completions tmux neovim zoxide fzf thefuck
 curl -s https://ohmyposh.dev/install.sh | bash -s
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 sudo chsh -s $(which zsh)
