@@ -13,15 +13,17 @@ window#waybar {
 #window {
     background-color: #212121;
     padding: 0 16px;
-    border-radius: 9999px; /* Max rounded */
+    padding-bottom: 4px;
+    border-bottom-left-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 /* Center section - workspaces */
 #workspaces {
     background-color: #212121;
-    border-bottom-right-radius: 9999px;
-    border-top-right-radius: 9999px;
-    padding: 0 8px;
+    border-bottom-right-radius: 16px;
+    padding-bottom: 4px;
+    padding-right: 8px;
 }
 
 #workspaces button {
@@ -43,14 +45,14 @@ window#waybar {
 /* Right section - unified black bar */
 .modules-right {
     background-color: #212121;
-    border-top-left-radius: 9999px;
-    border-bottom-left-radius: 9999px;
+    border-bottom-left-radius: 16px;
     padding: 0 16px;
+    padding-bottom: 4px;
 }
 /* All right modules - no individual backgrounds */
 .modules-right > widget > * {
     background-color: transparent;
-    padding: 0 4px;
+    padding: 0 8px;
 }
 
 /* Module-specific colors */
@@ -76,5 +78,6 @@ window#waybar {
     color: #f5c2e7;
 }
 #custom-power {
+    font-size: 24px;
     color: #bf616a;
 }

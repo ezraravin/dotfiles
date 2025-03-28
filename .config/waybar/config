@@ -57,7 +57,7 @@
             "headphone": "",
             "hands-free": "",
             "headset": "",
-            "default": ["", "", ""]
+            "default": ["", " ", "  "]
         },
         "on-click-right": "pavucontrol",
         "scroll-step": 5,
