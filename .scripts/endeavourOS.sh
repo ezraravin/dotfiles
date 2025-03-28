@@ -147,7 +147,7 @@ echo "🎬 Media"
 sudo pacman -S --noconfirm vlc obs-studio
 
 echo "💾 Ventoy"
-yay -S --noconfirm ventoy
+yay -S --noconfirm ventoy-bin
 
 echo "✅ Apps installed"
 
