@@ -66,7 +66,7 @@ echo "✅ GPU setup complete"
 
 # Core Tools
 echo "🐧 Core Setup"
-sudo pacman -S --noconfirm eza bat ripgrep fd nautilus btop cava fastfetch blueman
+sudo pacman -S --noconfirm eza bat ripgrep fd nautilus btop cava fastfetch blueman kitty
 echo "✅ Core tools installed"
 
 # Window Managers
