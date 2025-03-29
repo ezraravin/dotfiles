@@ -20,13 +20,6 @@ return {
 			cond = hide_in_width,
 		}
 
-		local filename = {
-			"filename",
-			file_status = true, -- displays file status (readonly status, modified status)
-			path = 1, -- 0 = just filename, 1 = relative path, 2 = absolute path
-			symbols = { modified = "●", readonly = "[-]", unnamed = "[No Name]", newfile = "[New]" },
-		}
-
 		local diff = {
 			"diff",
 			colored = true,
