@@ -115,3 +115,9 @@ export PATH="$HOME/.bun/bin:$PATH"
 export PATH=/opt/cuda/bin:$PATH
 export LD_LIBRARY_PATH=/opt/cuda/lib64:$LD_LIBRARY_PATH
 export OLLAMA_LLM_LIBRARY="cuda_v11" # Force CUDA library
+
+## [Completion]
+## Completion scripts setup. Remove the following line to uninstall
+[[ -f /home/rave/.dart-cli-completion/zsh-config.zsh ]] && . /home/rave/.dart-cli-completion/zsh-config.zsh || true
+## [/Completion]
+
