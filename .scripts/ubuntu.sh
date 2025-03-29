@@ -16,6 +16,12 @@ command_exists() {
 # Update system first
 sudo apt update && sudo apt upgrade -y
 
+# Core Tools
+echo "🐧 Core Setup"
+sudo apt install -y git exa bat ripgrep fd-find nautilus btop cava fastfetch blueman kitty xwayland
+sudo snap install wlogout curl
+echo "✅ Core tools installed"
+
 # Git SSH Setup
 echo "🔐 Git SSH Setup"
 read -p "Use SSH for Git? [y/N]: " ssh_choice
@@ -66,12 +72,6 @@ elif lspci | grep -i "VGA.*Intel"; then
   sudo apt install -y mesa-vulkan-drivers libvulkan1 vulkan-utils
 fi
 echo "✅ GPU setup complete"
-
-# Core Tools
-echo "🐧 Core Setup"
-sudo apt install -y exa bat ripgrep fd-find nautilus btop cava fastfetch blueman kitty xwayland
-sudo snap install wlogout
-echo "✅ Core tools installed"
 
 # Window Managers
 echo "🌌 Hyprland Setup"
