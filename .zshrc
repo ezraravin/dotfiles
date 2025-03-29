@@ -110,16 +110,9 @@ fi
 if [ -z "$TMUX" ]; then
   tmux
 fi
-
-# bun completions
-[ -s "/home/rave/.bun/_bun" ] && source "/home/rave/.bun/_bun"
-
 # bun
-export BUN_INSTALL="$HOME/.bun"
-export PATH="$BUN_INSTALL/bin:$PATH"
-
+export PATH="$HOME/.bun/bin:$PATH"
 # CUDA
-export CUDA_HOME=/opt/cuda
-export PATH=$CUDA_HOME/bin:$PATH
-export LD_LIBRARY_PATH=$CUDA_HOME/lib64:$LD_LIBRARY_PATH
+export PATH=/opt/cuda/bin:$PATH
+export LD_LIBRARY_PATH=/opt/cuda/lib64:$LD_LIBRARY_PATH
 export OLLAMA_LLM_LIBRARY="cuda_v11" # Force CUDA library
