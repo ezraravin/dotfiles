@@ -1,14 +1,13 @@
 * {
     font-family: "JetBrains Nerd Font", sans-serif;
-    font-size: 12px;
     font-weight: bold;
 }
 
 .modules-left {
     background-color: #212121;
     border-radius: 120px;
-    padding: 8px 16px;
     margin: 4px;
+    padding: 4px 12px;
 }
 
 /* Right section - unified black bar */
@@ -29,25 +28,23 @@ window#waybar {
     color: #fafafa;
 }
 
-#window {
-    background-color: #212121;
-    padding: 0 16px;
-}
-
-#workspaces {
-    background-color: #212121;
-}
-
 #workspaces button {
-    margin-right: 4px;
     color: #7f7f7f;
+    font-size: 0.9rem;
+}
+#workspaces button:hover {
+    color: #212121;
+    background-color: #fafafa;
+    border: none;
+    border-radius: 320px;
 }
 
 #workspaces button.active {
+    color: #fafafa;
+}
+
+#workspaces button.active:hover {
     color: #212121;
-    font-weight: bold;
-    background-color: #fafafa;
-    border-radius: 320px;
 }
 
 #workspaces button.urgent {
