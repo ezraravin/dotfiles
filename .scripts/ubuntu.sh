@@ -18,7 +18,7 @@ sudo apt update && sudo apt upgrade -y
 
 # Core Tools
 echo "🐧 Core Setup"
-sudo apt install -y git eza bat ripgrep fd-find nautilus btop cava fastfetch blueman kitty xwayland
+sudo apt install -y git eza bat ripgrep fd-find nautilus btop cava neofetch blueman kitty xwayland
 sudo snap install wlogout curl
 echo "✅ Core tools installed"
 
