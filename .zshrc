@@ -2,19 +2,19 @@
 # Environment Variables
 # ======================
 
-  # Local Bin Path
-  export PATH=$PATH:$HOME/.local/bin
-  # Zsh Autosuggestions
-  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-  # Zsh Syntax Highlighting
-  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-  # Chrome Executable
-  export CHROME_EXECUTABLE="/usr/bin/google-chrome-stable"
-  # Android SDK
-  export ANDROID_HOME=/opt/android-sdk
-  export PATH=$PATH:$ANDROID_HOME/tools/bin
-  export PATH=$PATH:$ANDROID_HOME/platform-tools
-  export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
+# Local Bin Path
+export PATH=$PATH:$HOME/.local/bin
+# Zsh Autosuggestions
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+# Zsh Syntax Highlighting
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+# Chrome Executable
+export CHROME_EXECUTABLE="/usr/bin/google-chrome-stable"
+# Android SDK
+export ANDROID_HOME=/opt/android-sdk
+export PATH=$PATH:$ANDROID_HOME/tools/bin
+export PATH=$PATH:$ANDROID_HOME/platform-tools
+export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 
 # Neovim as Default Editor
 export EDITOR="nvim"
