@@ -1,13 +1,27 @@
 * {
     font-family: "JetBrains Nerd Font", sans-serif;
-    font-size: 14px;
+    font-size: 12px;
     font-weight: bold;
 }
 
 .modules-left {
     background-color: #212121;
-    border-bottom-right-radius: 16px;
+    border-radius: 120px;
     padding: 8px 16px;
+    margin: 4px;
+}
+
+/* Right section - unified black bar */
+.modules-right {
+    background-color: #212121;
+    border-radius: 320px;
+    padding: 0 16px;
+    margin: 4px;
+}
+/* All right modules - no individual backgrounds */
+.modules-right > widget > * {
+    background-color: transparent;
+    padding: 0 8px;
 }
 
 window#waybar {
@@ -39,19 +53,6 @@ window#waybar {
 #workspaces button.urgent {
     color: #ff0000;
     animation: blink 1s linear infinite;
-}
-
-/* Right section - unified black bar */
-.modules-right {
-    background-color: #212121;
-    border-bottom-left-radius: 16px;
-    padding: 0 16px;
-    padding-bottom: 4px;
-}
-/* All right modules - no individual backgrounds */
-.modules-right > widget > * {
-    background-color: transparent;
-    padding: 0 8px;
 }
 
 /* Module-specific colors */
