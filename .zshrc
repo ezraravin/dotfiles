@@ -18,6 +18,8 @@ export PHP_INI_SCAN_DIR="$HOME/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 export PATH="$HOME/.config/herd-lite/bin:$PATH"
 # Prettier
 export PRETTIERD_DEFAULT_CONFIG="$HOME/.prettierrc"
+# Chrome
+export CHROME_EXECUTABLE="/usr/bin/google-chrome-stable"
 
 # PNPM
 export PNPM_HOME="$HOME/.local/share/pnpm"
