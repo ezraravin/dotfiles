@@ -139,7 +139,7 @@ echo "✅ Arduino ready"
 
 # Miscellaneous
 echo "🌐 Codesandbox Setup"
-npm install -g codesandbox
+sudo npm install -g codesandbox
 echo "✅ Codesandbox ready"
 
 # Final update
