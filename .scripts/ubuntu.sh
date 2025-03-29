@@ -66,17 +66,17 @@ if lspci | grep -i "VGA.*NVIDIA"; then
   sudo apt install -y nvidia-cuda-toolkit
 elif lspci | grep -i "VGA.*AMD"; then
   echo "🔴 AMD detected"
-  sudo apt install -y mesa-vulkan-drivers libvulkan1 vulkan-utils
+  sudo apt install -y mesa-vulkan-drivers libvulkan1 ilvulkan-uts
 elif lspci | grep -i "VGA.*Intel"; then
   echo "🔵 Intel detected"
-  sudo apt install -y mesa-vulkan-drivers libvulkan1 vulkan-utils
+  sudo apt install -y mesa-vulkan-drivers libvulkan1
 fi
 echo "✅ GPU setup complete"
 
 # Window Managers
-echo "🌌 Hyprland Setup"
-sudo apt install -y hyprland hyprpaper hyprlock waybar wofi grim slurp wl-clipboard
-echo "✅ Hyprland installed"
+echo "🌌 Sway Setup"
+sudo apt install -y sway waybar wofi grim slurp wl-clipboard
+echo "✅ Sway installed"
 
 # Dev Environment
 echo "👨💻 Dev Setup"
