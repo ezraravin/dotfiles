@@ -2,22 +2,6 @@
 # Environment Variables
 # ======================
 
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  # macOS-specific configurations
-  # Homebrew
-  export HOMEBREW_PREFIX="/opt/homebrew"
-  # Ruby
-  export PATH="$HOMEBREW_PREFIX/opt/ruby/bin:$PATH"
-  # Homebrew
-  eval "$($HOMEBREW_PREFIX/bin/brew shellenv)"
-  # Pandoc & Basictex
-  eval "$(/usr/libexec/path_helper)"
-  # Zsh Autosuggestions
-  source "$HOMEBREW_PREFIX/share/zsh-autosuggestions/zsh-autosuggestions.zsh"
-  # Zsh Syntax Highlighting
-  source "$HOMEBREW_PREFIX/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh"
-elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
-  # Linux-specific configurations
   # Local Bin Path
   export PATH=$PATH:$HOME/.local/bin
   # Zsh Autosuggestions
@@ -31,22 +15,14 @@ elif [[ "$OSTYPE" == "linux-gnu"* ]]; then
   export PATH=$PATH:$ANDROID_HOME/tools/bin
   export PATH=$PATH:$ANDROID_HOME/platform-tools
   export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
-fi
 
 # Neovim as Default Editor
 export EDITOR="nvim"
-
 # Oh My Zsh
 export ZSH="$HOME/.oh-my-zsh"
-
-# Android SDK
-# export ANDROID_HOME="$HOMEBREW_PREFIX/share/android-commandlinetools"
-# export PATH="$ANDROID_HOME/cmdline-tools/tools/bin:$ANDROID_HOME/emulator:$ANDROID_HOME/platform-tools:$PATH"
-
 # PHP (Herd Lite)
 export PHP_INI_SCAN_DIR="$HOME/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 export PATH="$HOME/.config/herd-lite/bin:$PATH"
-
 # Prettier
 export PRETTIERD_DEFAULT_CONFIG="$HOME/.prettierrc"
 
