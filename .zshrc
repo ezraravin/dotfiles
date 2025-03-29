@@ -8,13 +8,6 @@ export PATH=$PATH:$HOME/.local/bin
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Zsh Syntax Highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-# Chrome Executable
-export CHROME_EXECUTABLE="/usr/bin/google-chrome-stable"
-# Android SDK
-export ANDROID_HOME=/opt/android-sdk
-export PATH=$PATH:$ANDROID_HOME/tools/bin
-export PATH=$PATH:$ANDROID_HOME/platform-tools
-export PATH=$PATH:$ANDROID_HOME/cmdline-tools/latest/bin
 
 # Neovim as Default Editor
 export EDITOR="nvim"
@@ -39,7 +32,6 @@ esac
 
 # Oh My Zsh Theme
 ZSH_THEME="robbyrussell"
-
 # Source Oh My Zsh
 source "$ZSH/oh-my-zsh.sh"
 
@@ -49,13 +41,8 @@ source "$ZSH/oh-my-zsh.sh"
 
 # Zoxide
 eval "$(zoxide init zsh)"
-
 # Oh My Posh
 eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/zen.toml)"
-
-# The Fuck
-eval $(thefuck --alias)
-
 # FZF
 source <(fzf --zsh)
 
