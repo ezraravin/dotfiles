@@ -30,7 +30,7 @@ return {
 				focus_on_open = true, -- Auto-focus log window
 			},
 			outline = {
-				open_cmd = "30vnew", -- Open in vertical split
+				open_cmd = "40vnew", -- Open in vertical split
 				auto_open = true, -- Auto-show widget tree
 			},
 			lsp = {
