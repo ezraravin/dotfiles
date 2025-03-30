@@ -32,7 +32,7 @@
 !/.config
 /.config/*
 
-# Include Kitty
+# Include Config Files
 !/.config/kitty
 !/.config/nvim
 !/.config/oh-my-posh
@@ -42,3 +42,4 @@
 !/.config/wofi
 !/.config/fastfetch
 !/.config/btop
+!/.config/sway
