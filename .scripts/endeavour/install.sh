@@ -43,6 +43,11 @@ fi
 echo "ᛒ Enabling Bluetooth"
 sudo systemctl enable --now bluetooth
 
+# Window Managers
+echo "🌊 Sway Setup"
+sudo pacman -S --noconfirm sway swaybg waybar wofi grim slurp wl-clipboard
+echo "✅ Sway installed"
+
 # Display Manager
 echo "🖥️ SDDM Setup"
 sudo pacman -S --noconfirm sddm
@@ -69,11 +74,6 @@ echo "🐧 Core Setup"
 sudo pacman -S --noconfirm eza bat ripgrep fd nautilus btop cava fastfetch blueman kitty xorg-xwayland
 yay -S --noconfirm wlogout
 echo "✅ Core tools installed"
-
-# Window Managers
-echo "🌌 Hyprland Setup"
-sudo pacman -S --noconfirm hyprland hyprpaper hyprlock waybar wofi grim slurp wl-clipboard
-echo "✅ Hyprland installed"
 
 # Dev Environment
 echo "👨💻 Dev Setup"
