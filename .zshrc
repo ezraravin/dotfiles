@@ -25,6 +25,8 @@ export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
 # RUST
 export PATH="$HOME/.cargo/bin:$PATH"
+# GO
+export PATH="$HOME/go/bin:$PATH"
 
 # ======================
 # Shell Configuration
