@@ -102,6 +102,7 @@ if [ -f ~/.tmux.conf ]; then
   echo "✅ Tmux plugins installed"
 fi
 
+echo " Change Shell"
 sudo chsh -s $(which zsh) $USER
 echo "✅ Shell configured"
 
