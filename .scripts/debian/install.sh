@@ -18,7 +18,7 @@ sudo apt update && sudo apt upgrade -y
 
 # Core Tools
 echo "🐧 Core Setup"
-sudo apt install -y git curl bat ripgrep nautilus btop neofetch blueman kitty xwayland
+sudo apt install -y unzip git curl bat ripgrep nautilus btop neofetch blueman kitty xwayland
 echo "✅ Core tools installed"
 
 # Git SSH Setup
@@ -80,10 +80,10 @@ sudo npm install -g pnpm
 /bin/bash -c "$(curl -fsSL https://php.new/install/linux)"
 curl -fsSL https://bun.sh/install | bash
 echo "✅ Dev tools installed"
-
+thefuck
 # Shell
 echo "🐚 Shell Setup"
-sudo apt install -y zsh zsh-syntax-highlighting zsh-autosuggestions zsh-completions tmux neovim zoxide fzf thefuck imagemagick librsvg-dev ffmpeg fonts-jetbrains-mono
+sudo apt install -y zsh zsh-syntax-highlighting zsh-autosuggestions tmux neovim zoxide fzf imagemagick ffmpeg fonts-jetbrains-mono
 curl -s https://ohmyposh.dev/install.sh | bash -s
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
