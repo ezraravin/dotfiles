@@ -90,7 +90,7 @@ sudo npm install -g pnpm
 /bin/bash -c "$(curl -fsSL https://php.new/install/linux)"
 curl -fsSL https://bun.sh/install | bash
 echo "✅ Dev tools installed"
-thefuck
+
 # Shell
 echo "🐚 Shell Setup"
 sudo apt install -y zsh zsh-syntax-highlighting zsh-autosuggestions tmux neovim zoxide fzf imagemagick ffmpeg fonts-jetbrains-mono
