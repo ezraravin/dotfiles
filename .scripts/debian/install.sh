@@ -94,6 +94,12 @@ echo "✅ Dev tools installed"
 # Shell
 echo "🐚 Shell Setup"
 sudo apt install -y zsh zsh-syntax-highlighting zsh-autosuggestions tmux neovim zoxide fzf imagemagick ffmpeg fonts-jetbrains-mono
+echo "Install Jetbrains Nerd Font Mono"
+sudo mkdir -p /usr/local/share/fonts
+sudo wget -P /usr/local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
+sudo unzip /usr/local/share/fonts/JetBrainsMono.zip -d /usr/local/share/fonts/JetBrainsMonoNF
+sudo rm /usr/local/share/fonts/JetBrainsMono.zip
+sudo fc-cache -fv
 go install github.com/jesseduffield/lazygit@latest
 curl -s https://ohmyposh.dev/install.sh | bash -s
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
