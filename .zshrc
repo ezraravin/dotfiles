@@ -6,8 +6,10 @@
 export PATH=$PATH:$HOME/.local/bin
 # Zsh Autosuggestions
 source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
 # Zsh Syntax Highlighting
 source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Neovim as Default Editor
 export EDITOR="nvim"
