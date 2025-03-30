@@ -59,7 +59,6 @@ echo "🔍 GPU Detection"
 if lspci | grep -i "VGA.*NVIDIA"; then
   echo "🟢 NVIDIA detected"
   sudo pacman -S --noconfirm nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings
-  sudo bash -c 'echo "options nvidia-drm modeset=1" > /etc/modprobe.d/nvidia-drm.conf'
   sudo mkinitcpio -P
 elif lspci | grep -i "VGA.*AMD"; then
   echo "🔴 AMD detected"
