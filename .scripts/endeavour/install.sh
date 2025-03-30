@@ -105,12 +105,6 @@ fi
 sudo chsh -s $(which zsh) $USER
 echo "✅ Shell configured"
 
-# iI Tools
-echo "🤖 AI Setup"
-echo "💬 Installing Chatbox"
-yay -S --noconfirm chatbox-bin
-echo "✅ AI setup complete"
-
 # Applications
 echo "🖥️ App Setup"
 echo "🌐 Browsers"
