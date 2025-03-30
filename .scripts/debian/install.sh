@@ -15,6 +15,7 @@ command_exists() {
 
 # Core Tools
 echo "🐧 Core Setup"
+curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
 sudo apt install -y cmake unzip git curl bat ripgrep nautilus btop blueman kitty xwayland
 echo "Installing Fastfetch"
 git clone https://github.com/fastfetch-cli/fastfetch.git
@@ -25,6 +26,9 @@ make
 sudo make install
 cd ~ && rm -rf fastfetch/
 echo "Fastfetch installed"
+echo "Installing Eza"
+cargo install eza
+echo "Eza installed"
 echo "✅ Core tools installed"
 
 # Git SSH Setup

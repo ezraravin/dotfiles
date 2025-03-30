@@ -20,10 +20,11 @@ export PATH="$HOME/.config/herd-lite/bin:$PATH"
 export PRETTIERD_DEFAULT_CONFIG="$HOME/.prettierrc"
 # Chrome
 export CHROME_EXECUTABLE="/usr/bin/google-chrome-stable"
-
 # PNPM
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
+# RUST
+export PATH="$HOME/.cargo/bin:$PATH"
 
 # ======================
 # Shell Configuration
