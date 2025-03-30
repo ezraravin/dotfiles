@@ -3,7 +3,7 @@
     "position": "top",
     "modules-left": [
         "hyprland/workspaces",
-        "hyprland/window"
+        "hyprland/window",
         "sway/workspaces",
         "sway/window"
     ],
