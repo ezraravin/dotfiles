@@ -13,9 +13,6 @@ command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
 
-# Update system first
-sudo apt update && sudo apt upgrade -y
-
 # Core Tools
 echo "🐧 Core Setup"
 sudo apt install -y unzip git curl bat ripgrep nautilus btop neofetch blueman kitty xwayland
@@ -58,9 +55,9 @@ echo "✅ Sway installed"
 
 # Display Manager (Ubuntu uses GDM by default)
 echo "🖥️ Display Manager Setup"
-sudo apt install -y gdm3
-sudo systemctl enable gdm3
-echo "✅ GDM3 installed"
+sudo apt install -y sddm
+sudo systemctl enable sddm
+echo "✅ SDDM installed"
 
 # GPU Drivers
 echo "🔍 GPU Detection"
@@ -107,10 +104,8 @@ echo "✅ Shell configured"
 echo "🖥️ App Setup"
 echo "🌐 Browsers"
 curl -fsS https://dl.brave.com/install.sh | sh
-
 echo "🎬 Media"
 sudo apt install -y vlc obs-studio
-
 echo "✅ Apps installed"
 
 # Arduino
