@@ -64,11 +64,7 @@ echo "✅ GDM3 installed"
 
 # GPU Drivers
 echo "🔍 GPU Detection"
-if lspci | grep -i "VGA.*NVIDIA"; then
-  echo "🟢 NVIDIA detected"
-  sudo apt install -y nvidia-driver-535 nvidia-utils libnvidia-extra-535
-  sudo apt install -y nvidia-cuda-toolkit
-elif lspci | grep -i "VGA.*AMD"; then
+if lspci | grep -i "VGA.*AMD"; then
   echo "🔴 AMD detected"
   sudo apt install -y mesa-vulkan-drivers libvulkan1 ilvulkan-uts
 elif lspci | grep -i "VGA.*Intel"; then
@@ -80,8 +76,7 @@ echo "✅ GPU setup complete"
 # Dev Environment
 echo "👨💻 Dev Setup"
 sudo apt install -y nodejs npm python3 python3-pip yarnpkg docker.io docker-compose visidata
-sudo snap install lazydocker
-sudo npm install -g pnpm marp-cli
+sudo npm install -g pnpm
 /bin/bash -c "$(curl -fsSL https://php.new/install/linux)"
 curl -fsSL https://bun.sh/install | bash
 echo "✅ Dev tools installed"
@@ -108,29 +103,13 @@ fi
 sudo chsh -s $(which zsh) $USER
 echo "✅ Shell configured"
 
-# AI Tools
-echo "🤖 AI Setup"
-echo "💬 Installing Chatbox"
-sudo snap install chatbox
-echo "✅ AI setup complete"
-
 # Applications
 echo "🖥️ App Setup"
 echo "🌐 Browsers"
-sudo apt install -y brave-browser
-sudo snap install whatsapp-for-linux
-
-echo "🎵 Music"
-sudo snap install spotify
-sudo apt install -y spotify-adblock
+curl -fsS https://dl.brave.com/install.sh | sh
 
 echo "🎬 Media"
 sudo apt install -y vlc obs-studio
-
-echo "💾 Ventoy"
-sudo apt-add-repository -y ppa:ventoy/ventoy
-sudo apt update
-sudo apt install -y ventoy
 
 echo "✅ Apps installed"
 
