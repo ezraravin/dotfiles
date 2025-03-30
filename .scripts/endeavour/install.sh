@@ -131,11 +131,6 @@ sudo curl -o /etc/udev/rules.d/60-arduino.rules https://raw.githubusercontent.co
 sudo udevadm control --reload
 echo "✅ Arduino ready"
 
-# Miscellaneous
-echo "🌐 Codesandbox Setup"
-sudo npm install -g codesandbox
-echo "✅ Codesandbox ready"
-
 # Final update
 sudo pacman -Syu --noconfirm
 sudo pacman -Sc --noconfirm
