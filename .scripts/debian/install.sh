@@ -19,7 +19,6 @@ sudo apt update && sudo apt upgrade -y
 # Core Tools
 echo "🐧 Core Setup"
 sudo apt install -y git bat ripgrep nautilus btop neofetch blueman kitty xwayland
-sudo snap install wlogout curl eza
 echo "✅ Core tools installed"
 
 # Git SSH Setup
@@ -52,6 +51,11 @@ fi
 echo "ᛒ Enabling Bluetooth"
 sudo systemctl enable --now bluetooth
 
+# Window Managers
+echo "🌌 Sway Setup"
+sudo apt install -y sway waybar wofi grim slurp wl-clipboard
+echo "✅ Sway installed"
+
 # Display Manager (Ubuntu uses GDM by default)
 echo "🖥️ Display Manager Setup"
 sudo apt install -y gdm3
@@ -72,11 +76,6 @@ elif lspci | grep -i "VGA.*Intel"; then
   sudo apt install -y mesa-vulkan-drivers libvulkan1
 fi
 echo "✅ GPU setup complete"
-
-# Window Managers
-echo "🌌 Sway Setup"
-sudo apt install -y sway waybar wofi grim slurp wl-clipboard
-echo "✅ Sway installed"
 
 # Dev Environment
 echo "👨💻 Dev Setup"
