@@ -94,6 +94,7 @@ thefuck
 # Shell
 echo "🐚 Shell Setup"
 sudo apt install -y zsh zsh-syntax-highlighting zsh-autosuggestions tmux neovim zoxide fzf imagemagick ffmpeg fonts-jetbrains-mono
+go install github.com/jesseduffield/lazygit@latest
 curl -s https://ohmyposh.dev/install.sh | bash -s
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
