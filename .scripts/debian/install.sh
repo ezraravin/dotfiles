@@ -85,7 +85,7 @@ echo "✅ GPU setup complete"
 
 # Dev Environment
 echo "👨💻 Dev Setup"
-sudo apt install -y nodejs npm python3 python3-pip yarnpkg docker.io docker-compose visidata
+sudo apt install -y nodejs npm python3 python3-pip yarnpkg yarn docker.io docker-compose visidata
 sudo npm install -g pnpm
 /bin/bash -c "$(curl -fsSL https://php.new/install/linux)"
 curl -fsSL https://bun.sh/install | bash
@@ -94,6 +94,17 @@ echo "✅ Dev tools installed"
 # Shell
 echo "🐚 Shell Setup"
 sudo apt install -y zsh zsh-syntax-highlighting zsh-autosuggestions tmux neovim zoxide fzf imagemagick ffmpeg fonts-jetbrains-mono
+echo "Install Neovim"
+# Install dependencies
+sudo apt install -y ninja-build gettext cmake unzip curl
+
+# Clone Neovim
+git clone https://github.com/neovim/neovim
+cd neovim
+
+# Build and install (Release mode)
+make CMAKE_BUILD_TYPE=Release
+sudo make install && cd .. && rm -rf neovim
 echo "Install Jetbrains Nerd Font Mono"
 sudo mkdir -p /usr/local/share/fonts
 sudo wget -P /usr/local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
@@ -145,4 +156,3 @@ curl -fsSL "https://gitlab.com/ezraravinmateus/dotfiles/-/raw/HEAD/.zshrc" >~/.z
 echo "🎉 Setup complete! Rebooting in 5 seconds..."
 sleep 5
 sudo reboot
-
