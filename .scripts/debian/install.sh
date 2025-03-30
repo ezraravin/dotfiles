@@ -15,7 +15,16 @@ command_exists() {
 
 # Core Tools
 echo "🐧 Core Setup"
-sudo apt install -y unzip git curl bat ripgrep nautilus btop neofetch blueman kitty xwayland
+sudo apt install -y cmake unzip git curl bat ripgrep nautilus btop blueman kitty xwayland
+echo "Installing Fastfetch"
+git clone https://github.com/fastfetch-cli/fastfetch.git
+cd fastfetch
+mkdir build && cd build
+cmake ..
+make
+sudo make install
+cd ~ && rm -rf fastfetch/
+echo "Fastfetch installed"
 echo "✅ Core tools installed"
 
 # Git SSH Setup
