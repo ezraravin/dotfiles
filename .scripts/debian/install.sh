@@ -18,7 +18,7 @@ sudo apt update && sudo apt upgrade -y
 
 # Core Tools
 echo "🐧 Core Setup"
-sudo apt install -y git bat ripgrep nautilus btop neofetch blueman kitty xwayland
+sudo apt install -y git curl bat ripgrep nautilus btop neofetch blueman kitty xwayland
 echo "✅ Core tools installed"
 
 # Git SSH Setup
