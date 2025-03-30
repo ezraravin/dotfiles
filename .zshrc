@@ -4,12 +4,19 @@
 
 # Local Bin Path
 export PATH=$PATH:$HOME/.local/bin
-# Zsh Autosuggestions
-source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-# Zsh Syntax Highlighting
-source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+
+# Try Arch paths first, fall back to Debian paths
+if [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+elif [[ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
+  source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
+fi
+
+if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+elif [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
+  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+fi
 
 # Neovim as Default Editor
 export EDITOR="nvim"
@@ -125,4 +132,3 @@ export OLLAMA_LLM_LIBRARY="cuda_v11" # Force CUDA library
 ## Completion scripts setup. Remove the following line to uninstall
 [[ -f /home/rave/.dart-cli-completion/zsh-config.zsh ]] && . /home/rave/.dart-cli-completion/zsh-config.zsh || true
 ## [/Completion]
-
