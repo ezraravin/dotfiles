@@ -54,7 +54,6 @@ echo "🔍 GPU Detection"
 if lspci | grep -i "VGA.*NVIDIA"; then
   echo "🟢 NVIDIA detected"
   sudo pacman -S --noconfirm nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings
-  sudo pacman -S --noconfirm cuda cudnn
   sudo mkinitcpio -P
 elif lspci | grep -i "VGA.*AMD"; then
   echo "🔴 AMD detected"
