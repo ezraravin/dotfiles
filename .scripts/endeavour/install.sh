@@ -111,16 +111,12 @@ echo "🖥️ App Setup"
 echo "🌐 Browsers"
 curl -fsS https://dl.brave.com/install.sh | sh
 yay -S --noconfirm whatsapp-for-linux
-
 echo "🎵 Music"
 yay -S --noconfirm spotify spotify-adblock
-
 echo "🎬 Media"
 sudo pacman -S --noconfirm vlc obs-studio
-
 echo "💾 Ventoy"
 yay -S --noconfirm ventoy-bin
-
 echo "✅ Apps installed"
 
 # Arduino
