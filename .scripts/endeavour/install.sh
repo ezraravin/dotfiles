@@ -44,9 +44,9 @@ echo "ᛒ Enabling Bluetooth"
 sudo systemctl enable --now bluetooth
 
 # Window Managers
-echo "🌊 Sway Setup"
-sudo pacman -S --noconfirm sway swaybg waybar wofi grim slurp wl-clipboard
-echo "✅ Sway installed"
+echo "🌊 Hyprland Setup"
+sudo pacman -S --noconfirm hyprland hyprpaper waybar wofi grim slurp wl-clipboard
+echo "✅ Hyprland installed"
 
 # Display Manager
 echo "🖥️ SDDM Setup"
