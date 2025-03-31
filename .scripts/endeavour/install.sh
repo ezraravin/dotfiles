@@ -128,6 +128,10 @@ sudo curl -o /etc/udev/rules.d/60-arduino.rules https://raw.githubusercontent.co
 sudo udevadm control --reload
 echo "✅ Arduino ready"
 
+curl -fsSL https://ollama.com/install.sh | sh
+ollama pull deepseek-r1:1.5b
+docker run -d -p 3000:8080 -v open-webui:/app/backend/data --name open-webui ghcr.io/open-webui/open-webui:main
+
 # Final update
 sudo pacman -Syu --noconfirm
 sudo pacman -Sc --noconfirm
