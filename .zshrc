@@ -90,11 +90,11 @@ alias py3="python3"
 alias fk="fuck"
 
 # Configuration
-alias nvc="cd ~/.config/nvim && nvim . && cd"
+alias nvc="cd ~/.config/nvim && nvim && cd"
 alias zc="cd ~/ && nvim .zshrc"
-alias scr="cd ~/.scripts/ && nvim . && cd"
-alias hc="cd ~/.config/hypr && nvim . && cd"
-alias wc="cd ~/.config/waybar && nvim . && cd"
+alias scr="cd ~/.scripts/ && nvim && cd"
+alias hc="cd ~/.config/hypr && nvim && cd"
+alias wc="cd ~/.config/waybar && nvim && cd"
 alias hctl="hyprctl"
 
 # AI

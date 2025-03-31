@@ -78,6 +78,8 @@ echo "✅ Core tools installed"
 # Dev Environment
 echo "👨💻 Dev Setup"
 sudo pacman -S --noconfirm nodejs npm python yarn pnpm lazygit docker docker-compose visidata
+sudo systemctl enable --now docker
+sudo usermod -aG docker $USER
 yay -S --noconfirm lazydocker marp-cli
 /bin/bash -c "$(curl -fsSL https://php.new/install/linux)"
 curl -fsSL https://bun.sh/install | bash
