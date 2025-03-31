@@ -1,3 +1,4 @@
+#!/bin/bash
 # Java Development Kit
 echo "☕ Installing JDK 21..."
 sudo pacman -S --noconfirm jdk21-openjdk

@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 sudo apt get -y curl
 curl -fsSL https://ollama.com/install.sh | sh
 ollama pull deepseek-r1:1.5b
