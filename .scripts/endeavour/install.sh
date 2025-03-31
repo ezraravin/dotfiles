@@ -113,8 +113,7 @@ curl -fsS https://dl.brave.com/install.sh | sh
 echo "🎵 Music"
 yay -S --noconfirm spotify spotify-adblock
 echo "🎬 Media"
-sudo pacman -S --noconfirm vlc obs-studio
-sudo pacman -S --needed opencl-nvidia libxcrypt-compat jre17-openjdk gtk2 qt5-webengine
+sudo pacman -S --noconfirm vlc obs-studio kdenlive
 echo "💾 Ventoy"
 yay -S --noconfirm ventoy-bin
 echo "✅ Apps installed"
