@@ -118,6 +118,8 @@ echo "🎬 Media"
 sudo pacman -S --noconfirm vlc obs-studio kdenlive
 echo "💾 Ventoy"
 yay -S --noconfirm ventoy-bin
+echo "💾 Telegram"
+sudo pacman -S telegram-desktop
 echo "✅ Apps installed"
 
 # Arduino
