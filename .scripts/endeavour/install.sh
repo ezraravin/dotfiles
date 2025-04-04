@@ -69,6 +69,10 @@ elif lspci | grep -i "VGA.*Intel"; then
 fi
 echo "✅ GPU setup complete"
 
+# Brightness Control
+sudo pacman -S --noconfirm brightnessctl
+sudo usermod -aG video $USER
+
 # Core Tools
 echo "🐧 Core Setup"
 sudo pacman -S --noconfirm eza bat ripgrep fd nautilus btop cava fastfetch blueman kitty xorg-xwayland
