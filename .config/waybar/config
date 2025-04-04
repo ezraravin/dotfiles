@@ -5,7 +5,7 @@
         "hyprland/workspaces",
         "hyprland/window",
         "sway/workspaces",
-        "sway/window"
+        "sway/window",
     ],
     "modules-right": [
         "bluetooth",
@@ -13,6 +13,7 @@
         "pulseaudio",
         "battery",
         "clock",
+        "custom/brightness",
         "power-profiles-daemon",
         "custom/power"
     ],
@@ -36,6 +37,18 @@
         "format-linked": "{ifname} (No IP) ",
         "interval": 2,
         "on-click": "nmtui"
+    },
+    "custom/brightness": {
+        "format": " {}%",
+        "interval": 1,
+        "exec": "brightnessctl -m | awk -F, '{print substr($4, 0, length($4)-1)}'",
+        "exec-if": "command -v brightnessctl",  // Only run if brightnessctl exists
+        "on-click-up": "brightnessctl set +5% && pkill -RTMIN+8 waybar",  // Force refresh
+        "on-click-down": "brightnessctl set 5%- && pkill -RTMIN+8 waybar",        
+        "on-scroll-up": "brightnessctl set +5%",
+        "on-scroll-down": "brightnessctl set 5%-",
+        "tooltip": false,
+        "signal": 8  // Force refresh on signal (optional)
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
