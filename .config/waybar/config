@@ -35,7 +35,7 @@
         "format-ethernet": "󰈀 {ipaddr}/{cidr}",
         "format-linked": "{ifname} (No IP) ",
         "interval": 2,
-        "on-click": "nm-connection-editor"
+        "on-click": "nmtui"
     },
     "pulseaudio": {
         "format": "{icon} {volume}%",
