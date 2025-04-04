@@ -118,8 +118,6 @@ echo "🎬 Media"
 sudo pacman -S --noconfirm vlc obs-studio kdenlive
 echo "💾 Ventoy"
 yay -S --noconfirm ventoy-bin
-echo "💾 Telegram"
-sudo pacman -S telegram-desktop
 echo "✅ Apps installed"
 
 # Arduino
@@ -129,10 +127,6 @@ sudo usermod -a -G uucp,tty $USER
 sudo curl -o /etc/udev/rules.d/60-arduino.rules https://raw.githubusercontent.com/arduino/ArduinoCore-avr/master/60-arduino-avr-core.rules
 sudo udevadm control --reload
 echo "✅ Arduino ready"
-
-curl -fsSL https://ollama.com/install.sh | sh
-ollama pull deepseek-r1:1.5b
-docker run -d -p 3000:8080 -v open-webui:/app/backend/data --name open-webui ghcr.io/open-webui/open-webui:main
 
 # Final update
 sudo pacman -Syu --noconfirm
