@@ -31,7 +31,7 @@
     "network": {
         "tooltip": true,
         "tooltip-format": "Network: <big><b>{essid}</b></big>\nSignal strength: <b>{signaldBm}dBm ({signalStrength}%)</b>\nFrequency: <b>{frequency}MHz</b>\nInterface: <b>{ifname}</b>\nBandwidth: <b>  {bandwidthDownBytes}   {bandwidthUpBytes}</b>",
-        "format-wifi": "  {essid} ({signalStrength}%)",
+        "format-wifi": "   {essid} ({signalStrength}%)",
         "format-disconnected": "󰖪 Disconnected",
         "format-ethernet": "󰈀 {ipaddr}/{cidr}",
         "format-linked": "{ifname} (No IP) ",
@@ -39,7 +39,7 @@
         "on-click": "nmtui"
     },
     "custom/brightness": {
-        "format": " {}%",
+        "format": "  {}%",
         "interval": 1,
         "exec": "brightnessctl -m | awk -F, '{print substr($4, 0, length($4)-1)}'",
         "exec-if": "command -v brightnessctl",  // Only run if brightnessctl exists
