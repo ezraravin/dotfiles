@@ -1,31 +1,31 @@
 #!/bin/bash
 
 # --------------------------------------
-# Interactive Local Domain & Port Setup
+# Zero-Effort Local Domain Setup
 # --------------------------------------
 # Features:
-#   - Add multiple domains/IPs
-#   - Map multiple ports via Nginx
-#   - Preview/edit domains before applying
-#   - Install Avahi/Nginx if missing
+#   - Auto-elevates to root if needed
+#   - Interactive domain/port management
+#   - Installs dependencies automatically
+#   - Preview/edit before applying
 # --------------------------------------
 
 set -e
 
-# Check root
+# Auto-elevate to root if not already
 if [ "$(id -u)" -ne 0 ]; then
-    echo "ERROR: Run this script as root!"
-    exit 1
+    echo "🔒 Requesting sudo permissions to continue..."
+    exec sudo "$0" "$@"  # Re-launch script as root
+    exit 1  # Exit if sudo fails
 fi
 
 # Install dependencies
 install_deps() {
+    echo "🛠️  Checking dependencies..."
     if ! command -v avahi-daemon &>/dev/null; then
-        echo "Installing Avahi..."
         apt update -qq && apt install -y avahi-daemon
     fi
     if ! command -v nginx &>/dev/null; then
-        echo "Installing Nginx..."
         apt install -y nginx
     fi
 }
@@ -64,7 +64,7 @@ EOF
 
 # Interactive domain input
 input_domain() {
-    read -p "Enter domain (e.g., 'myserver'): " domain
+    read -p "🌐 Enter domain (e.g., 'myserver'): " domain
     domain="${domain%.local}"  # Strip .local if added
     echo "$domain"
 }
@@ -77,53 +77,51 @@ main() {
 
     while true; do
         clear
-        echo "=== Local Domain Setup ==="
+        echo "=== 🏠 Local Domain Setup ==="
         echo "1. Add/Edit Domain"
         echo "2. Add Port Forwarding (Nginx)"
         echo "3. Review Configurations"
         echo "4. Apply Changes"
         echo "5. Exit"
-        read -p "Choose an option (1-5): " choice
+        read -p "📌 Choose an option (1-5): " choice
 
         case "$choice" in
             1)
-                read -p "Enter server IP (e.g., 192.168.1.100): " ip
+                read -p "🔢 Enter server IP (e.g., 192.168.1.100): " ip
                 domain=$(input_domain)
                 domains["$ip"]="$domain"
                 ;;
             2)
                 if [ ${#domains[@]} -eq 0 ]; then
-                    echo "No domains added yet! Use option 1 first."
+                    echo "❌ No domains added yet! Use option 1 first."
                     sleep 2
                     continue
                 fi
-                echo "Select a domain to add port forwarding:"
+                echo "📡 Select a domain to add port forwarding:"
                 select domain in "${domains[@]}"; do
                     [ -n "$domain" ] && break
                 done
-                read -p "Enter port (e.g., 8080): " port
+                read -p "🔌 Enter port (e.g., 8080): " port
                 ports["$domain"]="$port"
                 ;;
             3)
-                echo "=== Current Configuration ==="
-                echo "Domains:"
+                echo "=== 🔍 Current Configuration ==="
+                echo "📌 Domains:"
                 for ip in "${!domains[@]}"; do
                     echo "  - ${domains[$ip]}.local → $ip"
                 done
-                echo "Port Forwarding:"
+                echo "🔌 Port Forwarding:"
                 for domain in "${!ports[@]}"; do
                     echo "  - ${domain}.local → ${domains[$ip]}:${ports[$domain]}"
                 done
-                read -p "Press Enter to continue..."
+                read -p "📝 Press Enter to continue..."
                 ;;
             4)
-                echo "Applying changes..."
-                # Apply Avahi hosts
+                echo "🚀 Applying changes..."
                 > /etc/avahi/hosts  # Clear existing
                 for ip in "${!domains[@]}"; do
                     add_avahi_host "$ip" "${domains[$ip]}"
                 done
-                # Apply Nginx proxies
                 for domain in "${!ports[@]}"; do
                     add_nginx_proxy "$domain" "${domains[$ip]}" "${ports[$domain]}"
                 done
@@ -131,15 +129,16 @@ main() {
                 sleep 2
                 ;;
             5)
-                echo "Exiting."
+                echo "👋 Exiting."
                 exit 0
                 ;;
             *)
-                echo "Invalid option!"
+                echo "❌ Invalid option!"
                 sleep 1
                 ;;
         esac
     done
 }
 
+# Start the script
 main
