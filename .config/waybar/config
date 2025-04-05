@@ -12,8 +12,8 @@
         "network",
         "pulseaudio",
         "battery",
-        "clock",
         "custom/brightness",
+        "clock",
         "power-profiles-daemon",
         "custom/power"
     ],
