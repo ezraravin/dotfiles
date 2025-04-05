@@ -1,7 +1,6 @@
 #!/bin/bash
 sudo apt install -y curl git
 curl -fsSL https://ollama.com/install.sh | sh
-curl -fsSL https://get.casaos.io | sudo bash
 
 ollama pull deepseek-r1:1.5b
 ollama pull deepseek-r1
