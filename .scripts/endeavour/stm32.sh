@@ -1,1 +1,2 @@
-yay -S --noconfirm lvgl stm32cubeide stm32cubemx stm32cubeprog stm32flash squareline-studio
+yay -S --noconfirm lvgl stm32cubeide stm32cubemx stm32cubeprog stm32flash
+
