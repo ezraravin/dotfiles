@@ -110,9 +110,7 @@ if [ ! -d "$HOME/.oh-my-zsh" ]; then
 fi
 
 # Shell tools
-brew install zsh-syntax-highlighting zsh-autosuggestions eza zoxide fzf \
-    oh-my-posh yazi thefuck cava cmatrix pipes-sh librsvg imagemagick \
-    chafa ffmpeg basictex pandoc webp carlocab/personal/unrar
+brew install zsh-syntax-highlighting zsh-autosuggestions eza zoxide fzf oh-my-posh yazi thefuck cava cmatrix pipes-sh librsvg imagemagick chafa
 
 ##############################################
 ### Git & Dotfiles
