@@ -152,40 +152,6 @@ configure_display_settings() {
 }
 
 ##############################################
-### Xcode Installation (Core)
-##############################################
-install_xcode() {
-  echo "🛠️ Installing Xcode..."
-
-  if [ ! -d "/Applications/Xcode.app" ]; then
-    # Ensure App Store authentication
-    if ! mas account >/dev/null 2>&1; then
-      echo "  ↳ Please sign in to App Store when prompted..."
-      open -a "App Store"
-      read -n1 -p "Press any key when you've signed in to continue..."
-    fi
-
-    # Install Xcode (App Store ID: 497799835)
-    echo "  ↳ Starting Xcode installation (this may take 30+ minutes)..."
-    mas install 497799835
-
-    # Wait for installation
-    while [ ! -d "/Applications/Xcode.app" ]; do
-      echo "  ↳ Waiting for Xcode installation to complete..."
-      sleep 60
-    done
-
-    # Post-install setup
-    echo "  ↳ Configuring Xcode..."
-    sudo xcode-select --switch /Applications/Xcode.app
-    sudo xcodebuild -license accept
-    sudo xcodebuild -runFirstLaunch
-  else
-    echo "  ↳ Xcode already installed at /Applications/Xcode.app"
-  fi
-}
-
-##############################################
 ### Development Environment Setup
 ##############################################
 setup_development_environment() {
@@ -205,58 +171,25 @@ setup_development_environment() {
 }
 
 ##############################################
-### Mobile Development Setup
-##############################################
-setup_mobile_development() {
-  echo "📱 Setting Up Mobile Development..."
-
-  # Flutter installation
-  brew install --cask flutter
-
-  # Chrome installation
-  brew install --cask google-chrome
-
-  # Android Studio
-  brew install --cask android-studio temurin android-commandlinetools
-  yes | sdkmanager --licenses
-  sdkmanager "platform-tools" "platforms;android-33" "build-tools;33.0.0 emulator"
-
-  # Android licenses
-  yes | flutter doctor --android-licenses
-
-  # CocoaPods
-  brew install cocoapods
-
-  # Verify setup
-  flutter doctor
-}
-
-##############################################
 ### Application Installation
 ##############################################
 install_applications() {
   echo "📦 Installing Applications..."
 
-  # Browsers and communication
-  brew install --cask brave-browser signal
+  # Browsers
+  brew install --cask brave-browser
 
   # Development tools
-  brew install --cask android-studio kitty
+  brew install --cask kitty
 
   # Media tools
-  brew install --cask obs
+  brew install --cask obs kdenlive
 
   # Utilities
   brew install --cask nikitabobko/tap/aerospace
 
   # JetBrains Nerd Font Mono
   brew install --cask font-jetbrains-mono-nerd-font
-
-  # Gather
-  brew install --cask gather
-
-  # AI
-  brew install --cask ollama chatbox
 }
 
 ##############################################
@@ -302,19 +235,6 @@ configure_git_and_dotfiles() {
     rsync -a "$HOME/dotfiles/." "$HOME/"
     rm -rf "$HOME/dotfiles"
   fi
-}
-
-##############################################
-### Top Menu Bar Configuration
-##############################################
-setup_ui_customization() {
-  echo "🎨 Configuring UI Customizations..."
-
-  # Install and start SketchyBar
-  install_if_missing sketchybar 'brew install FelixKratz/formulae/sketchybar'
-
-  # Start SketchyBar as a service
-  brew services start sketchybar
 }
 
 ##############################################
