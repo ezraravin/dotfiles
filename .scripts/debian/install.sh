@@ -25,19 +25,6 @@ sudo apt install -y golang cmake git curl bat ripgrep
 go install github.com/jesseduffield/lazydocker@latest
 cargo install eza
 
-# 🔐 GIT & SSH SETUP
-echo "🔑 Git Configuration"
-read -p "Use SSH for Git? [y/N]: " ssh_choice
-if [[ "$ssh_choice" =~ ^[Yy]$ ]]; then
-  read -p "Name for SSH key: " key_name
-  ssh-keygen -t ed25519 -C "$key_name" -N "" -f ~/.ssh/id_ed25519
-  cat ~/.ssh/id_ed25519.pub
-  read -p "Press Enter after adding key to Git account..."
-  GIT_CLONE_PREFIX="git@gitlab.com:"
-else
-  GIT_CLONE_PREFIX="https://gitlab.com/"
-fi
-
 # 🐚 SHELL SETUP
 echo "🐚 Zsh & Tools"
 sudo apt install -y zsh zsh-syntax-highlighting zsh-autosuggestions zoxide fzf
