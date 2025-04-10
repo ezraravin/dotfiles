@@ -7,7 +7,6 @@ return {
 			local telescope = require("telescope")
 			local builtin = require("telescope.builtin")
 			local actions = require("telescope.actions")
-			require("telescope").load_extension("flutter")
 
 			telescope.setup({
 				defaults = {
