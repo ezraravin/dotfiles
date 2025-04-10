@@ -22,7 +22,7 @@ echo "🌟 Core Tools Installation"
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
 export PATH="$HOME/.cargo/bin:$PATH"
 sudo apt install -y golang cmake git curl bat ripgrep
-go install github.com/jesseduffield/lazydocker@latest
+sudo go install github.com/jesseduffield/lazydocker@latest
 cargo install eza
 
 # 🐚 SHELL SETUP
