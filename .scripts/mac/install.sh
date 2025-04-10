@@ -117,9 +117,6 @@ setup_package_management() {
   install_if_missing brew '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
   eval "$(/opt/homebrew/bin/brew shellenv)"
 
-  # Install MAS (Mac App Store CLI)
-  install_if_missing mas 'brew install mas'
-
   # Configure auto-updates (only if not already running)
   brew install pinentry-mac
   brew tap domt4/autoupdate
