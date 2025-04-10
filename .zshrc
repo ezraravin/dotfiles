@@ -132,3 +132,6 @@ export OLLAMA_LLM_LIBRARY="cuda_v11" # Force CUDA library
 ## Completion scripts setup. Remove the following line to uninstall
 [[ -f /home/rave/.dart-cli-completion/zsh-config.zsh ]] && . /home/rave/.dart-cli-completion/zsh-config.zsh || true
 ## [/Completion]
+
+# bun completions
+[ -s "/home/rave/.bun/_bun" ] && source "/home/rave/.bun/_bun"
