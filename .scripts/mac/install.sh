@@ -1,10 +1,5 @@
 #!/bin/bash
 
-# Enable error handling and verbose output
-set -e
-set -o pipefail
-exec > >(tee -i setup.log) 2>&1
-
 ##############################################
 ### System Configuration
 ##############################################
@@ -172,4 +167,3 @@ if [[ ! -d "$HOME/dotfiles" ]]; then
 fi
 
 echo "✅ Setup complete! Some changes may require a restart."
-echo "🔍 Review installation log: setup.log"
