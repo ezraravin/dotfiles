@@ -1,129 +1,143 @@
 #!/bin/bash
+# EndeavourOS Setup Script
 
-# Extend sudo timeout for the entire script
+# Ask for sudo once and keep it alive
 sudo -v
 while true; do
-    sudo -n true
-    sleep 60
-    kill -0 "$$" 2>/dev/null || exit
-done &
+  sudo -n true
+  sleep 60
+  kill -0 "$$" || exit
+done 2>/dev/null &
 
-# Git protocol selection
-read -rp "Use SSH for Git? [y/N] " git_response
-if [[ "$git_response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
-    GIT_URL="git@gitlab.com:"
+command_exists() {
+  command -v "$1" >/dev/null 2>&1
+}
+
+# Git SSH Setup
+echo "🔐 Git SSH Setup"
+read -p "Use SSH for Git? [y/N]: " ssh_choice
+if [[ "$ssh_choice" =~ ^[Yy]$ ]]; then
+  read -p "Name for SSH key: " key_name
+  ssh-keygen -t ed25519 -C "$key_name" -N "" -f ~/.ssh/id_ed25519
+  echo "📋 Public key (add to Git account):"
+  cat ~/.ssh/id_ed25519.pub
+  echo "🔗 Paste this in your Git account settings!"
+  read -p "Press Enter after adding key to Git account..."
+  GIT_CLONE_PREFIX="git@gitlab.com:"
 else
-    GIT_URL="https://gitlab.com/"
+  GIT_CLONE_PREFIX="https://gitlab.com/"
 fi
 
-##############################################
-### System Configuration
-##############################################
+# Dotfiles
+[ ! -d ~/dotfiles ] && git clone $GIT_CLONE_PREFIX/ezraravinmateus/dotfiles.git ~/dotfiles &&
+  cp -r ~/dotfiles/. ~/ && rm -rf ~/dotfiles
 
-# Dock settings
-defaults write com.apple.dock persistent-apps ""
-defaults write com.apple.dock persistent-others ""
-defaults write com.apple.dock autohide -bool true
-defaults write com.apple.dock mineffect -string "scale"
-defaults write com.apple.dock show-recents -bool false
-defaults write com.apple.controlcenter BatteryShowPercentage -bool TRUE
-
-# System identity
-sudo scutil --set ComputerName "eRave"
-sudo scutil --set HostName "eRave"
-sudo scutil --set LocalHostName "eRave"
-
-# Security and power
-defaults write com.apple.screensaver askForPassword -bool true
-defaults write com.apple.screensaver askForPasswordDelay -int 0
-sudo pmset -b displaysleep 60
-sudo pmset -c displaysleep 60
-
-# Input settings
-defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
-defaults write -g NSAutomaticPeriodSubstitutionEnabled -bool false
-defaults write -g NSAutomaticCapitalizationEnabled -bool false
-defaults write -g KeyRepeat -int 1
-defaults write -g InitialKeyRepeat -int 15
-defaults write -g com.apple.mouse.scaling -float 1.05
-killall SystemUIServer Dock Finder
-
-##############################################
-### Package Management
-##############################################
-
-# Install Homebrew if needed
-if ! command -v brew >/dev/null; then
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+# Git Config
+if ! git config --global user.email &>/dev/null; then
+  git config --global user.email "ezraravin@proton.me"
+  git config --global user.name "Rave"
+  git config --global init.defaultBranch main
 fi
 
-# Configure Homebrew
-if [ -f "/opt/homebrew/bin/brew" ]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-elif [ -f "/usr/local/bin/brew" ]; then
-    eval "$(/usr/local/bin/brew shellenv)"
+# Bluetooth & Wifi
+echo "ᛒ Enabling Bluetooth"
+sudo systemctl enable --now bluetooth
+
+# Window Managers
+echo "🌊 Hyprland Setup"
+sudo pacman -S --noconfirm hyprland hyprpaper waybar wofi grim slurp wl-clipboard libnotify
+echo "✅ Hyprland installed"
+
+# Display Manager
+echo "🖥️ SDDM Setup"
+sudo pacman -S --noconfirm sddm
+sudo systemctl enable sddm
+echo "✅ SDDM installed"
+
+# GPU Drivers
+echo "🔍 GPU Detection"
+if lspci | grep -i "VGA.*NVIDIA"; then
+  echo "🟢 NVIDIA detected"
+  sudo pacman -S --noconfirm nvidia-dkms nvidia-utils lib32-nvidia-utils nvidia-settings
+  sudo mkinitcpio -P
+elif lspci | grep -i "VGA.*AMD"; then
+  echo "🔴 AMD detected"
+  sudo pacman -S --noconfirm mesa vulkan-radeon lib32-vulkan-radeon
+elif lspci | grep -i "VGA.*Intel"; then
+  echo "🔵 Intel detected"
+  sudo pacman -S --noconfirm mesa vulkan-intel lib32-vulkan-intel
+fi
+echo "✅ GPU setup complete"
+
+# Brightness Control
+sudo pacman -S --noconfirm brightnessctl
+sudo usermod -aG video $USER
+
+# Core Tools
+echo "🐧 Core Setup"
+sudo pacman -S --noconfirm eza bat ripgrep fd nautilus btop cava fastfetch blueman kitty xorg-xwayland
+yay -S --noconfirm wlogout
+echo "✅ Core tools installed"
+
+# Dev Environment
+echo "👨💻 Dev Setup"
+sudo pacman -S --noconfirm nodejs npm python yarn pnpm lazygit docker docker-compose visidata
+sudo systemctl enable --now docker
+sudo usermod -aG docker $USER
+yay -S --noconfirm lazydocker marp-cli
+/bin/bash -c "$(curl -fsSL https://php.new/install/linux)"
+curl -fsSL https://bun.sh/install | bash
+echo "✅ Dev tools installed"
+
+# Shell
+echo "🐚 Shell Setup"
+sudo pacman -S --noconfirm zsh zsh-syntax-highlighting zsh-autosuggestions zsh-completions tmux neovim zoxide fzf thefuck imagemagick librsvg chafa ffmpeg ttf-jetbrains-mono-nerd yazi
+curl -s https://ohmyposh.dev/install.sh | bash -s
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+
+# Tmux Plugin Manager
+echo "🖥️ Setting up Tmux Plugin Manager"
+[ ! -d ~/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
+# Install tmux plugins
+if [ -f ~/.tmux.conf ]; then
+  echo "🔌 Installing Tmux plugins"
+  tmux start-server
+  tmux new-session -d
+  ~/.tmux/plugins/tpm/scripts/install_plugins.sh
+  tmux kill-server
+  echo "✅ Tmux plugins installed"
 fi
 
-# Brew autoupdate
-brew install pinentry-mac
-brew tap domt4/autoupdate
-if ! brew autoupdate status | grep -q "running"; then
-    brew autoupdate start 43200 --cleanup --upgrade --immediate --sudo
-fi
+echo " Change Shell"
+sudo chsh -s $(which zsh) $USER
+echo "✅ Shell configured"
 
-##############################################
-### Display Configuration
-##############################################
+# Applications
+echo "🖥️ App Setup"
+echo "🌐 Browsers"
+curl -fsS https://dl.brave.com/install.sh | sh
+echo "🎵 Music"
+yay -S --noconfirm spotify spotify-adblock
+echo "🎬 Media"
+sudo pacman -S --noconfirm vlc obs-studio kdenlive
+echo "💾 Ventoy"
+yay -S --noconfirm ventoy-bin
+echo "✅ Apps installed"
 
-brew install jakehilborn/jakehilborn/displayplacer
-displayplacer "id:37D8832A-2D66-02CA-B9F7-8F30A301B230 res:1440x900 hz:60 color_depth:8 enabled:true scaling:on origin:(0,0) degree:0"
+# Arduino
+echo "⚡ Arduino Setup"
+yay -S --noconfirm arduino-ide
+sudo usermod -a -G uucp,tty $USER
+sudo curl -o /etc/udev/rules.d/60-arduino.rules https://raw.githubusercontent.com/arduino/ArduinoCore-avr/master/60-arduino-avr-core.rules
+sudo udevadm control --reload
+echo "✅ Arduino ready"
 
-##############################################
-### Development Environment
-##############################################
+# Final update
+sudo pacman -Syu --noconfirm
+sudo pacman -Sc --noconfirm
+curl -fsSL "https://gitlab.com/ezraravinmateus/dotfiles/-/raw/HEAD/.zshrc" >~/.zshrc
 
-# Core tools
-brew install node pnpm oven-sh/bun/bun python visidata neovim tmux ripgrep btop
-
-# PHP/Laravel
-/bin/bash -c "$(curl -fsSL https://php.new/install/mac)"
-
-##############################################
-### Applications
-##############################################
-
-brew install --cask \
-    brave-browser \
-    kitty \
-    obs \
-    kdenlive \
-    nikitabobko/tap/aerospace \
-    font-jetbrains-mono-nerd-font
-
-##############################################
-### Shell Environment
-##############################################
-
-# Oh My Zsh
-if [ ! -d "$HOME/.oh-my-zsh" ]; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-fi
-
-# Shell tools
-brew install zsh-syntax-highlighting zsh-autosuggestions eza zoxide fzf oh-my-posh yazi thefuck cava cmatrix pipes-sh librsvg imagemagick chafa
-
-##############################################
-### Git & Dotfiles
-##############################################
-
-git config --global user.email "ezraravin@proton.me"
-git config --global user.name "MacBook Air M1"
-git config --global init.defaultBranch main
-
-if [ ! -d "$HOME/dotfiles" ]; then
-    git clone "${GIT_URL}ezraravinmateus/dotfiles.git" "$HOME/dotfiles"
-    rsync -a "$HOME/dotfiles/." "$HOME/"
-    rm -rf "$HOME/dotfiles"
-fi
-
-echo "✅ Setup complete"
+# Reboot prompt
+echo "🎉 Setup complete! Rebooting in 5 seconds..."
+sleep 5
+sudo reboot
