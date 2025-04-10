@@ -21,7 +21,7 @@ sudo apt install podman
 echo "🌟 Core Tools Installation"
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
 export PATH="$HOME/.cargo/bin:$PATH"
-sudo apt install -y golang cmake unzip git curl bat ripgrep nautilus btop blueman kitty xwayland
+sudo apt install -y golang cmake git curl bat ripgrep
 go install github.com/jesseduffield/lazydocker@latest
 cargo install eza
 
@@ -51,7 +51,7 @@ curl -fsSL "https://ohmyposh.dev/install.sh" | bash -s
 
 # ✏️ EDITORS
 echo "📝 Neovim Installation"
-sudo apt install -y ninja-build gettext cmake unzip curl
+sudo apt install -y ninja-build gettext cmake
 git clone https://github.com/neovim/neovim
 cd neovim && make CMAKE_BUILD_TYPE=Release && sudo make install && cd .. && rm -rf neovim
 
