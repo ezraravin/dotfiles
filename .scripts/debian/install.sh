@@ -29,7 +29,6 @@ cargo install eza
 echo "🐚 Zsh & Tools"
 sudo apt install -y zsh zsh-syntax-highlighting zsh-autosuggestions zoxide fzf
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-curl -fsSL "https://ohmyposh.dev/install.sh" | bash -s
 
 # ✏️ EDITORS
 echo "📝 Neovim Installation"
