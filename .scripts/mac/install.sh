@@ -67,12 +67,6 @@ configure_system() {
   configure_default com.apple.dock persistent-apps ""
   configure_default com.apple.dock persistent-others ""
 
-  # Apple Silicon specific setup
-  if [[ "$(uname -m)" == "arm64" ]]; then
-    echo "  ↳ Installing Rosetta 2..."
-    sudo softwareupdate --install-rosetta --agree-to-license
-  fi
-
   # System identity
   sudo scutil --set ComputerName "eRave"
   sudo scutil --set HostName "eRave"
