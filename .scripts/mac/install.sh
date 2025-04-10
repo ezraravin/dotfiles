@@ -6,257 +6,170 @@ set -o pipefail
 exec > >(tee -i setup.log) 2>&1
 
 ##############################################
-### Cleanup Function
-##############################################
-cleanup() {
-  exit_status=$?
-  if [ $exit_status -eq 0 ]; then
-    echo "✅ Installation successful. Setup.log has been deleted."
-  else
-    echo "❌ Installation failed. Error details from setup.log:"
-    cat setup.log
-  fi
-  rm -f setup.log
-}
-
-trap cleanup EXIT
-
-##############################################
-### Helper Functions
-##############################################
-
-# Function to check if a command exists
-command_exists() {
-  command -v "$1" >/dev/null 2>&1
-}
-
-# Function to install a package if it doesn't exist
-install_if_missing() {
-  local package=$1
-  local install_command=$2
-
-  if ! command_exists "$package"; then
-    echo "  ↳ Installing $package..."
-    eval "$install_command"
-  else
-    echo "  ↳ $package already installed."
-  fi
-}
-
-# Function to configure a default setting if it exists
-configure_default() {
-  local domain=$1
-  local key=$2
-  local value=$3
-
-  if defaults read "$domain" "$key" >/dev/null 2>&1; then
-    echo "  ↳ Configuring $domain $key..."
-    defaults write "$domain" "$key" "$value"
-  else
-    echo "  ↳ $domain $key does not exist, skipping..."
-  fi
-}
-
-##############################################
 ### System Configuration
 ##############################################
-configure_system() {
-  echo "⚙️ Configuring System Settings..."
+echo "⚙️ Configuring System Settings..."
 
-  # Clear apps and folders from the Dock if they exist
-  configure_default com.apple.dock persistent-apps ""
-  configure_default com.apple.dock persistent-others ""
+# Clear apps and folders from the Dock
+defaults write com.apple.dock persistent-apps ""
+defaults write com.apple.dock persistent-others ""
 
-  # System identity
-  sudo scutil --set ComputerName "eRave"
-  sudo scutil --set HostName "eRave"
-  sudo scutil --set LocalHostName "eRave"
+# System identity
+sudo scutil --set ComputerName "eRave"
+sudo scutil --set HostName "eRave"
+sudo scutil --set LocalHostName "eRave"
 
-  # UI Preferences
-  defaults write com.apple.dock autohide -bool true
-  defaults write com.apple.dock mineffect -string "scale"
-  defaults write com.apple.dock show-recents -bool false
-  defaults write com.apple.controlcenter BatteryShowPercentage -bool TRUE
+# UI Preferences
+defaults write com.apple.dock autohide -bool true
+defaults write com.apple.dock mineffect -string "scale"
+defaults write com.apple.dock show-recents -bool false
+defaults write com.apple.controlcenter BatteryShowPercentage -bool TRUE
 
-  # Security settings
-  defaults write com.apple.screensaver askForPassword -bool true
-  defaults write com.apple.screensaver askForPasswordDelay -int 0
+# Security settings
+defaults write com.apple.screensaver askForPassword -bool true
+defaults write com.apple.screensaver askForPasswordDelay -int 0
 
-  # Power management
-  sudo pmset -b displaysleep 60
-  sudo pmset -c displaysleep 60
+# Power management
+sudo pmset -b displaysleep 60
+sudo pmset -c displaysleep 60
 
-  # Keyboard and Input
-  defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
-  defaults write -g NSAutomaticPeriodSubstitutionEnabled -bool false
-  defaults write -g NSAutomaticCapitalizationEnabled -bool false
-  defaults write -g KeyRepeat -int 1
-  defaults write -g InitialKeyRepeat -int 15
+# Keyboard and Input
+defaults write -g NSAutomaticSpellingCorrectionEnabled -bool false
+defaults write -g NSAutomaticPeriodSubstitutionEnabled -bool false
+defaults write -g NSAutomaticCapitalizationEnabled -bool false
+defaults write -g KeyRepeat -int 1
+defaults write -g InitialKeyRepeat -int 15
 
-  # Mouse Settings
-  defaults write -g com.apple.mouse.scaling -float 1.05
-  defaults write -g com.apple.mouse.scaling -float -1
+# Mouse Settings
+defaults write -g com.apple.mouse.scaling -float 1.05
+defaults write -g com.apple.mouse.scaling -float -1
 
-  # Apply changes
-  killall SystemUIServer Dock Finder
-}
+# Apply changes
+killall SystemUIServer Dock Finder
 
 ##############################################
 ### Package Management Setup
 ##############################################
-setup_package_management() {
-  echo "📦 Setting Up Package Management..."
+echo "📦 Setting Up Package Management..."
 
-  # Install Homebrew
-  install_if_missing brew '/bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"'
-  eval "$(/opt/homebrew/bin/brew shellenv)"
+# Install Homebrew if not exists
+if ! command -v brew >/dev/null 2>&1; then
+  echo "  ↳ Installing Homebrew..."
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+fi
+eval "$(/opt/homebrew/bin/brew shellenv)"
 
-  # Configure auto-updates (only if not already running)
-  brew install pinentry-mac
-  brew tap domt4/autoupdate
+# Configure auto-updates
+brew install pinentry-mac
+brew tap domt4/autoupdate
 
-  if brew autoupdate status | grep -q "running"; then
-    echo "  ↳ brew autoupdate is already running, skipping..."
-  else
-    echo "  ↳ Starting brew autoupdate..."
-    brew autoupdate start 43200 --cleanup --upgrade --immediate --sudo
-  fi
-}
+if ! brew autoupdate status | grep -q "running"; then
+  echo "  ↳ Starting brew autoupdate..."
+  brew autoupdate start 43200 --cleanup --upgrade --immediate --sudo
+else
+  echo "  ↳ brew autoupdate is already running, skipping..."
+fi
 
 ##############################################
 ### Display Configuration
 ##############################################
-configure_display_settings() {
-  echo "🖥️ Configuring Display Settings..."
+echo "🖥️ Configuring Display Settings..."
 
-  # Install displayplacer if not already installed
-  install_if_missing displayplacer 'brew install jakehilborn/jakehilborn/displayplacer'
+# Install displayplacer if not exists
+if ! command -v displayplacer >/dev/null 2>&1; then
+  echo "  ↳ Installing displayplacer..."
+  brew install jakehilborn/jakehilborn/displayplacer
+fi
 
-  # Set specific display configuration
-  echo "  ↳ Applying display configuration..."
-  displayplacer "id:37D8832A-2D66-02CA-B9F7-8F30A301B230 res:1440x900 hz:60 color_depth:8 enabled:true scaling:on origin:(0,0) degree:0"
+# Set display configuration
+echo "  ↳ Applying display configuration..."
+displayplacer "id:37D8832A-2D66-02CA-B9F7-8F30A301B230 res:1440x900 hz:60 color_depth:8 enabled:true scaling:on origin:(0,0) degree:0"
 
-  # Verify configuration
-  if displayplacer list | grep -q "1680x1050"; then
-    echo "  ↳ Display configuration verified successfully"
-  else
-    echo "  ↳ Warning: Display configuration might not have applied correctly"
-    echo "  ↳ Check available resolutions with: displayplacer list"
-  fi
-}
+# Verify configuration
+if displayplacer list | grep -q "1680x1050"; then
+  echo "  ↳ Display configuration verified successfully"
+else
+  echo "  ↳ Warning: Display configuration might not have applied correctly"
+  echo "  ↳ Check available resolutions with: displayplacer list"
+fi
 
 ##############################################
 ### Development Environment Setup
 ##############################################
-setup_development_environment() {
-  echo "👨💻 Setting Up Development Environment..."
+echo "👨💻 Setting Up Development Environment..."
 
-  # JavaScript Ecosystem
-  brew install node pnpm oven-sh/bun/bun
+# JavaScript Ecosystem
+brew install node pnpm oven-sh/bun/bun
 
-  # Python Environment
-  brew install python visidata
+# Python Environment
+brew install python visidata
 
-  # Editors and tools
-  brew install neovim tmux ripgrep btop
+# Editors and tools
+brew install neovim tmux ripgrep btop
 
-  # PHP/Laravel
-  /bin/bash -c "$(curl -fsSL https://php.new/install/mac)"
-}
+# PHP/Laravel
+/bin/bash -c "$(curl -fsSL https://php.new/install/mac)"
 
 ##############################################
 ### Application Installation
 ##############################################
-install_applications() {
-  echo "📦 Installing Applications..."
+echo "📦 Installing Applications..."
 
-  # Browsers
-  brew install --cask brave-browser
+# Browsers
+brew install --cask brave-browser
 
-  # Development tools
-  brew install --cask kitty
+# Development tools
+brew install --cask kitty
 
-  # Media tools
-  brew install --cask obs kdenlive
+# Media tools
+brew install --cask obs kdenlive
 
-  # Utilities
-  brew install --cask nikitabobko/tap/aerospace
+# Utilities
+brew install --cask nikitabobko/tap/aerospace
 
-  # JetBrains Nerd Font Mono
-  brew install --cask font-jetbrains-mono-nerd-font
-}
+# Fonts
+brew install --cask font-jetbrains-mono-nerd-font
 
 ##############################################
 ### Shell Environment Setup
 ##############################################
-setup_shell_environment() {
-  echo "🐚 Configuring Shell Environment..."
+echo "🐚 Configuring Shell Environment..."
 
-  # Oh My Zsh
-  if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
-  fi
+# Oh My Zsh
+if [[ ! -d "$HOME/.oh-my-zsh" ]]; then
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+fi
 
-  # Shell tools
-  brew install zsh-syntax-highlighting zsh-autosuggestions eza zoxide fzf oh-my-posh yazi thefuck cava cmatrix pipes-sh
+# Shell tools
+brew install zsh-syntax-highlighting zsh-autosuggestions eza zoxide fzf oh-my-posh yazi thefuck cava cmatrix pipes-sh
 
-  # File SVG Viewer & FFMPEG Support
-  brew install librsvg imagemagick chafa ffmpeg
+# File SVG Viewer & FFMPEG Support
+brew install librsvg imagemagick chafa ffmpeg
 
-  # PDF Support for Markdown to PDF
-  brew install basictex pandoc
+# PDF Support for Markdown to PDF
+brew install basictex pandoc
 
-  # WebP
-  brew install webp
+# WebP
+brew install webp
 
-  # UNRAR
-  brew install carlocab/personal/unrar
-}
+# UNRAR
+brew install carlocab/personal/unrar
 
 ##############################################
 ### Git & Dotfiles Configuration
 ##############################################
-configure_git_and_dotfiles() {
-  echo "🔧 Configuring Git & Dotfiles..."
+echo "🔧 Configuring Git & Dotfiles..."
 
-  git config --global user.email "ezraravin@proton.me"
-  git config --global user.name "MacBook Air M1"
-  git config --global init.defaultBranch main
+git config --global user.email "ezraravin@proton.me"
+git config --global user.name "MacBook Air M1"
+git config --global init.defaultBranch main
 
-  # Dotfiles setup
-  if [[ ! -d "$HOME/dotfiles" ]]; then
-    git clone git@gitlab.com:ezraravinmateus/dotfiles.git "$HOME/dotfiles"
-    rsync -a "$HOME/dotfiles/." "$HOME/"
-    rm -rf "$HOME/dotfiles"
-  fi
-}
+# Dotfiles setup
+if [[ ! -d "$HOME/dotfiles" ]]; then
+  git clone git@gitlab.com:ezraravinmateus/dotfiles.git "$HOME/dotfiles"
+  rsync -a "$HOME/dotfiles/." "$HOME/"
+  rm -rf "$HOME/dotfiles"
+fi
 
-##############################################
-### Main Execution Flow
-##############################################
-main() {
-  # Extend sudo timeout to 1 hour (3600 seconds)
-  sudo -v
-  while true; do
-    sudo -n true
-    sleep 300
-    kill -0 "$$" || exit
-  done 2>/dev/null &
-
-  configure_system
-  setup_package_management
-  configure_display_settings
-  install_xcode
-  setup_development_environment
-  setup_mobile_development
-  install_applications
-  setup_shell_environment
-  configure_git_and_dotfiles
-  setup_ui_customization
-
-  echo "✅ Setup complete! Some changes may require a restart."
-  echo "🔍 Review installation log: setup.log"
-}
-
-# Start the main process
-main
+echo "✅ Setup complete! Some changes may require a restart."
+echo "🔍 Review installation log: setup.log"
