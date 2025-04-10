@@ -5,35 +5,32 @@
 # Local Bin Path
 export PATH=$PATH:$HOME/.local/bin
 
-# Try Arch paths first, fall back to Debian paths
-if [[ -f /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-  source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
-elif [[ -f /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh ]]; then
-  source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh
-fi
-
-if [[ -f /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-  source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-elif [[ -f /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh ]]; then
-  source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
-fi
+source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
+source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
 
 # Neovim as Default Editor
 export EDITOR="nvim"
+
 # Oh My Zsh
 export ZSH="$HOME/.oh-my-zsh"
+
 # PHP (Herd Lite)
 export PHP_INI_SCAN_DIR="$HOME/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 export PATH="$HOME/.config/herd-lite/bin:$PATH"
+
 # Prettier
 export PRETTIERD_DEFAULT_CONFIG="$HOME/.prettierrc"
+
 # Chrome
 export CHROME_EXECUTABLE="/usr/bin/google-chrome-stable"
+
 # PNPM
 export PNPM_HOME="$HOME/.local/share/pnpm"
 export PATH="$PNPM_HOME:$PATH"
+
 # RUST
 export PATH="$HOME/.cargo/bin:$PATH"
+
 # GO
 export PATH="$HOME/go/bin:$PATH"
 
@@ -43,6 +40,7 @@ export PATH="$HOME/go/bin:$PATH"
 
 # Oh My Zsh Theme
 ZSH_THEME="robbyrussell"
+
 # Source Oh My Zsh
 source "$ZSH/oh-my-zsh.sh"
 
@@ -52,8 +50,10 @@ source "$ZSH/oh-my-zsh.sh"
 
 # Zoxide
 eval "$(zoxide init zsh)"
+
 # Oh My Posh
 eval "$(oh-my-posh init zsh --config $HOME/.config/oh-my-posh/zen.toml)"
+
 # FZF
 source <(fzf --zsh)
 
@@ -97,12 +97,6 @@ alias hc="cd ~/.config/hypr && nvim && cd"
 alias wc="cd ~/.config/waybar && nvim && cd"
 alias hctl="hyprctl"
 
-# AI
-alias os="ollama serve"
-alias ok="sudo pkill ollama"
-alias ov="ps aux | grep ollama"
-alias cb="Chatbox"
-
 # Run Fastfetch After TMUX
 fastfetch
 
@@ -121,12 +115,9 @@ fi
 if [ -z "$TMUX" ]; then
   tmux
 fi
+
 # bun
 export PATH="$HOME/.bun/bin:$PATH"
-# CUDA
-export PATH=/opt/cuda/bin:$PATH
-export LD_LIBRARY_PATH=/opt/cuda/lib64:$LD_LIBRARY_PATH
-export OLLAMA_LLM_LIBRARY="cuda_v11" # Force CUDA library
 
 ## [Completion]
 ## Completion scripts setup. Remove the following line to uninstall

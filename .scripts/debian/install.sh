@@ -38,11 +38,6 @@ else
   GIT_CLONE_PREFIX="https://gitlab.com/"
 fi
 
-# 🏠 DOTFILES
-echo "🏡 Dotfiles Setup"
-[ ! -d ~/dotfiles ] && git clone $GIT_CLONE_PREFIX/ezraravinmateus/dotfiles.git ~/dotfiles &&
-  cp -r ~/dotfiles/. ~/ && rm -rf ~/dotfiles
-
 # 🐚 SHELL SETUP
 echo "🐚 Zsh & Tools"
 sudo apt install -y zsh zsh-syntax-highlighting zsh-autosuggestions zoxide fzf
@@ -68,7 +63,9 @@ echo "🎯 Final Touches"
 sudo apt update && sudo apt upgrade -y
 sudo apt autoremove -y
 sudo chsh -s $(which zsh) $USER
-curl -fsSL "https://gitlab.com/ezraravinmateus/dotfiles/-/raw/HEAD/.zshrc" >~/.zshrc
+
+echo "source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" >>.zshrc
+echo "source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >>.zshrc
 
 # 🔄 REBOOT
 echo "🎉 Setup complete! Rebooting in 5 seconds..."
