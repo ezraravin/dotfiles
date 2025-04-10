@@ -22,13 +22,7 @@ echo "🌟 Core Tools Installation"
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
 export PATH="$HOME/.cargo/bin:$PATH"
 sudo apt install -y golang cmake unzip git curl bat ripgrep nautilus btop blueman kitty xwayland
-
-# 🖥️ TERMINAL TOOLS
-echo "📟 Fastfetch & Eza"
-git clone https://github.com/fastfetch-cli/fastfetch.git
-cd fastfetch && mkdir build && cd build
-cmake .. && make && sudo make install
-cd ~ && rm -rf fastfetch/
+go install github.com/jesseduffield/lazydocker@latest
 cargo install eza
 
 # 🔐 GIT & SSH SETUP
@@ -49,41 +43,11 @@ echo "🏡 Dotfiles Setup"
 [ ! -d ~/dotfiles ] && git clone $GIT_CLONE_PREFIX/ezraravinmateus/dotfiles.git ~/dotfiles &&
   cp -r ~/dotfiles/. ~/ && rm -rf ~/dotfiles
 
-# 🖥️ WINDOW MANAGERS
-echo "🌌 Sway & Display"
-sudo apt install -y sway waybar wofi grim slurp wl-clipboard sddm
-sudo systemctl enable sddm
-
-# 🎮 GPU DRIVERS
-echo "🖥️ GPU Setup"
-if lspci | grep -i "VGA.*AMD"; then
-  sudo apt install -y mesa-vulkan-drivers libvulkan1 ilvulkan-uts
-elif lspci | grep -i "VGA.*Intel"; then
-  sudo apt install -y mesa-vulkan-drivers libvulkan1
-fi
-
-# 💻 DEVELOPMENT
-echo "👨💻 Dev Environment"
-sudo apt install -y nodejs npm python3 python3-pip yarnpkg yarn docker.io docker-compose visidata
-sudo npm install -g pnpm
-/bin/bash -c "$(curl -fsSL https://php.new/install/linux)"
-curl -fsSL https://bun.sh/install | bash
-
 # 🐚 SHELL SETUP
 echo "🐚 Zsh & Tools"
-sudo apt install -y zsh zsh-syntax-highlighting zsh-autosuggestions tmux zoxide fzf imagemagick ffmpeg
+sudo apt install -y zsh zsh-syntax-highlighting zsh-autosuggestions zoxide fzf
 sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 curl -fsSL "https://ohmyposh.dev/install.sh" | bash -s
-
-# 📺 TMUX
-echo "🖥️ Tmux Setup"
-[ ! -d ~/.tmux/plugins/tpm ] && git clone https://github.com/tmux-plugins/tpm ~/.tmux/plugins/tpm
-if [ -f ~/.tmux.conf ]; then
-  tmux start-server
-  tmux new-session -d
-  ~/.tmux/plugins/tpm/scripts/install_plugins.sh
-  tmux kill-server
-fi
 
 # ✏️ EDITORS
 echo "📝 Neovim Installation"
