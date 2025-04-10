@@ -46,17 +46,9 @@ curl -fsSL "https://ohmyposh.dev/install.sh" | bash -s
 
 # ✏️ EDITORS
 echo "📝 Neovim Installation"
-sudo apt install -y ninja-build gettext cmake
+sudo apt install -y ninja-build gettext
 git clone https://github.com/neovim/neovim
 cd neovim && make CMAKE_BUILD_TYPE=Release && sudo make install && cd .. && rm -rf neovim
-
-# 🔠 FONTS
-echo "🔤 Font Setup"
-sudo mkdir -p /usr/local/share/fonts
-sudo wget -P /usr/local/share/fonts https://github.com/ryanoasis/nerd-fonts/releases/download/v3.1.1/JetBrainsMono.zip
-sudo unzip /usr/local/share/fonts/JetBrainsMono.zip -d /usr/local/share/fonts/JetBrainsMonoNF
-sudo rm /usr/local/share/fonts/JetBrainsMono.zip
-sudo fc-cache -fv
 
 # 🚀 FINAL SETUP
 echo "🎯 Final Touches"
