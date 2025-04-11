@@ -30,7 +30,7 @@
     },
     "network": {
         "tooltip": true,
-        "tooltip-format": "Network: <big><b>{essid}</b></big>\nSignal strength: <b>{signaldBm}dBm ({signalStrength}%)</b>\nFrequency: <b>{frequency}MHz</b>\nInterface: <b>{ifname}</b>\nBandwidth: <b>  {bandwidthDownBytes}   {bandwidthUpBytes}</b>",
+        "tooltip-format": "Network: <big><b>{essid}</b></big>\n<b>󰤨  {signaldBm}dBm ({signalStrength}%)</b>\n<b>󰤯  {frequency}MHz</b>\n<b>󰅟  {ifname}</b>\n<b>  {bandwidthDownBytes}   {bandwidthUpBytes}</b>\n<b>󰈀  {ipaddr}/{cidr}</b>",
         "format-wifi": "   {essid} ({signalStrength}%)",
         "format-disconnected": "󰖪 Disconnected",
         "format-ethernet": "󰈀 {ipaddr}/{cidr}",
