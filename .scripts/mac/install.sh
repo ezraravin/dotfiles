@@ -3,17 +3,17 @@
 # Extend sudo timeout for the entire script
 sudo -v
 while true; do
-    sudo -n true
-    sleep 60
-    kill -0 "$$" 2>/dev/null || exit
+  sudo -n true
+  sleep 60
+  kill -0 "$$" 2>/dev/null || exit
 done &
 
 # Git protocol selection
 read -rp "Use SSH for Git? [y/N] " git_response
 if [[ "$git_response" =~ ^([yY][eE][sS]|[yY])$ ]]; then
-    GIT_URL="git@gitlab.com:"
+  GIT_URL="git@gitlab.com:"
 else
-    GIT_URL="https://gitlab.com/"
+  GIT_URL="https://gitlab.com/"
 fi
 
 ##############################################
@@ -54,21 +54,21 @@ killall SystemUIServer Dock Finder
 
 # Install Homebrew if needed
 if ! command -v brew >/dev/null; then
-    /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
+  /bin/bash -c "$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)"
 fi
 
 # Configure Homebrew
 if [ -f "/opt/homebrew/bin/brew" ]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
+  eval "$(/opt/homebrew/bin/brew shellenv)"
 elif [ -f "/usr/local/bin/brew" ]; then
-    eval "$(/usr/local/bin/brew shellenv)"
+  eval "$(/usr/local/bin/brew shellenv)"
 fi
 
 # Brew autoupdate
 brew install pinentry-mac
 brew tap domt4/autoupdate
 if ! brew autoupdate status | grep -q "running"; then
-    brew autoupdate start 43200 --cleanup --upgrade --immediate --sudo
+  brew autoupdate start 43200 --cleanup --upgrade --immediate --sudo
 fi
 
 ##############################################
@@ -91,14 +91,7 @@ brew install node pnpm oven-sh/bun/bun python visidata neovim tmux ripgrep btop
 ##############################################
 ### Applications
 ##############################################
-
-brew install --cask \
-    brave-browser \
-    kitty \
-    obs \
-    kdenlive \
-    nikitabobko/tap/aerospace \
-    font-jetbrains-mono-nerd-font
+brew install --cask brave-browser kitty obs kdenlive nikitabobko/tap/aerospace font-jetbrains-mono-nerd-font
 
 ##############################################
 ### Shell Environment
@@ -106,7 +99,7 @@ brew install --cask \
 
 # Oh My Zsh
 if [ ! -d "$HOME/.oh-my-zsh" ]; then
-    sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
+  sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 fi
 
 # Shell tools
@@ -121,9 +114,10 @@ git config --global user.name "MacBook Air M1"
 git config --global init.defaultBranch main
 
 if [ ! -d "$HOME/dotfiles" ]; then
-    git clone "${GIT_URL}ezraravinmateus/dotfiles.git" "$HOME/dotfiles"
-    rsync -a "$HOME/dotfiles/." "$HOME/"
-    rm -rf "$HOME/dotfiles"
+  git clone "${GIT_URL}ezraravinmateus/dotfiles.git" "$HOME/dotfiles"
+  rsync -a "$HOME/dotfiles/." "$HOME/"
+  rm -rf "$HOME/dotfiles"
 fi
 
 echo "✅ Setup complete"
+
