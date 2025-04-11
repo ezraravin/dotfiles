@@ -14,8 +14,15 @@ command_exists() {
   command -v "$1" >/dev/null 2>&1
 }
 
-# 🦭 Podman
-sudo apt install podman
+# 🦭 Podman & Podman Compose
+sudo apt install -y podman
+# 1. Install pipx (recommended by Debian for CLI tools)
+sudo apt install pipx
+pipx ensurepath # Adds ~/.local/bin to your PATH
+# 2. Install podman-compose in isolated environment
+pipx install podman-compose
+# 3. Verify (may need to restart terminal)
+podman-compose --version
 
 # 🛠️ CORE SETUP
 echo "🌟 Core Tools Installation"
