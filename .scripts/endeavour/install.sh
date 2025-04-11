@@ -81,7 +81,7 @@ echo "✅ Core tools installed"
 
 # Dev Environment
 echo "👨💻 Dev Setup"
-sudo pacman -S --noconfirm nodejs npm python yarn pnpm lazygit podman visidata
+sudo pacman -S --noconfirm nodejs npm python yarn pnpm lazygit podman podman-compose visidata
 sudo systemctl enable --now docker
 sudo usermod -aG docker $USER
 yay -S --noconfirm lazydocker marp-cli
@@ -116,8 +116,9 @@ echo "✅ Shell configured"
 echo "🖥️ App Setup"
 echo "🌐 Browsers"
 curl -fsS https://dl.brave.com/install.sh | sh
-echo "🎵 Music"
-yay -S --noconfirm spotify spotify-adblock
+echo "🎵 Spotify"
+yay -S --noconfirm spotify
+bash <(curl -sSL https://spotx-official.github.io/run.sh)
 echo "🎬 Media"
 sudo pacman -S --noconfirm vlc obs-studio kdenlive
 echo "💾 Ventoy"
