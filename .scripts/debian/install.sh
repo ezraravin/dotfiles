@@ -14,7 +14,7 @@ sudo apt install -y podman pipx cmake git curl wget bat ripgrep zsh zsh-syntax-h
 pipx install podman-compose
 pipx ensurepath
 podman-compose --version
-systemctl enable --now podman.socket
+sudo systemctl enable --now podman.socket
 
 # 🛠️ CORE SETUP
 echo "🌟 Core Tools Installation"
@@ -36,6 +36,7 @@ sudo chsh -s $(which zsh) $USER
 
 echo "source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" >>.zshrc
 echo "source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >>.zshrc
+echo "export DOCKER_HOST=unix:///run/podman/podman.sock" >>.zshrc
 
 # 🔄 REBOOT
 echo "🎉 Setup complete! Rebooting in 5 seconds..."
