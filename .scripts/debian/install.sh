@@ -9,36 +9,21 @@ while true; do
   kill -0 "$$" || exit
 done 2>/dev/null &
 
-# 🔧 Utility Functions
-command_exists() {
-  command -v "$1" >/dev/null 2>&1
-}
-
 # 🦭 Podman & Podman Compose
-sudo apt install -y podman
-# 1. Install pipx (recommended by Debian for CLI tools)
-sudo apt install pipx
+sudo apt install -y podman pipx cmake git curl wget bat ripgrep zsh zsh-syntax-highlighting zsh-autosuggestions zoxide fzf ninja-build gettext
 pipx ensurepath # Adds ~/.local/bin to your PATH
-# 2. Install podman-compose in isolated environment
 pipx install podman-compose
-# 3. Verify (may need to restart terminal)
 podman-compose --version
 
 # 🛠️ CORE SETUP
 echo "🌟 Core Tools Installation"
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs | sh -s -- -y --no-modify-path
 export PATH="$HOME/.cargo/bin:$PATH"
-sudo apt install -y cmake git curl bat ripgrep
 cargo install eza
-
-# 🐚 SHELL SETUP
-echo "🐚 Zsh & Tools"
-sudo apt install -y zsh zsh-syntax-highlighting zsh-autosuggestions zoxide fzf
-sh -c "$(curl -fsSL https://raw.githubusercontent.com/ohmyzsh/ohmyzsh/master/tools/install.sh)" "" --unattended
 
 # ✏️ EDITORS
 echo "📝 Neovim Installation"
-sudo apt install -y ninja-build gettext
 git clone https://github.com/neovim/neovim
 cd neovim && make CMAKE_BUILD_TYPE=Release && sudo make install && cd .. && rm -rf neovim
 
