@@ -11,8 +11,7 @@ done 2>/dev/null &
 
 # 🦭 Podman & Podman Compose
 sudo apt install -y podman pipx cmake git curl wget bat ripgrep zsh zsh-syntax-highlighting zsh-autosuggestions zoxide fzf ninja-build gettext
-pipx ensurepath
-pipx install podman-compose
+sh -c "$(curl -sSL https://raw.githubusercontent.com/containers/podman-compose/main/scripts/download_and_build_podman-compose.sh)"
 podman-compose --version
 systemctl enable --now podman.socket
 
