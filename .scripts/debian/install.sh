@@ -14,6 +14,7 @@ sudo apt install -y podman pipx cmake git curl wget bat ripgrep zsh zsh-syntax-h
 pipx ensurepath
 pipx install podman-compose
 podman-compose --version
+systemctl enable --now podman.socket
 
 # 🛠️ CORE SETUP
 echo "🌟 Core Tools Installation"
