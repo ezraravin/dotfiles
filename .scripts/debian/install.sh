@@ -10,9 +10,7 @@ while true; do
 done 2>/dev/null &
 
 # 🦭 Podman & Podman Compose
-sudo apt install -y podman pipx make cmake git curl wget bat ripgrep zsh zsh-syntax-highlighting zsh-autosuggestions zoxide fzf ninja-build gettext
-sudo pipx install podman-compose
-sudo systemctl enable --now podman.socket
+sudo apt install -y make cmake git curl wget bat ripgrep zoxide fzf ninja-build gettext
 
 # 🛠️ CORE SETUP
 echo "🌟 Core Tools Installation"
@@ -26,16 +24,15 @@ echo "📝 Neovim Installation"
 git clone https://github.com/neovim/neovim
 cd neovim && make CMAKE_BUILD_TYPE=Release && sudo make install && cd .. && rm -rf neovim
 
+# BLESH
+git clone --recursive --depth 1 --shallow-submodules https://github.com/akinomyoga/ble.sh.git
+make -C ble.sh install PREFIX=~/.local
+echo 'source ~/.local/share/blesh/ble.sh' >>~/.bashrc
+
 # 🚀 FINAL SETUP
 echo "🎯 Final Touches"
 sudo apt update && sudo apt upgrade -y
 sudo apt autoremove -y
-sudo chsh -s $(which zsh) $USER
-
-echo "source /usr/share/zsh-autosuggestions/zsh-autosuggestions.zsh" >>.zshrc
-echo "source /usr/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh" >>.zshrc
-echo "export DOCKER_HOST=unix:///run/podman/podman.sock" >>.zshrc
-sudo pipx ensurepath
 
 # 🔄 REBOOT
 echo "🎉 Setup complete! Rebooting in 5 seconds..."
