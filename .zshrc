@@ -34,9 +34,6 @@ export PATH="$HOME/.cargo/bin:$PATH"
 # GO
 export PATH="$HOME/go/bin:$PATH"
 
-# Podman
-export DOCKER_HOST=unix://$XDG_RUNTIME_DIR/podman/podman.sock # Rootless
-
 # ======================
 # Shell Configuration
 # ======================
