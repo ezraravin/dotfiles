@@ -45,7 +45,8 @@ sudo systemctl enable --now bluetooth
 
 # Window Managers
 echo "🌊 Hyprland Setup"
-sudo pacman -S --noconfirm hyprland hyprpaper waybar wofi grim slurp wl-clipboard libnotify
+sudo pacman -S --noconfirm hyprland hyprpaper hypridle hyprlock waybar wofi grim slurp wl-clipboard libnotify
+systemctl --user enable --now dbus
 echo "✅ Hyprland installed"
 
 # Display Manager
