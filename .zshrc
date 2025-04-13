@@ -97,6 +97,10 @@ alias hc="cd ~/.config/hypr && nvim && cd"
 alias wc="cd ~/.config/waybar && nvim && cd"
 alias hctl="hyprctl"
 
+# WARP
+alias wcc = warp cli connect
+alias wcd = warp cli disconnect
+
 # Run Fastfetch After TMUX
 fastfetch
 

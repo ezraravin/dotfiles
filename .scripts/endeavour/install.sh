@@ -87,7 +87,7 @@ sudo usermod -aG docker $USER
 yay -S --noconfirm lazydocker cloudflare-warp-bin
 sudo systemctl start warp-svc
 sudo systemctl enable warp-svc
-warp-cli registration new
+yes | warp-cli registration new
 /bin/bash -c "$(curl -fsSL https://php.new/install/linux)"
 curl -fsSL https://bun.sh/install | bash
 echo "✅ Dev tools installed"
