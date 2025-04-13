@@ -84,3 +84,7 @@ window#waybar {
     font-size: 20px;
     color: #bf616a;
 }
+
+#custom-warp {
+    color: #d08770;
+}

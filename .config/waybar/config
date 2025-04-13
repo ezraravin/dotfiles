@@ -15,8 +15,21 @@
         "custom/brightness",
         "clock",
         "power-profiles-daemon",
+        "custom/warp",  // Added WARP status module
         "custom/power"
     ],
+    "custom/warp": {
+        "format": "{}",
+        "interval": 1,
+        "exec": "warp-cli status | awk -F': ' '/Status update/{if($2 ~ /Connected/) print \"󰒄\"; else if($2 ~ /Connecting/) print \"󰔟\"; else print \"󰦞\"}'",
+        "exec-if": "command -v warp-cli",
+        "on-click": "warp-cli connect",
+        "on-click-right": "warp-cli disconnect",
+        "tooltip": true,
+        "tooltip-format": "Cloudflare WARP\nClick to connect.\nRight-click to disconnect.",
+        "escape": true,
+        "signal": 8
+    },
     "hyprland/window": {
         "max-length": 50
     },
