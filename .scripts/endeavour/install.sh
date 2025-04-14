@@ -84,7 +84,7 @@ echo "✅ Core tools installed"
 
 # Dev Environment
 echo "👨💻 Dev Setup"
-sudo pacman -S --noconfirm nodejs npm python yarn pnpm lazygit docker docker-compose visidata
+sudo pacman -S --noconfirm nodejs npm python yarn pnpm lazygit docker docker-compose visidata code
 sudo systemctl enable --now docker
 sudo usermod -aG docker $USER
 yay -S --noconfirm lazydocker cloudflare-warp-bin
