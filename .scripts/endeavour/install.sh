@@ -78,7 +78,7 @@ sudo usermod -aG video $USER
 
 # Core Tools
 echo "🐧 Core Setup"
-sudo pacman -S --noconfirm eza bat ripgrep fd nautilus btop cava fastfetch blueman kitty xorg-xwayland
+sudo pacman -S --noconfirm zip eza bat ripgrep fd nautilus btop cava fastfetch blueman kitty xorg-xwayland
 yay -S --noconfirm wlogout
 echo "✅ Core tools installed"
 
