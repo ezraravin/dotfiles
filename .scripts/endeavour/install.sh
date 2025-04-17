@@ -45,7 +45,7 @@ sudo systemctl enable --now bluetooth
 
 # Window Managers
 echo "🌊 Hyprland Setup"
-sudo pacman -S --noconfirm hyprland hyprpaper hypridle hyprlock waybar wofi grim slurp wl-clipboard libnotify
+sudo pacman -S --noconfirm hyprland hyprpaper hypridle hyprlock waybar wofi grim slurp wl-clipboard libnotify wlrobs
 sudo sed -i 's/^#HandleLidSwitch=.*/HandleLidSwitch=lock/' /etc/systemd/logind.conf
 sudo sed -i 's/^#HandleLidSwitchExternalPower=.*/HandleLidSwitchExternalPower=lock/' /etc/systemd/logind.conf
 sudo systemctl enable dbus
