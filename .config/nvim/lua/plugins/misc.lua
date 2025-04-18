@@ -35,6 +35,48 @@ return {
 	-- Tmux & split window navigation
 	{ "christoomey/vim-tmux-navigator" },
 
+	-- Marp
+	{
+
+		"mpas/marp-nvim",
+		config = function()
+			vim.keymap.set("n", "<leader>mpt", "<cmd>MarpStart<cr>", { noremap = true, silent = true, desc = "Start Marp Server" })
+			vim.keymap.set("n", "<leader>mps", function()
+				-- Get the directory of the current file (where theme.css is located)
+				local current_dir = vim.fn.expand("%:p:h")
+
+				-- Build the marp command, using full paths for consistency
+				local marp_command = "marp --preview --server --theme " .. current_dir .. "/theme.css " .. current_dir .. " --allow-local-files"
+
+				-- Run the command in the terminal
+				vim.cmd("split | terminal " .. marp_command)
+
+				-- Set the height of the terminal split to 10% of the window height
+				vim.cmd("resize " .. math.floor(vim.o.lines * 0.15)) -- Set terminal height to 10% of the screen
+
+				-- Automatically close the terminal when it's done
+				vim.cmd("autocmd TermClose <buffer> bdelete")
+			end, { noremap = true, silent = true, desc = "Start Marp Server with Custom Styling" })
+
+			vim.keymap.set("n", "<leader>mpf", function()
+				-- Get the current file name
+				local file = vim.fn.expand("%")
+
+				-- Open terminal in split and run the marp command
+				vim.cmd("split | terminal marp " .. file .. " --theme-set ./theme.css --pdf --pdf-outlines --alow-local-files")
+
+				-- Wait for the terminal to finish, then delete the buffer after the terminal closes
+				vim.cmd("autocmd TermClose <buffer> ++nested bd")
+			end, { noremap = true, silent = true, desc = "Convert Marp To PDF with Outlines" })
+
+			require("marp").setup({
+				port = 8080,
+				wait_for_response_timeout = 30,
+				wait_for_response_delay = 1,
+			})
+		end,
+	},
+
 	-- High-performance color highlighter
 	{
 		"norcalli/nvim-colorizer.lua",
