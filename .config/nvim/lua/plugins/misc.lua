@@ -20,12 +20,6 @@ return {
 	-- LazyGit
 	{ "kdheepak/lazygit.nvim", vim.keymap.set("n", "<leader>lg", "<CMD>LazyGit<CR>", { desc = "LazyGit" }) },
 
-	-- Neogit
-	{ "NeogitOrg/neogit", vim.keymap.set("n", "<leader>gg", "<cmd>Neogit<cr>", { desc = "Neogit" }) },
-
-	-- Git Diff
-	{ "sindrets/diffview.nvim", vim.keymap.set("n", "<leader>gd", "<cmd>DiffviewOpen<cr>", { desc = "Open Diff View" }) },
-
 	-- Autopairs for Brackets, Brace, Parentheses, Quotations
 	{ "windwp/nvim-autopairs", event = "InsertEnter", config = true },
 
@@ -34,48 +28,6 @@ return {
 
 	-- Tmux & split window navigation
 	{ "christoomey/vim-tmux-navigator" },
-
-	-- Marp
-	{
-
-		"mpas/marp-nvim",
-		config = function()
-			vim.keymap.set("n", "<leader>mpt", "<cmd>MarpStart<cr>", { noremap = true, silent = true, desc = "Start Marp Server" })
-			vim.keymap.set("n", "<leader>mps", function()
-				-- Get the directory of the current file (where theme.css is located)
-				local current_dir = vim.fn.expand("%:p:h")
-
-				-- Build the marp command, using full paths for consistency
-				local marp_command = "marp --preview --server --theme " .. current_dir .. "/theme.css " .. current_dir .. " --allow-local-files"
-
-				-- Run the command in the terminal
-				vim.cmd("split | terminal " .. marp_command)
-
-				-- Set the height of the terminal split to 10% of the window height
-				vim.cmd("resize " .. math.floor(vim.o.lines * 0.15)) -- Set terminal height to 10% of the screen
-
-				-- Automatically close the terminal when it's done
-				vim.cmd("autocmd TermClose <buffer> bdelete")
-			end, { noremap = true, silent = true, desc = "Start Marp Server with Custom Styling" })
-
-			vim.keymap.set("n", "<leader>mpf", function()
-				-- Get the current file name
-				local file = vim.fn.expand("%")
-
-				-- Open terminal in split and run the marp command
-				vim.cmd("split | terminal marp " .. file .. " --theme-set ./theme.css --pdf --pdf-outlines --alow-local-files")
-
-				-- Wait for the terminal to finish, then delete the buffer after the terminal closes
-				vim.cmd("autocmd TermClose <buffer> ++nested bd")
-			end, { noremap = true, silent = true, desc = "Convert Marp To PDF with Outlines" })
-
-			require("marp").setup({
-				port = 8080,
-				wait_for_response_timeout = 30,
-				wait_for_response_delay = 1,
-			})
-		end,
-	},
 
 	-- High-performance color highlighter
 	{
@@ -164,20 +116,6 @@ return {
 		end,
 	},
 
-	-- LIVE SERVER
-	{
-		"barrett-ruth/live-server.nvim",
-		build = "pnpm add -g live-server",
-		cmd = { "LiveServerStart", "LiveServerStop" },
-		config = function()
-			require("live-server").setup({
-				file = vim.fn.expand("%:p"),
-			})
-		end,
-		vim.keymap.set("n", "<leader>ls", "<CMD>LiveServerStart<CR>", { desc = "Open Live Server" }),
-		vim.keymap.set("n", "<leader>lq", "<CMD>LiveServerStop<CR>", { desc = "Terminate Live Server" }),
-	},
-
 	-- Chunking & Indent Line
 	{
 		"shellRaining/hlchunk.nvim",
@@ -207,33 +145,5 @@ return {
 		"HakonHarnes/img-clip.nvim",
 		event = "VeryLazy",
 		keys = { "<leader>p", "<cmd>PasteImage<cr>", desc = "Paste image from system clipboard" },
-	},
-
-	-- HARPOON
-	{
-		"ThePrimeAgen/harpoon",
-		branch = "harpoon2",
-		config = function()
-			local harpoon = require("harpoon")
-
-			-- REQUIRED
-			harpoon:setup()
-
-			-- REQUIRED
-			vim.keymap.set("n", "<leader>ha", function()
-				harpoon:list():add()
-			end, { desc = "Add Window to Harpoon" })
-			vim.keymap.set("n", "<leader>hv", function()
-				harpoon.ui:toggle_quick_menu(harpoon:list())
-			end, { desc = "View Harpoon" })
-
-			-- Toggle previous & next buffers stored within Harpoon list
-			vim.keymap.set("n", "<C-b>", function()
-				harpoon:list():prev()
-			end, { desc = "Previous Harpoon" })
-			vim.keymap.set("n", "<C-n>", function()
-				harpoon:list():next()
-			end, { desc = "Next Harpoon" })
-		end,
 	},
 }
