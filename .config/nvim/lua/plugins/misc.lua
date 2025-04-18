@@ -29,6 +29,20 @@ return {
 	-- Tmux & split window navigation
 	{ "christoomey/vim-tmux-navigator" },
 
+	-- LIVE SERVER
+	{
+		"barrett-ruth/live-server.nvim",
+		build = "pnpm add -g live-server",
+		cmd = { "LiveServerStart", "LiveServerStop" },
+		config = function()
+			require("live-server").setup({
+				file = vim.fn.expand("%:p"),
+			})
+		end,
+		vim.keymap.set("n", "<leader>ls", "<CMD>LiveServerStart<CR>", { desc = "Open Live Server" }),
+		vim.keymap.set("n", "<leader>lq", "<CMD>LiveServerStop<CR>", { desc = "Terminate Live Server" }),
+	},
+
 	-- High-performance color highlighter
 	{
 		"norcalli/nvim-colorizer.lua",
