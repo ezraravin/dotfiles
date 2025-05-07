@@ -2,6 +2,10 @@
 # Environment Variables
 # ======================
 
+# Homebrew
+echo 'eval "$(/opt/homebrew/bin/brew shellenv)"' >> /Users/ezra/.zprofile
+eval "$(/opt/homebrew/bin/brew shellenv)"
+
 # Local Bin Path
 export PATH=$PATH:$HOME/.local/bin
 
