@@ -87,7 +87,7 @@ echo "👨💻 Dev Setup"
 sudo pacman -S --noconfirm nodejs npm python yarn pnpm lazygit docker docker-compose visidata code
 sudo systemctl enable --now docker
 sudo usermod -aG docker $USER
-yay -S --noconfirm lazydocker cloudflare-warp-bin marp-cli
+yay -S --noconfirm lazydocker cloudflare-warp-bin marp-cli chrome
 sudo systemctl start warp-svc
 sudo systemctl enable warp-svc
 yes | warp-cli registration new
