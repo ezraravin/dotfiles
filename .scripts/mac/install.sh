@@ -81,7 +81,7 @@ displayplacer "id:37D8832A-2D66-02CA-B9F7-8F30A301B230 res:1440x900 hz:60 color_
 ##############################################
 
 # Core tools
-brew install node pnpm oven-sh/bun/bun python visidata neovim tmux ripgrep btop
+brew install node pnpm oven-sh/bun/bun python visidata neovim tmux ripgrep btop yarn google-chrome
 
 # PHP/Laravel
 /bin/bash -c "$(curl -fsSL https://php.new/install/mac)"
