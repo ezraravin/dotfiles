@@ -81,7 +81,7 @@ displayplacer "id:37D8832A-2D66-02CA-B9F7-8F30A301B230 res:1440x900 hz:60 color_
 ##############################################
 
 # Core tools
-brew install node pnpm oven-sh/bun/bun python visidata neovim tmux ripgrep btop yarn google-chrome
+brew install node pnpm oven-sh/bun/bun python visidata neovim tmux ripgrep btop yarn
 
 # PHP/Laravel
 /bin/bash -c "$(curl -fsSL https://php.new/install/mac)"
@@ -89,7 +89,7 @@ brew install node pnpm oven-sh/bun/bun python visidata neovim tmux ripgrep btop 
 ##############################################
 ### Applications
 ##############################################
-brew install --cask brave-browser kitty obs kdenlive nikitabobko/tap/aerospace font-jetbrains-mono-nerd-font
+brew install --cask brave-browser kitty obs kdenlive nikitabobko/tap/aerospace font-jetbrains-mono-nerd-font spotify google-chrome
 
 ##############################################
 ### Shell Environment
