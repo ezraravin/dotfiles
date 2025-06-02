@@ -50,56 +50,58 @@ return {
 		-- Common filetype groups
 		local web_ft = { "html", "typescriptreact", "javascriptreact", "svelte" }
 
-		mason_lspconfig.setup_handlers({
-			["svelte"] = function()
-				lspconfig.svelte.setup({
-					capabilities = capabilities,
-					on_attach = function(client, bufnr)
-						vim.api.nvim_create_autocmd("BufWritePost", {
-							pattern = { "*.js", "*.ts" },
-							callback = function(ctx)
-								client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
-							end,
-						})
-					end,
-				})
-			end,
-			["graphql"] = function()
-				lspconfig.graphql.setup({ capabilities = capabilities, filetypes = vim.list_extend(web_ft, { "graphql", "gql" }) })
-			end,
-			["emmet_ls"] = function()
-				lspconfig.emmet_ls.setup({ capabilities = capabilities, filetypes = vim.list_extend(web_ft, { "css", "sass", "scss", "less" }) })
-			end,
-			["pyright"] = function()
-				lspconfig.pyright.setup({
-					capabilities = capabilities,
-					settings = {
-						pyright = { autoImportCompletion = true },
-						python = {
-							analysis = {
-								typeCheckingMode = "off",
-								autoSearchPaths = true,
-								useLibraryCodeForTypes = true,
-							},
-						},
-					},
-				})
-			end,
-			["lua_ls"] = function()
-				lspconfig.lua_ls.setup({
-					capabilities = capabilities,
-					settings = {
-						Lua = {
-							diagnostics = { globals = { "vim" } },
-							completion = { callSnippet = "Replace" },
-							workspace = { checkThirdParty = false },
-						},
-					},
-				})
-			end,
-			function(server) -- Default handler
-				lspconfig[server].setup({ capabilities = capabilities })
-			end,
+		-- Configure mason-lspconfig first
+		mason_lspconfig.setup({
+			ensure_installed = { "lua_ls", "pyright", "svelte", "emmet_ls", "graphql" },
 		})
+
+		-- Then configure each LSP server individually
+		local servers = {
+			lua_ls = {
+				settings = {
+					Lua = {
+						diagnostics = { globals = { "vim" } },
+						completion = { callSnippet = "Replace" },
+						workspace = { checkThirdParty = false },
+					},
+				},
+			},
+			pyright = {
+				settings = {
+					pyright = { autoImportCompletion = true },
+					python = {
+						analysis = {
+							typeCheckingMode = "off",
+							autoSearchPaths = true,
+							useLibraryCodeForTypes = true,
+						},
+					},
+				},
+			},
+			emmet_ls = {
+				filetypes = vim.list_extend(web_ft, { "css", "sass", "scss", "less" }),
+			},
+			graphql = {
+				filetypes = vim.list_extend(web_ft, { "graphql", "gql" }),
+			},
+			svelte = {
+				on_attach = function(client, bufnr)
+					vim.api.nvim_create_autocmd("BufWritePost", {
+						pattern = { "*.js", "*.ts" },
+						callback = function(ctx)
+							if client and client.running then
+								client.notify("$/onDidChangeTsOrJsFile", { uri = ctx.match })
+							end
+						end,
+					})
+				end,
+			},
+		}
+
+		for server, config in pairs(servers) do
+			lspconfig[server].setup(vim.tbl_extend("force", {
+				capabilities = capabilities,
+			}, config))
+		end
 	end,
 }
