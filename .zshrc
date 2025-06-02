@@ -25,6 +25,8 @@ export ZSH="$HOME/.oh-my-zsh"
 export PHP_INI_SCAN_DIR="$HOME/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 export PATH="$HOME/.config/herd-lite/bin:$PATH"
 
+export XDG_CONFIG_HOME="$HOME/.config/"
+
 # Prettier
 export PRETTIERD_DEFAULT_CONFIG="$HOME/.prettierrc"
 
