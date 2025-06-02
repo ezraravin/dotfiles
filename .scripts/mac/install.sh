@@ -98,7 +98,9 @@ sudo xcodebuild -license accept
 sudo xcodebuild -runFirstLaunch
 
 # FLUTTER
-curl -fsSL https://fvm.app/install.sh | bash
+brew tap leoafarias/fvm
+brew install fvm
+xcodebuild -downloadPlatform iOS
 
 ##############################################
 ### Shell Environment

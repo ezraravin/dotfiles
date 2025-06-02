@@ -7,6 +7,7 @@ if [[ "$(uname)" == "Darwin" && -f "/opt/homebrew/bin/brew" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
   source /opt/homebrew/share/zsh-autosuggestions/zsh-autosuggestions.zsh
   source /opt/homebrew/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  export PATH=$HOME/.gem/bin:$PATH
 else
   source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
   source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
@@ -24,8 +25,6 @@ export ZSH="$HOME/.oh-my-zsh"
 # PHP (Herd Lite)
 export PHP_INI_SCAN_DIR="$HOME/.config/herd-lite/bin:$PHP_INI_SCAN_DIR"
 export PATH="$HOME/.config/herd-lite/bin:$PATH"
-
-export XDG_CONFIG_HOME="$HOME/.config/"
 
 # Prettier
 export PRETTIERD_DEFAULT_CONFIG="$HOME/.prettierrc"
