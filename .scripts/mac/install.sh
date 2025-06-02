@@ -89,7 +89,10 @@ brew install node pnpm oven-sh/bun/bun python visidata neovim tmux ripgrep btop 
 ##############################################
 ### Applications
 ##############################################
-brew install --cask brave-browser kitty obs kdenlive nikitabobko/tap/aerospace font-jetbrains-mono-nerd-font spotify google-chrome
+brew install --cask brave-browser kitty obs kdenlive nikitabobko/tap/aerospace font-jetbrains-mono-nerd-font spotify google-chrome flutter
+
+# FLUTTER
+curl -fsSL https://fvm.app/install.sh | bash
 
 ##############################################
 ### Shell Environment
