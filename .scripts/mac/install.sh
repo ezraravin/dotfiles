@@ -81,7 +81,7 @@ displayplacer "id:37D8832A-2D66-02CA-B9F7-8F30A301B230 res:1440x900 hz:60 color_
 ##############################################
 
 # Core tools
-brew install node pnpm oven-sh/bun/bun python visidata neovim tmux ripgrep btop yarn
+brew install node pnpm oven-sh/bun/bun python visidata neovim tmux ripgrep btop yarn mas cocoapods
 
 # PHP/Laravel
 /bin/bash -c "$(curl -fsSL https://php.new/install/mac)"
@@ -89,7 +89,13 @@ brew install node pnpm oven-sh/bun/bun python visidata neovim tmux ripgrep btop 
 ##############################################
 ### Applications
 ##############################################
-brew install --cask brave-browser kitty obs kdenlive nikitabobko/tap/aerospace font-jetbrains-mono-nerd-font spotify google-chrome flutter
+brew install --cask brave-browser kitty obs kdenlive nikitabobko/tap/aerospace font-jetbrains-mono-nerd-font spotify google-chrome flutter whatsapp
+
+# XCODE
+mas install 497799835
+sudo xcode-select --switch /Applications/Xcode.app
+sudo xcodebuild -license accept
+sudo xcodebuild -runFirstLaunch
 
 # FLUTTER
 curl -fsSL https://fvm.app/install.sh | bash
