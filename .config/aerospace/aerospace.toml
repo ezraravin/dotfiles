@@ -103,9 +103,10 @@ run = "move-node-to-workspace 2"
 if.app-id = "com.figma.Desktop"
 run = "move-node-to-workspace 3"
 
+# Media Work
 # Notion
 [[on-window-detected]]
-if.app-id = "com.brave.Browser"
+if.app-id = "notion.id"
 run = "move-node-to-workspace 4"
 
 # OBS Studio
