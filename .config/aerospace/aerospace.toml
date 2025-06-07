@@ -98,12 +98,27 @@ run = "move-node-to-workspace 1"
 if.app-id = "com.brave.Browser"
 run = "move-node-to-workspace 2"
 
+# Figma
+[[on-window-detected]]
+if.app-id = "com.figma.Desktop"
+run = "move-node-to-workspace 3"
+
+# Notion
+[[on-window-detected]]
+if.app-id = "com.brave.Browser"
+run = "move-node-to-workspace 4"
+
 # OBS Studio
 [[on-window-detected]]
 if.app-id = "com.obsproject.obs-studio"
-run = "move-node-to-workspace 3"
+run = "move-node-to-workspace 4"
 
 # KDenLive
+[[on-window-detected]]
+if.app-id = "org.kde.Kdenlive"
+run = "move-node-to-workspace 4"
+
+# Davinci Resolve
 [[on-window-detected]]
 if.app-id = "com.blackmagic-design.DaVinciResolve"
 run = "move-node-to-workspace 4"
