@@ -83,10 +83,8 @@ backspace = ['close-all-windows-but-current', 'mode main']
 
 # Assign workspaces to monitors
 [workspace-to-monitor-force-assignment]
+"0" = 2  # Workspace 0 → Monitor 2 (secondary)
 "1" = 1  # Workspace 1 → Monitor 1 (primary)
-"2" = 2  # Workspace 2 → Monitor 2
-"3" = 1  # Workspace 3 → Monitor 1
-"4" = 2  # Workspace 4 → Monitor 2 (secondary)
 
 # Work
 [[on-window-detected]]
