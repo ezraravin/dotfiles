@@ -89,7 +89,7 @@ brew install node pnpm oven-sh/bun/bun python visidata neovim tmux ripgrep btop 
 ##############################################
 ### Applications
 ##############################################
-brew install --cask brave-browser kitty obs kdenlive nikitabobko/tap/aerospace font-jetbrains-mono-nerd-font spotify google-chrome flutter whatsapp cloudflare-warp notion android-studio
+brew install --cask brave-browser kitty obs kdenlive nikitabobko/tap/aerospace font-jetbrains-mono-nerd-font spotify google-chrome flutter whatsapp cloudflare-warp notion android-studio figma
 
 # XCODE
 mas install 497799835
