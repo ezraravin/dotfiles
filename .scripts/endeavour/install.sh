@@ -121,6 +121,7 @@ echo "✅ Shell configured"
 # Applications
 echo "🖥️ App Setup"
 echo "🌐 Browsers"
+yay -S --noconfirm zen-browser
 curl -fsS https://dl.brave.com/install.sh | sh
 echo "🎵 Spotify"
 yay -S --noconfirm spotify
