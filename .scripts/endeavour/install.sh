@@ -23,13 +23,13 @@ if [[ "$ssh_choice" =~ ^[Yy]$ ]]; then
   cat ~/.ssh/id_ed25519.pub
   echo "🔗 Paste this in your Git account settings!"
   read -p "Press Enter after adding key to Git account..."
-  GIT_CLONE_PREFIX="git@gitlab.com:"
+  GIT_CLONE_PREFIX="git@github.com:"
 else
-  GIT_CLONE_PREFIX="https://gitlab.com/"
+  GIT_CLONE_PREFIX="https://github.com/"
 fi
 
 # Dotfiles
-[ ! -d ~/dotfiles ] && git clone $GIT_CLONE_PREFIX/ezraravinmateus/dotfiles.git ~/dotfiles &&
+[ ! -d ~/dotfiles ] && git clone $GIT_CLONE_PREFIX/ezraravin/dotfiles.git ~/dotfiles &&
   cp -r ~/dotfiles/. ~/ && rm -rf ~/dotfiles
 
 # Git Config
