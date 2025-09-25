@@ -1,0 +1,90 @@
+* {
+    font-family: "JetBrains Nerd Font", sans-serif;
+    font-weight: bold;
+}
+
+.modules-left {
+    background-color: #212121;
+    border-radius: 120px;
+    margin: 4px;
+    padding: 4px 12px;
+}
+
+/* Right section - unified black bar */
+.modules-right {
+    background-color: #212121;
+    border-radius: 320px;
+    padding: 0 16px;
+    margin: 4px;
+}
+/* All right modules - no individual backgrounds */
+.modules-right > widget > * {
+    background-color: transparent;
+    padding: 0 8px;
+}
+
+window#waybar {
+    background-color: transparent;
+    color: #fafafa;
+}
+
+#window {
+    margin-left: 12px;
+    padding-right: 12px;
+}
+
+#workspaces button {
+    color: #7f7f7f;
+    font-size: 0.9rem;
+}
+#workspaces button:hover {
+    color: #212121;
+    background-color: #fafafa;
+    border: none;
+    border-radius: 320px;
+}
+
+#workspaces button.active {
+    color: #fafafa;
+}
+
+#workspaces button.active:hover {
+    color: #212121;
+}
+
+#workspaces button.urgent {
+    color: #ff0000;
+    animation: blink 1s linear infinite;
+}
+
+/* Module-specific colors */
+#bluetooth {
+    color: #5e81ac;
+}
+#network {
+    color: #a3be8c;
+}
+#power-profiles-daemon {
+    color: #d08770;
+}
+#pulseaudio {
+    color: #60a0c0;
+}
+#battery {
+    color: #a6e3a1;
+}
+#battery.critical {
+    color: #ff0000;
+}
+#clock {
+    color: #f5c2e7;
+}
+#custom-power {
+    padding-top: 1px;
+    font-size: 20px;
+    color: #bf616a;
+}
+
+#custom-warp {
+    color: #d08770;
+}

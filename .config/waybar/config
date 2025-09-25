@@ -1,0 +1,122 @@
+{
+    "layer": "top",
+    "position": "top",
+    "modules-left": [
+        "hyprland/workspaces",
+        "hyprland/window",
+        "sway/workspaces",
+        "sway/window",
+    ],
+    "modules-right": [
+        "bluetooth",
+        "network",
+        "pulseaudio",
+        "battery",
+        "custom/brightness",
+        "clock",
+        "power-profiles-daemon",
+        "custom/warp",  // Added WARP status module
+        "custom/power"
+    ],
+    "custom/warp": {
+        "format": "{}",
+        "interval": 1,
+        "exec": "warp-cli status | awk -F': ' '/Status update/{if($2 ~ /Connected/) print \"󰒄\"; else if($2 ~ /Connecting/) print \"󰔟\"; else print \"󰦞\"}'",
+        "exec-if": "command -v warp-cli",
+        "on-click": "warp-cli connect",
+        "on-click-right": "warp-cli disconnect",
+        "tooltip": true,
+        "tooltip-format": "Cloudflare WARP\nClick to connect.\nRight-click to disconnect.",
+        "escape": true,
+        "signal": 8
+    },
+    "hyprland/window": {
+        "max-length": 50
+    },
+    "hyprland/workspaces": {
+        "format": "{name}"    
+    },
+    "bluetooth": {
+        "format": "",
+        "format-disabled": "󰂲",  // Bluetooth icon with a slash
+        "on-click": "blueman-manager"
+    },
+    "network": {
+        "tooltip": true,
+        "tooltip-format": "Network: <big><b>{essid}</b></big>\n<b>󰤨  {signaldBm}dBm ({signalStrength}%)</b>\n<b>󰤯  {frequency}MHz</b>\n<b>󰅟  {ifname}</b>\n<b>  {bandwidthDownBytes}   {bandwidthUpBytes}</b>\n<b>󰈀  {ipaddr}/{cidr}</b>",
+        "format-wifi": "   {essid} ({signalStrength}%)",
+        "format-disconnected": "󰖪 Disconnected",
+        "format-ethernet": "󰈀 {ipaddr}/{cidr}",
+        "format-linked": "{ifname} (No IP) ",
+        "interval": 2,
+        "on-click": "nmtui"
+    },
+    "custom/brightness": {
+        "format": "  {}%",
+        "interval": 1,
+        "exec": "brightnessctl -m | awk -F, '{print substr($4, 0, length($4)-1)}'",
+        "exec-if": "command -v brightnessctl",  // Only run if brightnessctl exists
+        "on-click-up": "brightnessctl set +5%",
+        "on-click-down": "brightnessctl set 5%-",
+        "on-scroll-up": "brightnessctl set +5%",
+        "on-scroll-down": "brightnessctl set 5%-",
+        "tooltip": false,
+        "signal": 8  // Force refresh on signal (optional)
+    },
+    "pulseaudio": {
+        "format": "{icon} {volume}%",
+        "format-alt": "{format_source}",
+        "format-bluetooth": "{icon}  {volume}%",
+        "format-bluetooth-muted": "󰂲",
+        "format-muted": "󰝟 Muted",
+        "format-source": " {volume}%",
+        "format-source-muted": " Muted",
+        "format-icons": {
+            "headphone": "",
+            "hands-free": "",
+            "headset": "",
+            "default": ["", " ", "  "]
+        },
+        "on-click-right": "pavucontrol",
+        "scroll-step": 5,
+    },
+    "power-profiles-daemon": {
+        "format": "{icon}",
+        "format-icons": {
+            "performance": "",
+            "balanced": "󰾅",
+            "power-saver": ""
+        }
+    },
+    "battery": {
+        "states": {
+            "good": 95,
+            "warning": 30,
+            "critical": 15
+        },
+        "format": "{icon}  {capacity}%",
+        "format-charging": "󰂄 {capacity}%",
+        "format-plugged": "󰚥 {capacity}%",
+        "format-icons": ["", "", "", "", ""],
+        "interval": 5
+    },
+    "clock": {
+        "format": "{:%H:%M %p}",
+        "format-alt": "{:%a, %d %b %Y}",
+        "tooltip-format": "<tt><small>{calendar}</small></tt>",
+        "calendar": {
+            "mode": "month",
+            "format": {
+                "months": "<span color='#ff6699'><b>{}</b></span>",
+                "days": "<span color='#cdd6f4'><b>{}</b></span>",
+                "weekdays": "<span color='#7CD37C'><b>{}</b></span>",
+                "today": "<span color='#ffcc66'><b>{}</b></span>"
+            }
+        }
+    },
+    "custom/power": {
+        "format": "⏻",
+        "on-click": "wlogout"
+    }
+}
+

@@ -1,0 +1,43 @@
+/*
+/*/
+
+**.DS_store
+**.json
+
+# Include Git Ignore
+!/.gitignore
+
+# Include .zshrc
+!/.zshrc
+
+# Include .prettierrc
+!/.prettierrc
+
+# Include .tmux.conf
+!/.tmux.conf
+
+# Include Recovery Folder
+!/.recovery
+
+# Include README.md
+!/README_Linux.md
+
+# Include API
+!/.api
+
+# Exclude all inside config files
+!/.config
+/.config/*
+
+# Include Config Files
+!/.config/kitty
+!/.config/nvim
+!/.config/oh-my-posh
+!/.config/hypr
+!/.config/waybar
+!/.config/backgrounds
+!/.config/wofi
+!/.config/fastfetch
+!/.config/btop
+!/.config/sway
+!/.config/aerospace
