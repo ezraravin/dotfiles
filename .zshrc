@@ -74,13 +74,16 @@ alias v="nvim"
 alias c="clear"
 alias q="exit"
 alias sz="source ~/.zshrc"
+alias tm="tmux"
+
+# Applications
 alias lg="lazygit"
 alias ld="lazydocker"
 alias yz="yazi"
 alias ff="fastfetch"
 alias cv="cava"
 alias bt="btop"
-alias tm="tmux"
+alias pdf="fancy-cat"
 
 # File Listing
 alias ls="eza --icons"
