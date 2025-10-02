@@ -77,13 +77,13 @@ alias sz="source ~/.zshrc"
 alias tm="tmux"
 
 # Applications
-alias lg="lazygit"
-alias ld="lazydocker"
-alias yz="yazi"
-alias ff="fastfetch"
-alias cv="cava"
-alias bt="btop"
-alias pdf="fancy-cat"
+alias lg="lazygit"    # Git TUI
+alias ld="lazydocker" # Docker TUI
+alias yz="yazi"       # File Viewer
+alias ff="fastfetch"  # Fastfetch
+alias cv="cava"       # Music Equalizer
+alias bt="btop"       # Performance Monitor
+alias pdf="fancy-cat" # PDF Viewer
 
 # File Listing
 alias ls="eza --icons"
