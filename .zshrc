@@ -11,6 +11,8 @@ if [[ "$(uname)" == "Darwin" && -f "/opt/homebrew/bin/brew" ]]; then
 else
   source /usr/share/zsh/plugins/zsh-autosuggestions/zsh-autosuggestions.zsh
   source /usr/share/zsh/plugins/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
+  # Ruby On Rails
+  eval "$(mise activate bash)"
 fi
 
 # Local Bin Path
