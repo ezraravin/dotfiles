@@ -2,6 +2,9 @@
 # Environment Variables
 # ======================
 
+# Local Bin Path
+export PATH=$PATH:$HOME/.local/bin
+
 # Homebrew
 if [[ "$(uname)" == "Darwin" && -f "/opt/homebrew/bin/brew" ]]; then
   eval "$(/opt/homebrew/bin/brew shellenv)"
@@ -14,9 +17,6 @@ else
   # Ruby On Rails
   eval "$(mise activate bash)"
 fi
-
-# Local Bin Path
-export PATH=$PATH:$HOME/.local/bin
 
 # Neovim as Default Editor
 export EDITOR="nvim"
