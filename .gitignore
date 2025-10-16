@@ -16,14 +16,8 @@
 # Include .tmux.conf
 !/.tmux.conf
 
-# Include Recovery Folder
-!/.recovery
-
-# Include README.md
-!/README_Linux.md
-
-# Include API
-!/.api
+# Include LIMO
+!/.limo
 
 # Exclude all inside config files
 !/.config
