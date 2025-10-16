@@ -1,7 +1,7 @@
 # Git SSH Setup
 echo "Git Setup"
 # Dotfiles
-[ ! -d ~/dotfiles ] && git clone https://github.com/ezraravin/dotfiles.git ~/dotfiles &&
+[ ! -d ~/dotfiles ] && git clone git@github.com:ezraravin/dotfiles.git ~/dotfiles &&
   cp -r ~/dotfiles/. ~/ && rm -rf ~/dotfiles
 
 # Git Config
