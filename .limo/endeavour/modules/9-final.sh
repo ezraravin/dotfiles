@@ -1,7 +1,7 @@
 # Final update
 sudo pacman -Syu --noconfirm
 sudo pacman -Sc --noconfirm
-curl -fsSL "https://raw.githubusercontent.com/ezraravinmateus/dotfiles/refs/heads/main/.zshrc" >~/.zshrc
+curl -fsSL "https://raw.githubusercontent.com/ezraravin/dotfiles/refs/heads/main/.zshrc" >~/.zshrc
 fc-cache -fv
 
 # Reboot prompt
