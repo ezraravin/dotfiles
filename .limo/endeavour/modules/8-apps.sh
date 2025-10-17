@@ -6,9 +6,9 @@ echo "🎵 Spotify"
 yay -S --noconfirm spotify
 bash <(curl -sSL https://spotx-official.github.io/run.sh)
 echo "🎬 Media"
-sudo pacman -S --noconfirm vlc obs-studio kdenlive blender xdg-desktop-portal-gnome xdg-desktop-portal xdg-desktop-portal-wlr
+sudo pacman -S --noconfirm vlc obs-studio kdenlive blender xdg-desktop-portal-gnome xdg-desktop-portal xdg-desktop-portal-wlr rnote
 echo "📞 Social"
-yay -S --noconfirm whatsapp-for-linux-git
+yay -S --noconfirm whatsapp-for-linux-git zoom
 echo "💾 Ventoy"
 yay -S --noconfirm ventoy-bin
 echo "✅ Apps installed"
