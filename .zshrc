@@ -114,6 +114,9 @@ alias hctl="hyprctl"
 alias wcc="warp-cli connect"
 alias wcd="warp-cli disconnect"
 
+# Shutdown
+alias shutdown="sudo shutdown -h now"
+
 # Run Fastfetch After TMUX
 fastfetch
 
